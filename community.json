@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Nama Anda",
+        "avatar": "https://github.com/your-username.png",
+        "github_url": "https://github.com/your-username",
+        "role": "Project Founder",
+        "bio": "Penggagas proyek Data Science Cheat Codes. Suka visualisasi data dan open source."
+    },
+    {
+        "name": "Kontributor Keren",
+        "avatar": "https://github.com/another-user.png",
+        "github_url": "https://github.com/another-user",
+        "role": "Data Scientist",
+        "bio": "Berkontribusi menambahkan plot heatmap dan histogram."
+    }
+]
