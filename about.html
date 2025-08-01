@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tentang Komunitas - Data Science Cheat Codes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tentang Komunitas Kami</h1>
+        <p>Proyek ini dibangun oleh dan untuk komunitas. Terima kasih kepada semua kontributor!</p>
+        
+        <div class="contribution-guide">
+            <h3>Ingin Bergabung?</h3>
+            <p>Anda bisa menambahkan profil Anda di sini! Caranya sangat mudah:</p>
+            <ol>
+                <li><strong>Fork</strong> repositori ini di GitHub.</li>
+                <li>Edit file <code>community.json</code> dan tambahkan data diri Anda.</li>
+                <li>Buat <strong>Pull Request</strong>.</li>
+                <li>Setelah kami review dan merge, profil Anda akan otomatis muncul di sini.</li>
+            </ol>
+            <a href="https://github.com/your-username/your-repo-name/fork" class="cta-button" target="_blank">Fork Repositori Sekarang</a>
+        </div>
+        
+        <h2>Kontributor</h2>
+        <div id="community-grid">
+            <!-- Profil kontributor akan dimuat di sini oleh JavaScript -->
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript khusus untuk halaman ini
+        document.addEventListener('DOMContentLoaded', () => {
+            const communityGrid = document.getElementById('community-grid');
+
+            fetch('community.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(member => {
+                        const memberCard = `
+                            <div class="community-card">
+                                <img src="${member.avatar}" alt="Avatar ${member.name}" class="avatar">
+                                <h3>${member.name}</h3>
+                                <h4>${member.role}</h4>
+                                <p>${member.bio}</p>
+                                <a href="${member.github_url}" target="_blank">Profil GitHub</a>
+                            </div>
+                        `;
+                        communityGrid.innerHTML += memberCard;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error memuat data komunitas:', error);
+                    communityGrid.innerHTML = '<p>Gagal memuat data kontributor.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
