@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Plot - Data Science Cheat Codes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Galeri Plot & Kode</h1>
+        <p>Cari plot yang Anda butuhkan. Pencarian bersifat live!</p>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari plot berdasarkan nama (misal: bar, scatter, heatmap)...">
+        </div>
+
+        <div id="plot-gallery">
+            <!-- Plot Card 1: Scatter Plot -->
+            <div class="plot-card" data-title="scatter plot matplotlib">
+                <h3>Scatter Plot</h3>
+                <img src="images/scatter_plot.png" alt="Scatter Plot">
+                <pre><code class="language-python">
+# Kode untuk Scatter Plot
+plt.scatter(x, y)
+                </code></pre>
+            </div>
+
+            <!-- Plot Card 2: Bar Chart -->
+            <div class="plot-card" data-title="bar chart barplot matplotlib">
+                <h3>Bar Chart</h3>
+                <img src="images/bar_chart.png" alt="Bar Chart">
+                <pre><code class="language-python">
+# Kode untuk Bar Chart
+plt.bar(kategori, nilai)
+                </code></pre>
+            </div>
+
+            <!-- Plot Card 3: Histogram -->
+            <div class="plot-card" data-title="histogram distribusi matplotlib seaborn">
+                <h3>Histogram</h3>
+                <img src="images/histogram.png" alt="Histogram">
+                <pre><code class="language-python">
+# Kode untuk Histogram
+plt.hist(data, bins=20)
+                </code></pre>
+            </div>
+
+            <!-- Plot Card 4: Heatmap -->
+            <div class="plot-card" data-title="heatmap korelasi seaborn">
+                <h3>Heatmap</h3>
+                <img src="images/heatmap.png" alt="Heatmap">
+                <pre><code class="language-python">
+# Kode untuk Heatmap
+import seaborn as sns
+sns.heatmap(df.corr())
+                </code></pre>
+            </div>
+            
+            <!-- Tambahkan lebih banyak plot-card di sini -->
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
