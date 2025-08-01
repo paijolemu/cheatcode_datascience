@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Cheat Codes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <div class="logo">--</div>
+            <h1>Data Science Cheat Codes</h1>
+            <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
+            <a href="plots.html" class="cta-button">Lihat Semua Cheat Codes</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>Contoh Cheat Code</h2>
+        <div class="plot-card">
+            <h3>Scatter Plot dengan Matplotlib</h3>
+            <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
+            <pre><code class="language-python">
+import matplotlib.pyplot as plt
+
+x = [5, 7, 8, 7, 2, 17, 2, 9, 4]
+y = [99, 86, 87, 88, 111, 86, 103, 87, 94]
+
+plt.scatter(x, y)
+plt.xlabel('Usia Mobil')
+plt.ylabel('Kecepatan')
+plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
+plt.show()
+            </code></pre>
+        </div>
+    </main>
+
+</body>
+</html>
