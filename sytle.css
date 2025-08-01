@@ -91,3 +91,23 @@ body {
     border-radius: 5px;
     overflow-x: auto;
 }
+/* --- Style untuk Halaman Galeri --- */
+.search-container {
+    margin-bottom: 30px;
+}
+
+#searchInput {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1em;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
+}
+
+#plot-gallery {
+    display: grid;
+    /* Membuat 2 kolom di layar lebar, dan 1 kolom di layar kecil */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
