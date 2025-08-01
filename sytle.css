@@ -1,0 +1,93 @@
+/* General Styling */
+body {
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* --- Style untuk Halaman Pembuka --- */
+.hero {
+    /* Gradien seperti gambar Anda */
+    background: linear-gradient(90deg, #1DE9B6, #26A69A); 
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    border-radius: 0 0 25px 25px;
+}
+
+.hero-content .logo {
+    background-color: white;
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 15px; /* Sedikit membulat */
+    font-size: 1.5em;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin: 0;
+}
+
+.hero-content p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 30px;
+    background-color: white;
+    color: #26A69A;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: transform 0.2s;
+}
+
+.cta-button:hover {
+    transform: scale(1.05);
+}
+
+/* --- Style untuk Kartu Plot (digunakan di semua halaman) --- */
+.plot-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.plot-card h3 {
+    margin-top: 0;
+}
+
+.plot-card img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+    border-radius: 4px;
+}
+
+.plot-card pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
