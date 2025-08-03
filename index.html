@@ -21,43 +21,47 @@
 
     <main class="container">
         <h2>Contoh Cheat Code</h2>
-
-        <!-- CONTOH PERTAMA: SCATTER PLOT -->
-        <div class="plot-card">
-            <h3>Scatter Plot dengan Matplotlib</h3>
-            <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
-            <pre><code class="language-python">
-import matplotlib.pyplot as plt
-
-x = [5, 7, 8, 7, 2, 17, 2, 9, 4]
-y = [99, 86, 87, 88, 111, 86, 103, 87, 94]
-
-plt.scatter(x, y)
-plt.xlabel('Usia Mobil')
-plt.ylabel('Kecepatan')
-plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
-plt.show()
-            </code></pre>
-        </div>
-
-        <!-- CONTOH KEDUA: BAR CHART (YANG BARU DITAMBAHKAN) -->
-        <div class="plot-card">
-            <h3>Bar Chart dengan Matplotlib</h3>
-            <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
-            <pre><code class="language-python">
-import matplotlib.pyplot as plt
-
-kategori = ['A', 'B', 'C', 'D']
-nilai = [23, 45, 17, 51]
-
-plt.bar(kategori, nilai)
-plt.xlabel('Kategori Produk')
-plt.ylabel('Jumlah Terjual')
-plt.title('Contoh Bar Chart')
-plt.show()
-            </code></pre>
-        </div>
-
+    
+        <!-- ▼▼▼ TAMBAHKAN DIV PEMBUNGKUS INI ▼▼▼ -->
+        <div class="plot-grid"> 
+    
+            <!-- CONTOH PERTAMA: SCATTER PLOT -->
+            <div class="plot-card">
+                <h3>Scatter Plot dengan Matplotlib</h3>
+                <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
+                <pre><code class="language-python">
+    import matplotlib.pyplot as plt
+    
+    x = [5, 7, 8, 7, 2, 17, 2, 9, 4]
+    y = [99, 86, 87, 88, 111, 86, 103, 87, 94]
+    
+    plt.scatter(x, y)
+    plt.xlabel('Usia Mobil')
+    plt.ylabel('Kecepatan')
+    plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
+    plt.show()
+                </code></pre>
+            </div>
+    
+            <!-- CONTOH KEDUA: BAR CHART -->
+            <div class="plot-card">
+                <h3>Bar Chart dengan Matplotlib</h3>
+                <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
+                <pre><code class="language-python">
+    import matplotlib.pyplot as plt
+    
+    kategori = ['A', 'B', 'C', 'D']
+    nilai = [23, 45, 17, 51]
+    
+    plt.bar(kategori, nilai)
+    plt.xlabel('Kategori Produk')
+    plt.ylabel('Jumlah Terjual')
+    plt.title('Contoh Bar Chart')
+    plt.show()
+                </code></pre>
+            </div>
+    
+        </div> <!-- ▲▲▲ JANGAN LUPA PENUTUP DIV-NYA ▲▲▲ -->
     </main>
 
 </body>
