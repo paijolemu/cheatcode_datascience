@@ -11,11 +11,11 @@
 </head>
 <body>
     <header class="hero">
-        <!-- DIV UNTUK KANVAS ANIMASI PARTIKEL -->
+        <!-- KANVAS UNTUK ANIMASI PARTIKEL -->
         <div id="tsparticles"></div> 
         
+        <!-- KONTEN HEADER YANG AKAN TAMPIL DI DEPAN -->
         <div class="hero-content">
-            <!-- LOGO -- SUDAH TIDAK DIBUTUHKAN KARENA ADA ANIMASI -->
             <h1>Data Science Cheat Codes</h1>
             <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
             <a href="plots.html" class="cta-button">Lihat Semua Cheat Codes</a>
@@ -24,83 +24,25 @@
 
     <main class="container">
         <h2>Contoh Cheat Code</h2>
-
         <div class="plot-grid"> 
-            <!-- CONTOH PERTAMA: SCATTER PLOT -->
             <div class="plot-card">
                 <h3>Scatter Plot dengan Matplotlib</h3>
                 <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
-                <pre><code class="language-python">
-import matplotlib.pyplot as plt
-
-x = [5, 7, 8, 7, 2, 17, 2, 9, 4]
-y = [99, 86, 87, 88, 111, 86, 103, 87, 94]
-
-plt.scatter(x, y)
-plt.xlabel('Usia Mobil')
-plt.ylabel('Kecepatan')
-plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
-plt.show()
-                </code></pre>
+                <pre><code>... kode scatter plot ...</code></pre>
             </div>
-
-            <!-- CONTOH KEDUA: BAR CHART -->
             <div class="plot-card">
                 <h3>Bar Chart dengan Matplotlib</h3>
                 <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
-                <pre><code class="language-python">
-import matplotlib.pyplot as plt
-
-kategori = ['A', 'B', 'C', 'D']
-nilai = [23, 45, 17, 51]
-
-plt.bar(kategori, nilai)
-plt.xlabel('Kategori Produk')
-plt.ylabel('Jumlah Terjual')
-plt.title('Contoh Bar Chart')
-plt.show()
-                </code></pre>
+                <pre><code>... kode bar chart ...</code></pre>
             </div>
         </div>
     </main>
 
-    <!-- SCRIPT UNTUK ANIMASI PARTIKEL -->
+    <!-- SCRIPT UNTUK MENJALANKAN ANIMASI -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@latest/tsparticles.bundle.min.js"></script>
     <script>
         tsParticles.load("tsparticles", {
-            fpsLimit: 60,
-            particles: {
-                number: { value: 50 },
-                color: { value: "#ffffff" },
-                shape: { type: "circle" },
-                opacity: { value: 0.5, random: true },
-                size: { value: 3, random: true },
-                move: {
-                    enable: true,
-                    speed: 1,
-                    direction: "none",
-                    out_mode: "out",
-                    bounce: false,
-                },
-                links: {
-                    enable: true,
-                    distance: 150,
-                    color: "#ffffff",
-                    opacity: 0.4,
-                    width: 1,
-                },
-            },
-            interactivity: {
-                events: {
-                    onhover: { enable: true, mode: "grab" },
-                    onclick: { enable: true, mode: "push" },
-                },
-                modes: {
-                    grab: { distance: 140, links: { opacity: 1 } },
-                    push: { particles_nb: 4 },
-                },
-            },
-            detectRetina: true,
+            fpsLimit: 60, particles: { number: { value: 50 }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true }, size: { value: 3, random: true }, move: { enable: true, speed: 1, direction: "none", out_mode: "out", bounce: false, }, links: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1, }, }, interactivity: { events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, }, modes: { grab: { distance: 140, links: { opacity: 1 } }, push: { particles_nb: 4 }, }, }, detectRetina: true,
         });
     </script>
 </body>
