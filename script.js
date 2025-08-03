@@ -1,21 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchInput');
-    const plotGallery = document.getElementById('plot-gallery');
-    const plotCards = plotGallery.getElementsByClassName('plot-card');
-
-    searchInput.addEventListener('keyup', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-
-        for (let i = 0; i < plotCards.length; i++) {
-            const card = plotCards[i];
-            const title = card.getAttribute('data-title').toLowerCase();
-
-            // Jika judul kartu mengandung kata pencarian, tampilkan. Jika tidak, sembunyikan.
-            if (title.includes(searchTerm)) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        }
-    });
+// Inisialisasi tsParticles di elemen #tsparticles
+tsParticles.load("tsparticles", {
+  fullScreen: false,
+  detectRetina: true,
+  fpsLimit: 60,
+  background: { color: { value: "transparent" } },
+  particles: {
+    number: { value: 80, density: { enable: true, area: 800 } },
+    color: { value: "#ffffff" },
+    shape: { type: "circle" },
+    opacity: { value: 0.5, random: true },
+    size: { value: 3, random: true },
+    move: { enable: true, speed: 2, outMode: "out" },
+    links: { enable: true, distance: 120, color: "#ffffff", opacity: 0.4, width: 1 }
+  },
+  interactivity: {
+    detectsOn: "canvas",
+    events: {
+      onHover: { enable: true, mode: "grab" },
+      onClick: { enable: true, mode: "push" },
+      resize: true
+    },
+    modes: { grab: { distance: 140, links: { opacity: 0.7 } }, push: { quantity: 4 } }
+  }
 });
