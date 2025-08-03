@@ -196,3 +196,22 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* --- Pengaturan untuk Background Animasi --- */
+.hero {
+  position: relative; /* Wajib agar elemen di dalamnya bisa diatur posisinya */
+  overflow: hidden; /* Mencegah partikel keluar dari header */
+}
+
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Menempatkan animasi di lapisan paling belakang */
+}
+
+.hero-content {
+  position: relative; /* Membuat konten tetap di atas */
+  z-index: 1; /* Menempatkan konten di lapisan depan */
+}
