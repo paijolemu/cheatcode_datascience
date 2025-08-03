@@ -1,217 +1,25 @@
 /* General Styling */
-body {
-    margin: 0;
-    font-family: 'Roboto Mono', monospace;
-    background-color: #f4f4f4;
-    color: #333;
-}
+body { margin: 0; font-family: 'Roboto Mono', monospace; background-color: #f4f4f4; color: #333; }
+.container { max-width: 900px; margin: 40px auto; padding: 20px; }
 
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-}
+/* Hero Section */
+.hero { background: linear-gradient(90deg, #1DE9B6, #26A69A); min-height: 50vh; display: flex; justify-content: center; align-items: center; text-align: center; color: white; border-radius: 0 0 25px 25px; position: relative; overflow: hidden; }
+.hero-content { position: relative; z-index: 1; }
+.hero-content h1 { font-size: 3em; margin: 0; }
+.hero-content p { font-size: 1.2em; opacity: 0.9; }
+.cta-button { display: inline-block; margin-top: 30px; padding: 15px 30px; background-color: white; color: #26A69A; text-decoration: none; font-weight: bold; border-radius: 50px; transition: transform 0.2s; }
+.cta-button:hover { transform: scale(1.05); }
 
-/* --- Style untuk Halaman Pembuka --- */
-.hero {
-    /* Gradien seperti gambar Anda */
-    background: linear-gradient(90deg, #1DE9B6, #26A69A); 
-    height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    position: relative;
-    border-radius: 0 0 25px 25px;
-}
+/* Plot Cards */
+.plot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.plot-card { background-color: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
+.plot-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+.plot-card h3 { margin-top: 0; }
+.plot-card img { max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 4px; flex-grow: 1; object-fit: contain; margin-bottom: 20px; }
+.plot-card pre { background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
 
-.hero-content .logo {
-    background-color: white;
-    color: #333;
-    padding: 15px 20px;
-    border-radius: 15px; /* Sedikit membulat */
-    font-size: 1.5em;
-    font-weight: bold;
-    display: inline-block;
-    margin-bottom: 20px;
-}
+/* Animated Background */
+#tsparticles { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
 
-.hero-content h1 {
-    font-size: 3em;
-    margin: 0;
-}
-
-.hero-content p {
-    font-size: 1.2em;
-    opacity: 0.9;
-}
-
-.cta-button {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 30px;
-    background-color: white;
-    color: #26A69A;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 50px;
-    transition: transform 0.2s;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
-}
-
-/* --- Style untuk Kartu Plot (digunakan di semua halaman) --- */
-.plot-card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.plot-card h3 {
-    margin-top: 0;
-}
-
-.plot-card img {
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #eee;
-    border-radius: 4px;
-}
-
-.plot-card pre {
-    background-color: #2d2d2d;
-    color: #f8f8f2;
-    padding: 15px;
-    border-radius: 5px;
-    overflow-x: auto;
-}
-/* --- Style untuk Halaman Galeri --- */
-.search-container {
-    margin-bottom: 30px;
-}
-
-#searchInput {
-    width: 100%;
-    padding: 15px;
-    font-size: 1.1em;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box; /* Penting agar padding tidak menambah lebar */
-}
-
-#plot-gallery {
-    display: grid;
-    /* Membuat 2 kolom di layar lebar, dan 1 kolom di layar kecil */
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 20px;
-}
-/* --- Style untuk Halaman Komunitas --- */
-.contribution-guide {
-    background-color: #e0f2f1; /* Warna teal yang lebih muda */
-    border-left: 5px solid #26A69A;
-    padding: 20px;
-    margin: 30px 0;
-    border-radius: 5px;
-}
-
-#community-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.community-card {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.community-card .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #eee;
-}
-
-.community-card h3 {
-    margin: 0;
-}
-
-.community-card h4 {
-    margin: 5px 0 10px 0;
-    font-weight: normal;
-    color: #666;
-}
-
-.community-card a {
-    text-decoration: none;
-    color: #26A69A;
-    font-weight: bold;
-}
-/* --- Perbaikan Layout Dua Kolom --- */
-.plot-grid {
-  display: grid;
-  /* Membuat 2 kolom, masing-masing memakan 1 bagian (1fr) ruang */
-  grid-template-columns: 1fr 1fr;
-  gap: 25px; /* Jarak antar kartu */
-}
-
-/* --- Membuat Kartu Lebih Menyatu dan Interaktif --- */
-.plot-card {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Efek bayangan halus */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi halus */
-  display: flex; /* Mengaktifkan flexbox untuk alignment */
-  flex-direction: column; /* Menyusun elemen ke bawah */
-}
-
-.plot-card:hover {
-  transform: translateY(-5px); /* Sedikit terangkat saat disentuh mouse */
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.plot-card img {
-  flex-grow: 1; /* Membuat gambar mengisi ruang yang tersedia */
-  object-fit: contain; /* Memastikan gambar tidak gepeng */
-  margin-bottom: 20px;
-}
-
-/* Media Query untuk Layar Kecil (HP) */
-@media (max-width: 768px) {
-  .plot-grid {
-    /* Kembali menjadi 1 kolom di layar kecil */
-    grid-template-columns: 1fr;
-  }
-}
-/* --- Pengaturan untuk Background Animasi --- */
-.hero {
-  position: relative; /* Wajib agar elemen di dalamnya bisa diatur posisinya */
-  overflow: hidden; /* Mencegah partikel keluar dari header */
-}
-
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0; /* Menempatkan animasi di lapisan paling belakang */
-}
-
-.hero-content {
-  position: relative; /* Membuat konten tetap di atas */
-  z-index: 1; /* Menempatkan konten di lapisan depan */
-}
+/* Responsive for Mobile */
+@media (max-width: 768px) { .plot-grid { grid-template-columns: 1fr; } }
