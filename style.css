@@ -158,3 +158,41 @@ body {
     color: #26A69A;
     font-weight: bold;
 }
+/* --- Perbaikan Layout Dua Kolom --- */
+.plot-grid {
+  display: grid;
+  /* Membuat 2 kolom, masing-masing memakan 1 bagian (1fr) ruang */
+  grid-template-columns: 1fr 1fr;
+  gap: 25px; /* Jarak antar kartu */
+}
+
+/* --- Membuat Kartu Lebih Menyatu dan Interaktif --- */
+.plot-card {
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Efek bayangan halus */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi halus */
+  display: flex; /* Mengaktifkan flexbox untuk alignment */
+  flex-direction: column; /* Menyusun elemen ke bawah */
+}
+
+.plot-card:hover {
+  transform: translateY(-5px); /* Sedikit terangkat saat disentuh mouse */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.plot-card img {
+  flex-grow: 1; /* Membuat gambar mengisi ruang yang tersedia */
+  object-fit: contain; /* Memastikan gambar tidak gepeng */
+  margin-bottom: 20px;
+}
+
+/* Media Query untuk Layar Kecil (HP) */
+@media (max-width: 768px) {
+  .plot-grid {
+    /* Kembali menjadi 1 kolom di layar kecil */
+    grid-template-columns: 1fr;
+  }
+}
