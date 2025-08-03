@@ -1,35 +1,57 @@
 /* Reset & Global */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: sans-serif; background: #f5f5f5; }
+body, html { width: 100%; height: 100%; }
+body { font-family: sans-serif; overflow-x: hidden; }
 
-/* Hero dengan partikel */
+/* Gradient Animasi Latar */
 .hero {
   position: relative;
-  width: 100%; height: 60vh;
+  width: 100%;
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  background: #111;
 }
-#tsparticles {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%; z-index: 1;
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  z-index: -1;
 }
-.hero-content {
-  position: relative; z-index: 2;
-  text-align: center; color: #fff;
-  padding-top: 20vh;
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-.cta-button {
-  display: inline-block; margin-top: 1rem;
-  padding: .75rem 1.5rem;
-  background: rgba(255,255,255,0.2);
-  border-radius: 9999px; color: #fff;
-  text-decoration: none; transition: background .3s;
-}
-.cta-button:hover { background: rgba(255,255,255,0.4); }
 
-/* Layout Konten Utama */
+/* Hero Content */
+.hero-content {
+  position: relative;
+  text-align: center;
+  color: #fff;
+}
+.hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.hero-content p { font-size: 1rem; margin-bottom: 1rem; }
+.cta-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: rgba(255,255,255,0.3);
+  border-radius: 9999px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.cta-button:hover { background: rgba(255,255,255,0.5); }
+
+/* Main Content */
 .container {
-  max-width: 960px; margin: -4rem auto 2rem; /* -4rem to overlap hero bottom spacing */
+  max-width: 960px;
+  margin: -4rem auto 2rem;
   padding: 0 1rem;
 }
 .plot-grid {
@@ -39,15 +61,16 @@ body { font-family: sans-serif; background: #f5f5f5; }
 }
 .plot-card {
   background: #fff;
-  border-radius: .5rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   overflow: hidden;
 }
-.plot-card h3 { padding: 1rem; }
-.plot-card img {
-  width: 100%; display: block;
-}
+.plot-card h3 { padding: 1rem; font-size: 1.25rem; }
+.plot-card img { width: 100%; height: auto; }
 .plot-card pre {
-  background: #f0f0f0; color: #333;
-  padding: 1rem; overflow-x: auto;
+  background: #f0f0f0;
+  color: #333;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: monospace;
 }
