@@ -1,11 +1,11 @@
-// Inisialisasi tsParticles di elemen #tsparticles
+// Inisialisasi tsParticles di <div id="tsparticles">
 tsParticles.load("tsparticles", {
   fullScreen: false,
   detectRetina: true,
   fpsLimit: 60,
   background: { color: { value: "transparent" } },
   particles: {
-    number: { value: 80, density: { enable: true, area: 800 } },
+    number: { value: 60, density: { enable: true, area: 800 } },
     color: { value: "#ffffff" },
     shape: { type: "circle" },
     opacity: { value: 0.5, random: true },
@@ -20,6 +20,9 @@ tsParticles.load("tsparticles", {
       onClick: { enable: true, mode: "push" },
       resize: true
     },
-    modes: { grab: { distance: 140, links: { opacity: 0.7 } }, push: { quantity: 4 } }
+    modes: {
+      grab: { distance: 140, links: { opacity: 0.7 } },
+      push: { quantity: 4 }
+    }
   }
 });
