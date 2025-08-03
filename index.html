@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Science Cheat Codes</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <!-- HERO SECTION -->
   <header class="hero">
-    <div id="tsparticles"></div>
     <div class="hero-content">
       <h1>Data Science Cheat Codes</h1>
       <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
@@ -22,14 +21,14 @@
     <h2>Contoh Cheat Code</h2>
     <div class="plot-grid">
 
-      <!-- Card 1: Scatter Plot -->
+      <!-- Scatter Plot Card -->
       <div class="plot-card">
         <h3>Scatter Plot dengan Matplotlib</h3>
-        <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
+        <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot" />
         <pre><code>
 import matplotlib.pyplot as plt
-usia = [2, 4, 6, 8, 10, 12, 14, 16]
-kecepatan = [110, 103, 99, 94, 88, 87, 87, 86]
+usia = [2,4,6,8,10,12,14,16]
+kecepatan = [110,103,99,94,88,87,87,86]
 plt.scatter(usia, kecepatan)
 plt.xlabel('Usia Mobil')
 plt.ylabel('Kecepatan')
@@ -38,14 +37,14 @@ plt.show()
         </code></pre>
       </div>
 
-      <!-- Card 2: Bar Chart -->
+      <!-- Bar Chart Card -->
       <div class="plot-card">
         <h3>Bar Chart dengan Matplotlib</h3>
-        <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
+        <img src="images/bar_chart_example.png" alt="Contoh Bar Chart" />
         <pre><code>
 import matplotlib.pyplot as plt
 kategori = ['A','B','C','D']
-nilai = [23, 45, 17, 51]
+nilai = [23,45,17,51]
 plt.bar(kategori, nilai)
 plt.xlabel('Kategori Produk')
 plt.ylabel('Jumlah Terjual')
@@ -56,9 +55,5 @@ plt.show()
 
     </div>
   </main>
-
-  <!-- SCRIPTS -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@latest/tsparticles.bundle.min.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>
