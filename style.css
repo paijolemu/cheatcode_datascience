@@ -1,19 +1,23 @@
 /* Reset & Global */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { width: 100%; height: 100%; }
-body { font-family: sans-serif; overflow-x: hidden; }
+body, html { width: 100%; height: 100%; font-family: sans-serif; }
 
-/* Gradient Animasi Latar */
-.hero {
+/* Hero (boleh dihapus atau disesuaikan) */
+.hero { background: #111; color: #fff; padding: 2rem; text-align: center; }
+.cta-button { /* styling CTA */ }
+
+/* MAIN CONTENT + Animasi Latar */
+.container.animate-bg {
   position: relative;
-  width: 100%;
-  height: 60vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 1;
+  padding: 2rem 1rem;
+  max-width: 960px;
+  margin: -4rem auto 2rem;
   overflow: hidden;
 }
-.hero::before {
+
+/* Pseudo-element gradient animasi di belakang container */
+.container.animate-bg::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
@@ -22,55 +26,31 @@ body { font-family: sans-serif; overflow-x: hidden; }
   background-size: 400% 400%;
   animation: gradientBG 10s ease infinite;
   z-index: -1;
+  border-radius: 8px;
+  opacity: 0.6;
 }
+
 @keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
 
-/* Hero Content */
-.hero-content {
-  position: relative;
-  text-align: center;
-  color: #fff;
-}
-.hero-content h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-.hero-content p { font-size: 1rem; margin-bottom: 1rem; }
-.cta-button {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: rgba(255,255,255,0.3);
-  border-radius: 9999px;
-  color: #fff;
-  text-decoration: none;
-  transition: background 0.3s;
-}
-.cta-button:hover { background: rgba(255,255,255,0.5); }
-
-/* Main Content */
-.container {
-  max-width: 960px;
-  margin: -4rem auto 2rem;
-  padding: 0 1rem;
-}
+/* Plot Grid & Cards */
 .plot-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
+  position: relative;
+  z-index: 2;
 }
 .plot-card {
-  background: #fff;
+  background: rgba(255,255,255,0.9);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
   overflow: hidden;
 }
-.plot-card h3 { padding: 1rem; font-size: 1.25rem; }
-.plot-card img { width: 100%; height: auto; }
-.plot-card pre {
-  background: #f0f0f0;
-  color: #333;
-  padding: 1rem;
-  overflow-x: auto;
-  font-family: monospace;
-}
+.plot-card h3 { margin-bottom: 0.75rem; }
+.plot-card img { width: 100%; height: auto; border-radius: 4px; }
+.plot-card pre { background: #f0f0f0; color: #333; padding: 1rem; overflow-x: auto; }
