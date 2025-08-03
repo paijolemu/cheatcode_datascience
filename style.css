@@ -3,12 +3,44 @@ body { margin: 0; font-family: 'Roboto Mono', monospace; background-color: #f4f4
 .container { max-width: 900px; margin: 40px auto; padding: 20px; }
 
 /* Hero Section */
-.hero { background: linear-gradient(90deg, #1DE9B6, #26A69A); min-height: 50vh; display: flex; justify-content: center; align-items: center; text-align: center; color: white; border-radius: 0 0 25px 25px; position: relative; overflow: hidden; }
-.hero-content { position: relative; z-index: 1; }
-.hero-content h1 { font-size: 3em; margin: 0; }
-.hero-content p { font-size: 1.2em; opacity: 0.9; }
-.cta-button { display: inline-block; margin-top: 30px; padding: 15px 30px; background-color: white; color: #26A69A; text-decoration: none; font-weight: bold; border-radius: 50px; transition: transform 0.2s; }
-.cta-button:hover { transform: scale(1.05); }
+.hero {
+  background: linear-gradient(90deg, #1DE9B6, #26A69A);
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  border-radius: 0 0 25px 25px;
+  position: relative; /* Kunci #1: Membuatnya jadi 'induk' untuk layering */
+  overflow: hidden;
+}
+.hero-content {
+  position: relative; /* Kunci #2: Membuatnya bisa diatur lapisannya */
+  z-index: 1;         /* Kunci #3: Mengangkatnya ke lapisan depan */
+}
+.hero-content h1 {
+  font-size: 3em;
+  margin: 0;
+}
+.hero-content p {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+.cta-button {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 30px;
+  background-color: white;
+  color: #26A69A;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: transform 0.2s;
+}
+.cta-button:hover {
+  transform: scale(1.05);
+}
 
 /* Plot Cards */
 .plot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
@@ -19,7 +51,14 @@ body { margin: 0; font-family: 'Roboto Mono', monospace; background-color: #f4f4
 .plot-card pre { background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
 
 /* Animated Background */
-#tsparticles { position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0; }
+#tsparticles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0; /* Animasi tetap di lapisan belakang */
+}
 
 /* Responsive for Mobile */
 @media (max-width: 768px) { .plot-grid { grid-template-columns: 1fr; } }
