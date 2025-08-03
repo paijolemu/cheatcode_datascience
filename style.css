@@ -1,93 +1,64 @@
-/* General Styling */
-body { margin: 0; font-family: 'Roboto Mono', monospace; background-color: #f4f4f4; color: #333; }
-.container { max-width: 900px; margin: 40px auto; padding: 20px; }
+/* Reset dasar & global */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: sans-serif; line-height: 1.6; }
 
-/* Hero Section */
+/* Hero dengan partikel di belakang */
 .hero {
-  background: linear-gradient(90deg, #1DE9B6, #26A69A);
-  min-height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-  border-radius: 0 0 25px 25px;
-  position: relative; /* Kunci #1: Membuatnya jadi 'induk' untuk layering */
+  position: relative;
+  width: 100%;
+  height: 60vh;
   overflow: hidden;
+  background: #111; /* backup jika particle gagal */
+}
+#tsparticles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 1;
 }
 .hero-content {
-  position: relative; /* Kunci #2: Membuatnya bisa diatur lapisannya */
-  z-index: 1;         /* Kunci #3: Mengangkatnya ke lapisan depan */
-}
-.hero-content h1 {
-  font-size: 3em;
-  margin: 0;
-}
-.hero-content p {
-  font-size: 1.2em;
-  opacity: 0.9;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding-top: 20vh;
+  color: #fff;
 }
 .cta-button {
   display: inline-block;
-  margin-top: 30px;
-  padding: 15px 30px;
-  background-color: white;
-  color: #26A69A;
+  margin-top: 1rem;
+  padding: .75rem 1.5rem;
+  background: rgba(255,255,255,0.2);
+  border-radius: 9999px;
   text-decoration: none;
-  font-weight: bold;
-  border-radius: 50px;
-  transition: transform 0.2s;
+  color: #fff;
+  transition: background .3s;
 }
 .cta-button:hover {
-  transform: scale(1.05);
+  background: rgba(255,255,255,0.4);
 }
 
-/* Plot Cards */
-.plot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-.plot-card { background-color: white; border: 1px solid #e0e0e0; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
-.plot-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
-.plot-card h3 { margin-top: 0; }
-.plot-card img { max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 4px; flex-grow: 1; object-fit: contain; margin-bottom: 20px; }
-.plot-card pre { background-color: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
-
-/* Animated Background */
-#tsparticles {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 0; /* Animasi tetap di lapisan belakang */
+/* Layout main content */
+.container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
-
-/* Responsive for Mobile */
-@media (max-width: 768px) { .plot-grid { grid-template-columns: 1fr; } }
-/* --- Pengaturan untuk Background Animasi --- */
-.hero {
-  position: relative; /* Wajib agar elemen di dalamnya bisa diatur posisinya */
-  overflow: hidden; /* Mencegah partikel keluar dari header */
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
 }
-/* Gradient Background Animasi */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(
-      -45deg,
-      #ee7752,
-      #e73c7e,
-      #23a6d5,
-      #23d5ab
-    );
-  background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
-  z-index: -1;        /* Pastikan di belakang semua konten */
+.plot-card {
+  background: #fff;
+  border-radius: .5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 1rem;
 }
-
-@keyframes gradientBG {
-  0%   { background-position: 0%   50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0%   50%; }
+.plot-card h3 { margin-bottom: .75rem; }
+.plot-card img {
+  width: 100%; border-radius: .25rem; margin-bottom: .75rem;
+}
+.plot-card pre {
+  background: #f5f5f5; padding: .75rem; border-radius: .25rem;
+  overflow-x: auto;
 }
