@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Science Cheat Codes</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Science Cheat Codes</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="hero">
     <!-- container untuk partikel -->
     <div id="tsparticles"></div>
 
-    <!-- konten yang tampil di atas partikel -->
+    <!-- konten hero di depan canvas partikel -->
     <div class="hero-content">
       <h1>Data Science Cheat Codes</h1>
       <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
@@ -23,61 +20,43 @@
   </header>
 
   <main class="container">
-    <!-- sisa konten… -->
-  </main>
-
-  <!-- script tsparticles -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@latest/tsparticles.bundle.min.js"></script>
-  <script src="script.js"></script>
-</body>
-
-    <main class="container">
-        <h2>Contoh Cheat Code</h2>
-        <div class="plot-grid"> 
-            <!-- CONTOH PERTAMA: SCATTER PLOT -->
-            <div class="plot-card">
-                <h3>Scatter Plot dengan Matplotlib</h3>
-                <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
-                <pre><code class="language-python">
+    <h2>Contoh Cheat Code</h2>
+    <div class="plot-grid">
+      <!-- plot-card pertama -->
+      <div class="plot-card">
+        <h3>Scatter Plot dengan Matplotlib</h3>
+        <img src="images/scatter_example.png" alt="Contoh Scatter Plot" />
+        <pre><code class="language-python">
 import matplotlib.pyplot as plt
-
-x = [5, 7, 8, 7, 2, 17, 2, 9, 4]
-y = [99, 86, 87, 88, 111, 86, 103, 87, 94]
-
-plt.scatter(x, y)
+usia = [2, 4, 6, 8, 10, 12, 14, 16]
+kecepatan = [110, 103, 99, 94, 88, 87, 87, 86]
+plt.scatter(usia, kecepatan)
 plt.xlabel('Usia Mobil')
 plt.ylabel('Kecepatan')
 plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
 plt.show()
-                </code></pre>
-            </div>
-
-            <!-- CONTOH KEDUA: BAR CHART -->
-            <div class="plot-card">
-                <h3>Bar Chart dengan Matplotlib</h3>
-                <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
-                <pre><code class="language-python">
+        </code></pre>
+      </div>
+      <!-- plot-card kedua -->
+      <div class="plot-card">
+        <h3>Bar Chart dengan Matplotlib</h3>
+        <img src="images/bar_chart_example.png" alt="Contoh Bar Chart" />
+        <pre><code class="language-python">
 import matplotlib.pyplot as plt
-
-kategori = ['A', 'B', 'C', 'D']
+kategori = ['A','B','C','D']
 nilai = [23, 45, 17, 51]
-
 plt.bar(kategori, nilai)
 plt.xlabel('Kategori Produk')
 plt.ylabel('Jumlah Terjual')
 plt.title('Contoh Bar Chart')
 plt.show()
-                </code></pre>
-            </div>
-        </div>
-    </main>
+        </code></pre>
+      </div>
+    </div>
+  </main>
 
-    <!-- SCRIPT UNTUK MENJALANKAN ANIMASI -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@latest/tsparticles.bundle.min.js"></script>
-    <script>
-        tsParticles.load("tsparticles", {
-            fpsLimit: 60, particles: { number: { value: 50 }, color: { value: "#ffffff" }, shape: { type: "circle" }, opacity: { value: 0.5, random: true }, size: { value: 3, random: true }, move: { enable: true, speed: 1, direction: "none", out_mode: "out", bounce: false, }, links: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1, }, }, interactivity: { events: { onhover: { enable: true, mode: "grab" }, onclick: { enable: true, mode: "push" }, }, modes: { grab: { distance: 140, links: { opacity: 1 } }, push: { particles_nb: 4 }, }, }, detectRetina: true,
-        });
-    </script>
+  <!-- script tsParticles dan custom -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@latest/tsparticles.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
