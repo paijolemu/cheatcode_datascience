@@ -1,32 +1,33 @@
-/* Reset & Global */
+/* Global & Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body, html { width: 100%; height: 100%; font-family: sans-serif; }
+.container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
 
-/* Hero (boleh dihapus atau disesuaikan) */
-.hero { background: #111; color: #fff; padding: 2rem; text-align: center; }
-.cta-button { /* styling CTA */ }
+/* Hero (bisa custom) */
+.hero { background: #111; color: #fff; text-align: center; padding: 2rem; }
+.cta-button { /* styling link */ }
 
-/* MAIN CONTENT + Animasi Latar */
-.container.animate-bg {
-  position: relative;
-  z-index: 1;
-  padding: 2rem 1rem;
-  max-width: 960px;
-  margin: -4rem auto 2rem;
+/* Plot Grid & Gradient Animasi */
+.plot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  position: relative; /* untuk pseudo-element */
+  padding: 1rem;
+  border-radius: 8px;
   overflow: hidden;
 }
 
-/* Pseudo-element gradient animasi di belakang container */
-.container.animate-bg::before {
+/* Gradient animasi di belakang grid */
+.plot-grid.animate-bg::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: linear-gradient(45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
   background-size: 400% 400%;
-  animation: gradientBG 10s ease infinite;
-  z-index: -1;
-  border-radius: 8px;
+  animation: gradientBG 8s ease infinite;
+  z-index: 0;
   opacity: 0.6;
 }
 
@@ -36,21 +37,15 @@ body, html { width: 100%; height: 100%; font-family: sans-serif; }
   100% { background-position: 0% 50%; }
 }
 
-/* Plot Grid & Cards */
-.plot-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  position: relative;
-  z-index: 2;
-}
+/* Plot Card di depan animasi */
 .plot-card {
-  background: rgba(255,255,255,0.9);
+  position: relative;
+  z-index: 1;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 1rem;
   overflow: hidden;
+  padding: 1rem;
 }
-.plot-card h3 { margin-bottom: 0.75rem; }
 .plot-card img { width: 100%; height: auto; border-radius: 4px; }
 .plot-card pre { background: #f0f0f0; color: #333; padding: 1rem; overflow-x: auto; }
