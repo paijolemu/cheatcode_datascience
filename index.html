@@ -21,6 +21,8 @@
 
     <main class="container">
         <h2>Contoh Cheat Code</h2>
+
+        <!-- CONTOH PERTAMA: SCATTER PLOT -->
         <div class="plot-card">
             <h3>Scatter Plot dengan Matplotlib</h3>
             <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot">
@@ -37,6 +39,25 @@ plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
 plt.show()
             </code></pre>
         </div>
+
+        <!-- CONTOH KEDUA: BAR CHART (YANG BARU DITAMBAHKAN) -->
+        <div class="plot-card">
+            <h3>Bar Chart dengan Matplotlib</h3>
+            <img src="images/bar_chart_example.png" alt="Contoh Bar Chart">
+            <pre><code class="language-python">
+import matplotlib.pyplot as plt
+
+kategori = ['A', 'B', 'C', 'D']
+nilai = [23, 45, 17, 51]
+
+plt.bar(kategori, nilai)
+plt.xlabel('Kategori Produk')
+plt.ylabel('Jumlah Terjual')
+plt.title('Contoh Bar Chart')
+plt.show()
+            </code></pre>
+        </div>
+
     </main>
 
 </body>
