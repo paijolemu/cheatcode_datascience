@@ -91,6 +91,10 @@ header h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
+
+    /* --- TAMBAHKAN DUA BARIS INI --- */
+    background-size: 200% auto; /* Membuat background gradien lebih besar */
+    animation: gradient-animation 5s ease infinite; /* Menerapkan animasi */
 }
 
 header p {
@@ -205,4 +209,16 @@ pre {
     font-family: 'Fira Code', 'Courier New', Courier, monospace;
     font-size: 14px;
     border: 1px solid #44475a;
+}
+/* --- TEMPELKAN KODE INI DI BAGIAN PALING BAWAH FILE --- */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
