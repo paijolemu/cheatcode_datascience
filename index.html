@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Science Cheat Codes</title>
     
+    <!-- PENTING: Menambahkan library ikon (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <style>
+        :root {
+            --sidebar-width-expanded: 240px;
+            --sidebar-width-collapsed: 70px;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px;
+            padding: 0; /* Padding utama dipindahkan ke #main-content */
             color: #f0f0f0;
             background-color: #111;
+            overflow-x: hidden;
         }
 
         #tsparticles {
@@ -22,194 +31,197 @@
             left: 0;
             z-index: -1;
         }
+        
+        /* CSS UNTUK SIDEBAR BARU */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            width: var(--sidebar-width-expanded); /* Lebar awal */
+            background-color: #1c1c1c;
+            border-right: 1px solid #333;
+            padding: 15px 0;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        #sidebar.collapsed {
+            width: var(--sidebar-width-collapsed); /* Lebar saat minimize */
+        }
+        
+        #sidebar-toggle {
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            font-size: 1.5rem;
+            cursor: pointer;
+            text-align: right;
+            padding: 0 20px 20px 20px;
+        }
+
+        #sidebar.collapsed #sidebar-toggle {
+            text-align: center;
+            padding: 0 0 20px 0;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+        
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            color: #d0d0d0;
+            text-decoration: none;
+            padding: 15px 20px;
+            white-space: nowrap; /* Mencegah teks turun baris */
+            overflow: hidden;
+            transition: background-color 0.2s ease;
+        }
+
+        .nav-item a:hover {
+            background-color: #333;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            min-width: 30px; /* Jarak ikon konsisten */
+            text-align: center;
+            margin-right: 20px;
+            transition: margin-right 0.3s ease;
+        }
+
+        #sidebar.collapsed .nav-icon {
+            margin-right: 0;
+        }
+
+        .nav-text {
+            transition: opacity 0.2s ease;
+            opacity: 1;
+        }
+        
+        #sidebar.collapsed .nav-text {
+            opacity: 0;
+            width: 0;
+        }
+        
+        /* CSS UNTUK KONTEN UTAMA */
+        #main-content {
+            margin-left: var(--sidebar-width-expanded); /* Memberi ruang untuk sidebar */
+            padding: 40px;
+            transition: margin-left 0.3s ease;
+        }
+        
+        #main-content.collapsed {
+            margin-left: var(--sidebar-width-collapsed); /* Ruang saat sidebar minimize */
+        }
 
         header, main {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
-            position: relative; /* Menambahkan ini agar konten tidak tertutup background */
-            z-index: 1;      /* Menambahkan ini agar konten tidak tertutup background */
         }
 
-        header h1 {
-            font-size: 2.5rem;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #b3b3b3;
-        }
-        
-        .main-button {
-            display: inline-block;
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .main-button:hover {
-            background-color: #0056b3;
-        }
-        
-        main h2 {
-            margin-top: 60px;
-            font-size: 2rem;
-        }
-
-        .card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .card {
-            background-color: rgba(45, 45, 45, 0.85);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px;
-            width: 450px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            text-align: left;
-        }
-        
-        .card h3 {
-            color: #ffffff;
-            text-align: center;
-            margin-top: 0;
-        }
-        
-        .card img {
-            max-width: 100%;
-            border-radius: 5px;
-            background-color: white; 
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        pre {
-            background-color: #1a1a1a;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 0.9em;
-        }
-
-        code {
-            font-family: "Fira Code", "Courier New", monospace;
-        }
+        /* ... (CSS Anda yang lain tetap sama) ... */
+        header h1 {font-size: 2.5rem;}
+        header p {font-size: 1.2rem;color: #b3b3b3;}
+        .main-button {display: inline-block;background-color: #007bff;color: white;padding: 10px 20px;text-decoration: none;border-radius: 5px;margin-top: 20px;transition: background-color 0.3s;}
+        .main-button:hover {background-color: #0056b3;}
+        main h2 {margin-top: 60px;font-size: 2rem;}
+        .card-container {display: flex;justify-content: center;flex-wrap: wrap;gap: 30px;margin-top: 30px;}
+        .card {background-color: rgba(45, 45, 45, 0.85);backdrop-filter: blur(5px);border: 1px solid rgba(255, 255, 255, 0.1);border-radius: 10px;padding: 20px;width: 450px;box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);text-align: left;}
+        .card h3 {color: #ffffff;text-align: center;margin-top: 0;}
+        .card img {max-width: 100%;border-radius: 5px;background-color: white;padding: 10px;box-sizing: border-box;}
+        pre {background-color: #1a1a1a;color: #d4d4d4;padding: 15px;border-radius: 5px;overflow-x: auto;font-size: 0.9em;}
+        code {font-family: "Fira Code", "Courier New", monospace;}
     </style>
 </head>
 <body>
     <div id="tsparticles"></div>
 
-    <header>
-        <h1>Data Science Cheat Codes</h1>
-        <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
-        <a href="#" class="main-button">Lihat Semua Cheat Codes</a>
-    </header>
+    <!-- Langkah 1: Tambahkan Sidebar Navigasi -->
+    <nav id="sidebar">
+        <button id="sidebar-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fa-solid fa-house nav-icon"></i>
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fa-solid fa-chart-pie nav-icon"></i>
+                    <span class="nav-text">Matplotlib</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fa-solid fa-chart-bar nav-icon"></i>
+                    <span class="nav-text">Seaborn</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="fa-solid fa-table nav-icon"></i>
+                    <span class="nav-text">Pandas</span>
+                </a>
+            </li>
+            <li class="nav-item" style="margin-top: auto;"> <!-- Item ini akan ada di paling bawah -->
+                <a href="#">
+                    <i class="fa-solid fa-gear nav-icon"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-    <main>
-        <h2>Contoh Cheat Code</h2>
-        <div class="card-container">
-            <div class="card">
-                <h3>Scatter Plot dengan Matplotlib</h3>
-                <!-- PERUBAHAN DI SINI: Menggunakan URL lengkap -->
-                <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/scatter_plot_example.png?raw=true" alt="Contoh Scatter Plot">
-                <pre><code>import matplotlib.pyplot as plt
+    <!-- Langkah 2: Bungkus Konten Utama Anda -->
+    <div id="main-content">
+        <header>
+            <h1>Data Science Cheat Codes</h1>
+            <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
+            <a href="#" class="main-button">Lihat Semua Cheat Codes</a>
+        </header>
 
-usia = [2,4,6,8,10,12,14,16]
-kecepatan = [110,103,99,94,88,87,87,86]
-
-plt.scatter(usia, kecepatan)
-plt.xlabel('Usia Mobil')
-plt.ylabel('Kecepatan')
-plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
-plt.show()</code></pre>
+        <main>
+            <h2>Contoh Cheat Code</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Scatter Plot dengan Matplotlib</h3>
+                    <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scatter_plot_example.png?raw=true" alt="Contoh Scatter Plot">
+                    <pre><code>... kode Anda ...</code></pre>
+                </div>
+                <div class="card">
+                    <h3>Bar Chart dengan Matplotlib</h3>
+                    <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/bar_chart_example.png?raw=true" alt="Contoh Bar Chart">
+                    <pre><code>... kode Anda ...</code></pre>
+                </div>
             </div>
-            <div class="card">
-                <h3>Bar Chart dengan Matplotlib</h3>
-                <!-- PERUBAHAN DI SINI: Menggunakan URL lengkap -->
-                <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/bar_chart_example.png?raw=true" alt="Contoh Bar Chart">
-                <pre><code>import matplotlib.pyplot as plt
-
-kategori = ['A','B','C','D']
-nilai = [23,45,17,51]
-
-plt.bar(kategori, nilai)
-plt.xlabel('Kategori Produk')
-plt.ylabel('Jumlah Terjual')
-plt.title('Contoh Bar Chart')
-plt.show()</code></pre>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script>
-        tsParticles.load("tsparticles", {
-            fpsLimit: 60,
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "repulse",
-                    },
-                    resize: true,
-                },
-                modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4,
-                    },
-                },
-            },
-            particles: {
-                color: {
-                    value: "#ffffff",
-                },
-                links: {
-                    color: "#ffffff",
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.2,
-                    width: 1,
-                },
-                move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: {
-                        default: "bounce",
-                    },
-                    random: true,
-                    speed: 1.5,
-                    straight: false,
-                },
-                number: {
-                    density: {
-                        enable: true,
-                        area: 800,
-                    },
-                    value: 80,
-                },
-                opacity: {
-                    value: 0.3,
-                },
-                shape: {
-                    type: "circle",
-                },
-                size: {
-                    value: { min: 1, max: 4 },
-                },
-            },
-            detectRetina: true,
+        // Script untuk animasi partikel
+        tsParticles.load("tsparticles", { /* ... konfigurasi Anda ... */ });
+
+        // Langkah 3: JavaScript untuk mengontrol Sidebar
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('main-content');
+        const toggleBtn = document.getElementById('sidebar-toggle');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
         });
     </script>
 </body>
