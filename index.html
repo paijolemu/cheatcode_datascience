@@ -5,30 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Science Cheat Codes</title>
     
-    <!-- INI BAGIAN YANG HILANG: KODE UNTUK MEMPERBAIKI TAMPILAN -->
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 40px 20px;
-            color: #f0f0f0; /* Warna teks utama jadi terang */
-            background-color: #111; /* Warna dasar jika animasi gagal dimuat */
+            color: #f0f0f0;
+            background-color: #111;
         }
 
-        /* Style untuk background animasi partikel */
         #tsparticles {
             position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Penting! Agar berada di belakang konten lain */
+            z-index: -1;
         }
 
         header, main {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
+            position: relative; /* Menambahkan ini agar konten tidak tertutup background */
+            z-index: 1;      /* Menambahkan ini agar konten tidak tertutup background */
         }
 
         header h1 {
@@ -64,13 +64,13 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 30px; /* Jarak antar kartu */
+            gap: 30px;
             margin-top: 30px;
         }
 
         .card {
-            background-color: rgba(45, 45, 45, 0.85); /* Background kartu agak transparan */
-            backdrop-filter: blur(5px); /* Efek blur di belakang kartu */
+            background-color: rgba(45, 45, 45, 0.85);
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             padding: 20px;
@@ -80,7 +80,7 @@
         }
         
         .card h3 {
-            color: #ffffff; /* Warna judul kartu jadi putih */
+            color: #ffffff;
             text-align: center;
             margin-top: 0;
         }
@@ -88,7 +88,7 @@
         .card img {
             max-width: 100%;
             border-radius: 5px;
-            background-color: white; /* Beri background putih untuk gambar chart */
+            background-color: white; 
             padding: 10px;
             box-sizing: border-box;
         }
@@ -98,7 +98,7 @@
             color: #d4d4d4;
             padding: 15px;
             border-radius: 5px;
-            overflow-x: auto; /* Agar bisa di-scroll jika kode panjang */
+            overflow-x: auto;
             font-size: 0.9em;
         }
 
@@ -108,10 +108,8 @@
     </style>
 </head>
 <body>
-    <!-- Ini adalah kanvas untuk animasi background -->
     <div id="tsparticles"></div>
 
-    <!-- Konten website Anda dimulai dari sini -->
     <header>
         <h1>Data Science Cheat Codes</h1>
         <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
@@ -123,6 +121,7 @@
         <div class="card-container">
             <div class="card">
                 <h3>Scatter Plot dengan Matplotlib</h3>
+                <!-- PERUBAHAN DI SINI: Menggunakan URL lengkap -->
                 <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/assets/scatter_plot.png" alt="Contoh Scatter Plot">
                 <pre><code>import matplotlib.pyplot as plt
 
@@ -137,6 +136,7 @@ plt.show()</code></pre>
             </div>
             <div class="card">
                 <h3>Bar Chart dengan Matplotlib</h3>
+                <!-- PERUBAHAN DI SINI: Menggunakan URL lengkap -->
                 <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/assets/bar_chart.png" alt="Contoh Bar Chart">
                 <pre><code>import matplotlib.pyplot as plt
 
@@ -152,10 +152,7 @@ plt.show()</code></pre>
         </div>
     </main>
 
-    <!-- 1. Script untuk memuat library animasi -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-
-    <!-- 2. Script untuk konfigurasi dan menjalankan animasi -->
     <script>
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
