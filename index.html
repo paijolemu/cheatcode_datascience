@@ -1,59 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Science Cheat Codes</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Science Cheat Codes</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Style untuk background animasi partikel */
+        #tsparticles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Penting! Agar berada di belakang konten lain */
+        }
+    </style>
 </head>
 <body>
-  <!-- HERO SECTION -->
-  <header class="hero">
-    <div class="hero-content">
-      <h1>Data Science Cheat Codes</h1>
-      <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
-      <a href="plots.html" class="cta-button">Lihat Semua Cheat Codes</a>
-    </div>
-  </header>
+    <!-- Ini adalah kanvas untuk animasi background -->
+    <div id="tsparticles"></div>
 
-  <!-- MAIN CONTENT -->
-  <main class="container">
-    <h2>Contoh Cheat Code</h2>
-    <div class="plot-grid animated-bg">
+    <!-- Konten website Anda dimulai dari sini -->
+    <header>
+        <h1>Data Science Cheat Codes</h1>
+        <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
+        <a href="#" class="main-button">Lihat Semua Cheat Codes</a>
+    </header>
 
-      <!-- Scatter Plot Card -->
-      <div class="plot-card">
-        <h3>Scatter Plot dengan Matplotlib</h3>
-        <img src="images/scatter_plot_example.png" alt="Contoh Scatter Plot" />
-        <pre><code>
+    <main>
+        <h2>Contoh Cheat Code</h2>
+        <div class="card-container">
+            <div class="card">
+                <h3>Scatter Plot dengan Matplotlib</h3>
+                <img src="assets/scatter_plot.png" alt="Contoh Scatter Plot">
+                <pre><code>
 import matplotlib.pyplot as plt
+
 usia = [2,4,6,8,10,12,14,16]
 kecepatan = [110,103,99,94,88,87,87,86]
+
 plt.scatter(usia, kecepatan)
 plt.xlabel('Usia Mobil')
 plt.ylabel('Kecepatan')
 plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
 plt.show()
-        </code></pre>
-      </div>
-
-      <!-- Bar Chart Card -->
-      <div class="plot-card">
-        <h3>Bar Chart dengan Matplotlib</h3>
-        <img src="images/bar_chart_example.png" alt="Contoh Bar Chart" />
-        <pre><code>
+                </code></pre>
+            </div>
+            <div class="card">
+                <h3>Bar Chart dengan Matplotlib</h3>
+                <img src="assets/bar_chart.png" alt="Contoh Bar Chart">
+                <pre><code>
 import matplotlib.pyplot as plt
+
 kategori = ['A','B','C','D']
 nilai = [23,45,17,51]
+
 plt.bar(kategori, nilai)
 plt.xlabel('Kategori Produk')
 plt.ylabel('Jumlah Terjual')
 plt.title('Contoh Bar Chart')
 plt.show()
-        </code></pre>
-      </div>
+                </code></pre>
+            </div>
+        </div>
+    </main>
 
-    </div>
-  </main>
+    <!-- 1. Script untuk memuat library animasi -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <!-- 2. Script untuk konfigurasi dan menjalankan animasi -->
+    <script>
+        tsParticles.load("tsparticles", {
+            background: {
+                color: {
+                    value: '#111' // Warna background gelap
+                }
+            },
+            fpsLimit: 60,
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "repulse",
+                    },
+                    resize: true,
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4,
+                    },
+                },
+            },
+            particles: {
+                color: {
+                    value: "#ffffff",
+                },
+                links: {
+                    color: "#ffffff",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.2,
+                    width: 1,
+                },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                        default: "bounce",
+                    },
+                    random: false,
+                    speed: 1,
+                    straight: false,
+                },
+                number: {
+                    density: {
+                        enable: true,
+                        area: 800,
+                    },
+                    value: 80,
+                },
+                opacity: {
+                    value: 0.3,
+                },
+                shape: {
+                    type: "circle",
+                },
+                size: {
+                    value: { min: 1, max: 4 },
+                },
+            },
+            detectRetina: true,
+        });
+    </script>
 </body>
 </html>
