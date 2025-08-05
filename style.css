@@ -1,51 +1,153 @@
-/* Global & Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { width: 100%; height: 100%; font-family: sans-serif; }
-.container { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
+/* Import Font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-/* Hero (bisa custom) */
-.hero { background: #111; color: #fff; text-align: center; padding: 2rem; }
-.cta-button { /* styling link */ }
-
-/* Plot Grid & Gradient Animasi */
-.plot-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  position: relative; /* untuk pseudo-element */
-  padding: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
+/* Gaya Dasar */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #222;
+    color: #eee;
+    margin: 0;
+    display: flex;
 }
 
-/* Gradient animasi di belakang grid */
-.plot-grid.animate-bg::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: linear-gradient(45deg, #ff9a9e, #fecfef, #a18cd1, #fbc2eb);
-  background-size: 400% 400%;
-  animation: gradientBG 8s ease infinite;
-  z-index: 0;
-  opacity: 0.6;
+h1, h2, h3 {
+    color: #fff;
+    text-align: center;
 }
 
-@keyframes gradientBG {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+a {
+    color: #4CAF50;
+    text-decoration: none;
 }
 
-/* Plot Card di depan animasi */
-.plot-card {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  overflow: hidden;
-  padding: 1rem;
+/* --- BAGIAN BARU UNTUK SMOOTH SCROLLING --- */
+html {
+    scroll-behavior: smooth;
 }
-.plot-card img { width: 100%; height: auto; border-radius: 4px; }
-.plot-card pre { background: #f0f0f0; color: #333; padding: 1rem; overflow-x: auto; }
+/* ------------------------------------------- */
+
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #1a1a1a;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #444;
+}
+
+.sidebar a {
+    color: #aaa;
+    padding: 15px 0;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    /* --- INI KODE BARUNYA --- */
+    /* Menambahkan transisi agar perubahan warna background halus selama 0.3 detik */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+    color: #fff; /* Warna ikon menjadi putih saat di-hover */
+}
+
+/* Konten Utama */
+.main-content {
+    margin-left: 80px; /* Memberi ruang untuk sidebar */
+    padding: 20px;
+    width: calc(100% - 80px);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header .main-button {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+header .main-button:hover {
+    background-color: #45a049;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Card (Kartu untuk Plot) */
+.card {
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 45%;
+    min-width: 400px;
+    color: #333;
+    
+    /* --- INI KODE BARUNYA --- */
+    /* Menambahkan transisi agar efek 'terangkat' dan bayangan muncul secara halus */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- INI ATURAN BARUNYA --- */
+/* Efek saat kursor mouse berada di atas card */
+.card:hover {
+    /* Membuat kartu sedikit terangkat ke atas */
+    transform: translateY(-10px); 
+    /* Menambah bayangan agar efek 3D lebih terasa */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+
+.card h3 {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.card img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Blok Kode */
+pre {
+    background-color: #2d2d2d;
+    color: #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto; /* Agar bisa di-scroll jika kode terlalu panjang */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+/* Particles.js Background */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    z-index: -1; /* Posisikan di paling belakang */
+    top: 0;
+    left: 0;
+}
