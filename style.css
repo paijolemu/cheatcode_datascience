@@ -83,6 +83,7 @@ header {
     margin-bottom: 50px;
 }
 
+/* PASTIKAN BLOK INI TERLIHAT PERSIS SEPERTI INI */
 header h1 {
     font-size: 3.5rem;
     font-weight: 700;
@@ -92,9 +93,9 @@ header h1 {
     -webkit-text-fill-color: transparent;
     margin-bottom: 10px;
 
-    /* --- TAMBAHKAN DUA BARIS INI --- */
-    background-size: 200% auto; /* Membuat background gradien lebih besar */
-    animation: gradient-animation 5s ease infinite; /* Menerapkan animasi */
+    /* Dua baris penting untuk animasi */
+    background-size: 200% auto;
+    animation: gradient-animation 5s ease infinite; 
 }
 
 header p {
