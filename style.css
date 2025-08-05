@@ -222,3 +222,43 @@ pre {
         background-position: 0% 50%;
     }
 }
+/* --- TEMPELKAN INI DI BAGIAN BAWAH style.css --- */
+
+/* Gaya untuk tombol di dalam kartu */
+.card-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 18px;
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    color: white;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(142, 45, 226, 0.4);
+}
+
+/* Gaya untuk statistik dataset */
+.dataset-stats {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.dataset-stats li {
+    margin-bottom: 8px;
+    border-left: 3px solid var(--primary-color-end);
+    padding-left: 10px;
+}
+
+/* (BONUS) Memberi tanda link aktif di sidebar */
+.sidebar a.active {
+    color: #fff;
+    background-color: rgba(142, 45, 226, 0.2); /* Warna ungu transparan */
+}
