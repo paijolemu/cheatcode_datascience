@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datasets - Data Science Cheat Codes</title>
+    <!-- MENGHUBUNGKAN KE FILE CSS YANG SAMA -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Background partikel yang sama -->
+    <div id="particles-js"></div>
+
+    <!-- Sidebar yang sama persis -->
+    <nav class="sidebar">
+        <a href="#" title="Menu"><i class="fas fa-bars"></i></a>
+        <a href="index.html" title="Home"><i class="fas fa-home"></i></a>
+        <a href="#" title="Charts"><i class="fas fa-chart-pie"></i></a>
+        <!-- Tandai link ini sebagai halaman aktif -->
+        <a href="datasets.html" title="Datasets" class="active"><i class="fas fa-database"></i></a>
+        <a href="#" title="Settings"><i class="fas fa-cog"></i></a>
+    </nav>
+
+    <!-- Konten Utama -->
+    <div class="main-content">
+        <!-- Header Halaman Dataset -->
+        <header>
+            <h1>Kumpulan Dataset Latihan</h1>
+            <p>Gunakan dataset populer ini untuk melatih skill analisis dan visualisasi data Anda.</p>
+        </header>
+
+        <main>
+            <!-- Judul Section -->
+            <div class="section-title-container">
+                <h2>Daftar Dataset</h2>
+            </div>
+
+            <!-- Kontainer untuk semua kartu dataset -->
+            <div class="card-container">
+
+                <!-- Kartu Dataset 1: Titanic -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Dataset Titanic</h3>
+                        <p>Dataset klasik untuk tugas klasifikasi. Prediksi penumpang mana yang selamat dari tragedi Titanic berdasarkan data seperti usia, kelas tiket, dan jenis kelamin.</p>
+                        <ul class="dataset-stats">
+                            <li><strong>Format:</strong> .csv</li>
+                            <li><strong>Ukuran:</strong> 891 baris, 12 kolom</li>
+                            <li><strong>Tugas:</strong> Klasifikasi Biner</li>
+                        </ul>
+                        <a href="https://www.kaggle.com/c/titanic/data" class="card-button" target="_blank">Download di Kaggle</a>
+                    </div>
+                </div>
+
+                <!-- Kartu Dataset 2: Iris -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Dataset Iris</h3>
+                        <p>Dataset paling terkenal untuk pemula. Tujuannya adalah mengklasifikasikan bunga Iris ke dalam tiga spesies (setosa, versicolor, virginica) berdasarkan panjang dan lebar sepal & petal.</p>
+                        <ul class="dataset-stats">
+                            <li><strong>Format:</strong> .csv</li>
+                            <li><strong>Ukuran:</strong> 150 baris, 5 kolom</li>
+                            <li><strong>Tugas:</strong> Multi-class Classification</li>
+                        </ul>
+                        <a href="https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data" class="card-button" target="_blank">Download Langsung</a>
+                    </div>
+                </div>
+                
+                <!-- Kartu Dataset 3: California Housing -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>California Housing Prices</h3>
+                        <p>Dataset yang bagus untuk melatih model regresi. Prediksi harga median rumah di distrik California berdasarkan data sensus seperti pendapatan median, usia rumah, dll.</p>
+                        <ul class="dataset-stats">
+                            <li><strong>Format:</strong> .csv</li>
+                            <li><strong>Ukuran:</strong> 20,640 baris, 9 kolom</li>
+                            <li><strong>Tugas:</strong> Regresi</li>
+                        </ul>
+                        <a href="https://www.kaggle.com/datasets/camnugent/california-housing-prices" class="card-button" target="_blank">Download di Kaggle</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Script yang sama -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
