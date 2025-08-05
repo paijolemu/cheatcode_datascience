@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Science Cheat Codes</title>
     
-    <!-- PENTING: Menambahkan library ikon (Font Awesome) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
@@ -13,16 +12,14 @@
             --sidebar-width-expanded: 240px;
             --sidebar-width-collapsed: 70px;
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0; /* Padding utama dipindahkan ke #main-content */
+            padding: 0;
             color: #f0f0f0;
             background-color: #111;
             overflow-x: hidden;
         }
-
         #tsparticles {
             position: fixed;
             width: 100%;
@@ -31,14 +28,12 @@
             left: 0;
             z-index: -1;
         }
-        
-        /* CSS UNTUK SIDEBAR BARU */
         #sidebar {
             position: fixed;
             left: 0;
             top: 0;
             height: 100vh;
-            width: var(--sidebar-width-expanded); /* Lebar awal */
+            width: var(--sidebar-width-expanded);
             background-color: #1c1c1c;
             border-right: 1px solid #333;
             padding: 15px 0;
@@ -47,11 +42,9 @@
             transition: width 0.3s ease;
             z-index: 100;
         }
-
         #sidebar.collapsed {
-            width: var(--sidebar-width-collapsed); /* Lebar saat minimize */
+            width: var(--sidebar-width-collapsed);
         }
-        
         #sidebar-toggle {
             background: none;
             border: none;
@@ -61,74 +54,60 @@
             text-align: right;
             padding: 0 20px 20px 20px;
         }
-
         #sidebar.collapsed #sidebar-toggle {
             text-align: center;
             padding: 0 0 20px 0;
         }
-
         .sidebar-nav {
             list-style: none;
             padding: 0;
             margin: 0;
             flex-grow: 1;
         }
-        
         .nav-item a {
             display: flex;
             align-items: center;
             color: #d0d0d0;
             text-decoration: none;
             padding: 15px 20px;
-            white-space: nowrap; /* Mencegah teks turun baris */
+            white-space: nowrap;
             overflow: hidden;
             transition: background-color 0.2s ease;
         }
-
         .nav-item a:hover {
             background-color: #333;
         }
-
         .nav-icon {
             font-size: 1.2rem;
-            min-width: 30px; /* Jarak ikon konsisten */
+            min-width: 30px;
             text-align: center;
             margin-right: 20px;
             transition: margin-right 0.3s ease;
         }
-
         #sidebar.collapsed .nav-icon {
             margin-right: 0;
         }
-
         .nav-text {
             transition: opacity 0.2s ease;
             opacity: 1;
         }
-        
         #sidebar.collapsed .nav-text {
             opacity: 0;
             width: 0;
         }
-        
-        /* CSS UNTUK KONTEN UTAMA */
         #main-content {
-            margin-left: var(--sidebar-width-expanded); /* Memberi ruang untuk sidebar */
+            margin-left: var(--sidebar-width-expanded);
             padding: 40px;
             transition: margin-left 0.3s ease;
         }
-        
         #main-content.collapsed {
-            margin-left: var(--sidebar-width-collapsed); /* Ruang saat sidebar minimize */
+            margin-left: var(--sidebar-width-collapsed);
         }
-
         header, main {
             max-width: 1200px;
             margin: 0 auto;
             text-align: center;
         }
-
-        /* ... (CSS Anda yang lain tetap sama) ... */
         header h1 {font-size: 2.5rem;}
         header p {font-size: 1.2rem;color: #b3b3b3;}
         .main-button {display: inline-block;background-color: #007bff;color: white;padding: 10px 20px;text-decoration: none;border-radius: 5px;margin-top: 20px;transition: background-color 0.3s;}
@@ -145,7 +124,6 @@
 <body>
     <div id="tsparticles"></div>
 
-    <!-- Langkah 1: Tambahkan Sidebar Navigasi -->
     <nav id="sidebar">
         <button id="sidebar-toggle">
             <i class="fa-solid fa-bars"></i>
@@ -175,7 +153,7 @@
                     <span class="nav-text">Pandas</span>
                 </a>
             </li>
-            <li class="nav-item" style="margin-top: auto;"> <!-- Item ini akan ada di paling bawah -->
+            <li class="nav-item" style="margin-top: auto;">
                 <a href="#">
                     <i class="fa-solid fa-gear nav-icon"></i>
                     <span class="nav-text">Settings</span>
@@ -184,7 +162,6 @@
         </ul>
     </nav>
 
-    <!-- Langkah 2: Bungkus Konten Utama Anda -->
     <div id="main-content">
         <header>
             <h1>Data Science Cheat Codes</h1>
@@ -198,12 +175,30 @@
                 <div class="card">
                     <h3>Scatter Plot dengan Matplotlib</h3>
                     <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scatter_plot_example.png?raw=true" alt="Contoh Scatter Plot">
-                    <pre><code>... kode Anda ...</code></pre>
+                    <pre><code>import matplotlib.pyplot as plt
+
+usia = [2,4,6,8,10,12,14,16]
+kecepatan = [110,103,99,94,88,87,87,86]
+
+plt.scatter(usia, kecepatan)
+plt.xlabel('Usia Mobil')
+plt.ylabel('Kecepatan')
+plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
+plt.show()</code></pre>
                 </div>
                 <div class="card">
                     <h3>Bar Chart dengan Matplotlib</h3>
                     <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/bar_chart_example.png?raw=true" alt="Contoh Bar Chart">
-                    <pre><code>... kode Anda ...</code></pre>
+                    <pre><code>import matplotlib.pyplot as plt
+
+kategori = ['A','B','C','D']
+nilai = [23,45,17,51]
+
+plt.bar(kategori, nilai)
+plt.xlabel('Kategori Produk')
+plt.ylabel('Jumlah Terjual')
+plt.title('Contoh Bar Chart')
+plt.show()</code></pre>
                 </div>
             </div>
         </main>
@@ -211,10 +206,66 @@
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script>
-        // Script untuk animasi partikel
-        tsParticles.load("tsparticles", { /* ... konfigurasi Anda ... */ });
+        // INI BAGIAN YANG HILANG - KONFIGURASI ANIMASI LENGKAP
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60,
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "repulse",
+                    },
+                    resize: true,
+                },
+                modes: {
+                    repulse: {
+                        distance: 100,
+                        duration: 0.4,
+                    },
+                },
+            },
+            particles: {
+                color: {
+                    value: "#ffffff",
+                },
+                links: {
+                    color: "#ffffff",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.2,
+                    width: 1,
+                },
+                move: {
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                        default: "bounce",
+                    },
+                    random: true,
+                    speed: 1.5,
+                    straight: false,
+                },
+                number: {
+                    density: {
+                        enable: true,
+                        area: 800,
+                    },
+                    value: 80,
+                },
+                opacity: {
+                    value: 0.3,
+                },
+                shape: {
+                    type: "circle",
+                },
+                size: {
+                    value: { min: 1, max: 4 },
+                },
+            },
+            detectRetina: true,
+        });
 
-        // Langkah 3: JavaScript untuk mengontrol Sidebar
+        // JavaScript untuk mengontrol Sidebar
         const sidebar = document.getElementById('sidebar');
         const mainContent = document.getElementById('main-content');
         const toggleBtn = document.getElementById('sidebar-toggle');
