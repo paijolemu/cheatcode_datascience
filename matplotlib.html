@@ -1,10 +1,12 @@
-<!-- BUAT ATAU PERBARUI matplotlib.html DENGAN INI -->
+<!-- File: matplotlib.html (Versi Baru dengan Konten Lengkap) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matplotlib - Data Science Cheat Codes</title>
+    
+    <!-- Menggunakan File CSS yang SAMA -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -17,6 +19,7 @@
             <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
         </ul>
     </nav>
+
     <div id="main-content">
         <header>
             <h1>Matplotlib Cheats</h1>
@@ -25,10 +28,72 @@
         <main>
             <h2>Plot Populer</h2>
             <div class="card-container">
-                <!-- Tambahkan semua kartu Matplotlib Anda di sini -->
+
+                <!-- KARTU 1: LINE PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Line Plot</h3>
+                        <!-- Anda perlu membuat gambar untuk plot ini -->
+                        <img src="https://i.imgur.com/GZ5eN8u.png" alt="Contoh Line Plot">
+                        <pre><code>import matplotlib.pyplot as plt
+
+tahun = [2018, 2019, 2020, 2021, 2022]
+penjualan = [100, 120, 115, 150, 180]
+
+plt.plot(tahun, penjualan, marker='o', linestyle='--')
+plt.title('Tren Penjualan Tahunan')
+plt.xlabel('Tahun')
+plt.ylabel('Penjualan (dalam juta)')
+plt.grid(True)
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 2: HISTOGRAM -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Histogram</h3>
+                        <!-- Anda perlu membuat gambar untuk plot ini -->
+                        <img src="https://i.imgur.com/kPBOa1k.png" alt="Contoh Histogram">
+                        <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+# Data acak untuk contoh
+data = np.random.normal(loc=70, scale=10, size=500)
+
+plt.hist(data, bins=20, color='skyblue', edgecolor='black')
+plt.title('Distribusi Nilai Ujian')
+plt.xlabel('Nilai')
+plt.ylabel('Frekuensi')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 3: PIE CHART -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Pie Chart</h3>
+                        <!-- Anda perlu membuat gambar untuk plot ini -->
+                        <img src="https://i.imgur.com/eB3E3j8.png" alt="Contoh Pie Chart">
+                        <pre><code>import matplotlib.pyplot as plt
+
+labels = ['Android', 'iOS', 'Lainnya']
+market_share = [65, 30, 5]
+explode = (0.05, 0, 0) # menonjolkan slice 'Android'
+
+plt.pie(market_share, explode=explode, labels=labels, 
+        autopct='%1.1f%%', shadow=True, startangle=140)
+plt.axis('equal') # Agar pie chart terlihat bulat
+plt.title('Pangsa Pasar Sistem Operasi Mobile')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
             </div>
         </main>
     </div>
+
+    <!-- Menggunakan File JavaScript yang SAMA -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
