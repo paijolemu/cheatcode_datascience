@@ -28,3 +28,23 @@ if (toggleBtn) {
         mainContent.classList.toggle('collapsed');
     });
 }
+function revealOnScroll() {
+    const cards = document.querySelectorAll('.card');
+    
+    for (let i = 0; i < cards.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = cards[i].getBoundingClientRect().top;
+        const elementVisible = 150; // Jarak dari bawah layar sebelum animasi dimulai
+
+        if (elementTop < windowHeight - elementVisible) {
+            cards[i].classList.add('is-visible');
+        } else {
+            // Opsional: Hapus kelas jika scroll ke atas lagi
+            // cards[i].classList.remove('is-visible');
+        }
+    }
+}
+
+// Jalankan fungsi saat scroll dan saat halaman pertama kali dimuat
+window.addEventListener('scroll', revealOnScroll);
+document.addEventListener('DOMContentLoaded', revealOnScroll);
