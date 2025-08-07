@@ -1,6 +1,4 @@
-// File: script.js (Perbarui isinya dengan ini)
-
-// Inisialisasi partikel saat halaman dimuat
+// GANTI SEMUA ISI script.js DENGAN INI
 document.addEventListener('DOMContentLoaded', function () {
     tsParticles.load("tsparticles", {
         fpsLimit: 60,
@@ -21,12 +19,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
-// JavaScript untuk mengontrol Sidebar
 const sidebar = document.getElementById('sidebar');
 const mainContent = document.getElementById('main-content');
 const toggleBtn = document.getElementById('sidebar-toggle');
-
 if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
