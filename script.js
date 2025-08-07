@@ -1,28 +1,35 @@
-// Inisialisasi tsParticles di <div id="tsparticles">
-tsParticles.load("tsparticles", {
-  fullScreen: false,
-  detectRetina: true,
-  fpsLimit: 60,
-  background: { color: { value: "transparent" } },
-  particles: {
-    number: { value: 60, density: { enable: true, area: 800 } },
-    color: { value: "#ffffff" },
-    shape: { type: "circle" },
-    opacity: { value: 0.5, random: true },
-    size: { value: 3, random: true },
-    move: { enable: true, speed: 2, outMode: "out" },
-    links: { enable: true, distance: 120, color: "#ffffff", opacity: 0.4, width: 1 }
-  },
-  interactivity: {
-    detectsOn: "canvas",
-    events: {
-      onHover: { enable: true, mode: "grab" },
-      onClick: { enable: true, mode: "push" },
-      resize: true
-    },
-    modes: {
-      grab: { distance: 140, links: { opacity: 0.7 } },
-      push: { quantity: 4 }
-    }
-  }
+// File: script.js (Perbarui isinya dengan ini)
+
+// Inisialisasi partikel saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function () {
+    tsParticles.load("tsparticles", {
+        fpsLimit: 60,
+        interactivity: {
+            events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+            modes: { repulse: { distance: 100, duration: 0.4 } },
+        },
+        particles: {
+            color: { value: "#ffffff" },
+            links: { color: "#ffffff", distance: 150, enable: true, opacity: 0.2, width: 1 },
+            move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: true, speed: 1.5, straight: false },
+            number: { density: { enable: true, area: 800 }, value: 80 },
+            opacity: { value: 0.3 },
+            shape: { type: "circle" },
+            size: { value: { min: 1, max: 4 } },
+        },
+        detectRetina: true,
+    });
 });
+
+
+// JavaScript untuk mengontrol Sidebar
+const sidebar = document.getElementById('sidebar');
+const mainContent = document.getElementById('main-content');
+const toggleBtn = document.getElementById('sidebar-toggle');
+
+if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('collapsed');
+    });
+}
