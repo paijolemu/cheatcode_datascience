@@ -70,11 +70,15 @@ main h2 {
     -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 2px;
-    width: 700px;   /* <--- INI PERUBAHANNYA */
+    width: 700px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     text-align: left;
     position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* --- INI BAGIAN YANG DIPERBARUI --- */
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease; /* Tambahkan transisi box-shadow agar hover tetap smooth */
 }
 .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); }
 .card::before {
