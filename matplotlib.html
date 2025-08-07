@@ -1,4 +1,4 @@
-<!-- File: matplotlib.html (Versi Baru dengan Konten Lengkap) -->
+<!-- File: matplotlib.html (Versi BARU yang Penuh Konten) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matplotlib - Data Science Cheat Codes</title>
     
-    <!-- Menggunakan File CSS yang SAMA -->
+    <!-- Menggunakan File CSS dan Font Awesome yang SAMA -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
@@ -22,29 +22,32 @@
 
     <div id="main-content">
         <header>
-            <h1>Matplotlib Cheats</h1>
-            <p>Koleksi kode untuk membuat plot umum menggunakan Matplotlib.</p>
+            <h1>Galeri Lengkap Matplotlib</h1>
+            <p>Koleksi kode untuk membuat beragam visualisasi data dengan Matplotlib.</p>
         </header>
         <main>
-            <h2>Plot Populer</h2>
+            <h2>Plot Dasar & Statistik</h2>
             <div class="card-container">
 
-                <!-- KARTU 1: LINE PLOT -->
+                <!-- KARTU 1: LINE PLOT DENGAN BEBERAPA GARIS -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>Line Plot</h3>
-                        <!-- Anda perlu membuat gambar untuk plot ini -->
-                        <img src="https://i.imgur.com/GZ5eN8u.png" alt="Contoh Line Plot">
+                        <h3>Line Plot (Multi-Garis)</h3>
+                        <img src="https://i.imgur.com/GZ5eN8u.png" alt="Contoh Line Plot dengan beberapa garis">
                         <pre><code>import matplotlib.pyplot as plt
 
-tahun = [2018, 2019, 2020, 2021, 2022]
-penjualan = [100, 120, 115, 150, 180]
+x = [1, 2, 3, 4, 5]
+y1 = [1, 4, 9, 16, 25]
+y2 = [1, 2, 3, 4, 5]
 
-plt.plot(tahun, penjualan, marker='o', linestyle='--')
-plt.title('Tren Penjualan Tahunan')
-plt.xlabel('Tahun')
-plt.ylabel('Penjualan (dalam juta)')
-plt.grid(True)
+plt.plot(x, y1, label='x^2', color='blue', marker='o')
+plt.plot(x, y2, label='x', color='red', linestyle='--')
+
+plt.title('Perbandingan Pertumbuhan')
+plt.xlabel('Nilai X')
+plt.ylabel('Nilai Y')
+plt.legend() # Menampilkan label
+plt.grid(True, linestyle=':', alpha=0.6)
 plt.show()</code></pre>
                     </div>
                 </div>
@@ -53,38 +56,110 @@ plt.show()</code></pre>
                 <div class="card">
                     <div class="card-inner">
                         <h3>Histogram</h3>
-                        <!-- Anda perlu membuat gambar untuk plot ini -->
                         <img src="https://i.imgur.com/kPBOa1k.png" alt="Contoh Histogram">
                         <pre><code>import matplotlib.pyplot as plt
 import numpy as np
 
-# Data acak untuk contoh
-data = np.random.normal(loc=70, scale=10, size=500)
+# Data acak terdistribusi normal
+data = np.random.normal(loc=170, scale=10, size=1000)
 
-plt.hist(data, bins=20, color='skyblue', edgecolor='black')
-plt.title('Distribusi Nilai Ujian')
-plt.xlabel('Nilai')
+plt.hist(data, bins=30, color='skyblue', edgecolor='black')
+plt.title('Distribusi Tinggi Badan')
+plt.xlabel('Tinggi (cm)')
 plt.ylabel('Frekuensi')
 plt.show()</code></pre>
                     </div>
                 </div>
 
-                <!-- KARTU 3: PIE CHART -->
+                <!-- KARTU 3: BOX PLOT -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>Pie Chart</h3>
-                        <!-- Anda perlu membuat gambar untuk plot ini -->
-                        <img src="https://i.imgur.com/eB3E3j8.png" alt="Contoh Pie Chart">
+                        <h3>Box Plot</h3>
+                        <img src="https://i.imgur.com/1B3jYtC.png" alt="Contoh Box Plot">
+                        <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+# Data nilai dari 3 kelas berbeda
+kelas_a = np.random.normal(80, 10, 50)
+kelas_b = np.random.normal(75, 15, 50)
+kelas_c = np.random.normal(85, 5, 50)
+data_nilai = [kelas_a, kelas_b, kelas_c]
+
+plt.boxplot(data_nilai, labels=['Kelas A', 'Kelas B', 'Kelas C'])
+plt.title('Sebaran Nilai Ujian Antar Kelas')
+plt.ylabel('Nilai')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 4: PIE CHART (CUSTOM) -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Pie Chart (Kustomisasi)</h3>
+                        <img src="https://i.imgur.com/eB3E3j8.png" alt="Contoh Pie Chart yang dikustomisasi">
                         <pre><code>import matplotlib.pyplot as plt
 
-labels = ['Android', 'iOS', 'Lainnya']
-market_share = [65, 30, 5]
-explode = (0.05, 0, 0) # menonjolkan slice 'Android'
+labels = ['Chrome', 'Safari', 'Edge', 'Firefox']
+sizes = [64.8, 19.1, 5.4, 3.2]
+colors = ['#ff9999','#66b3ff','#99ff99','#ffcc99']
+explode = (0.05, 0, 0, 0) # menonjolkan slice pertama
 
-plt.pie(market_share, explode=explode, labels=labels, 
-        autopct='%1.1f%%', shadow=True, startangle=140)
-plt.axis('equal') # Agar pie chart terlihat bulat
-plt.title('Pangsa Pasar Sistem Operasi Mobile')
+plt.pie(sizes, explode=explode, labels=labels, colors=colors,
+        autopct='%1.1f%%', shadow=True, startangle=90)
+plt.title('Pangsa Pasar Browser Desktop')
+plt.axis('equal') # Pastikan pie chart bulat
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                 <!-- KARTU 5: HEATMAP -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Heatmap</h3>
+                        <img src="https://i.imgur.com/7gNlUqG.png" alt="Contoh Heatmap">
+                        <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+# Matriks data acak 5x5
+data = np.random.rand(5, 5) 
+labels = ['A', 'B', 'C', 'D', 'E']
+
+fig, ax = plt.subplots()
+im = ax.imshow(data, cmap='viridis')
+
+# Menambahkan colorbar
+cbar = ax.figure.colorbar(im, ax=ax)
+
+# Mengatur label
+ax.set_xticks(np.arange(len(labels)), labels=labels)
+ax.set_yticks(np.arange(len(labels)), labels=labels)
+plt.title('Heatmap Korelasi Antar Variabel')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 6: SUBPLOTS -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Subplots (2 Plot dalam 1)</h3>
+                        <img src="https://i.imgur.com/8Qj9mD3.png" alt="Contoh Subplots">
+                        <pre><code>import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.linspace(0, 2 * np.pi, 400)
+y_sin = np.sin(x ** 2)
+y_cos = np.cos(x ** 2)
+
+# Membuat figure dengan 2 baris, 1 kolom
+fig, axs = plt.subplots(2)
+fig.suptitle('Plot Sinus dan Cosinus')
+
+axs[0].plot(x, y_sin, color='navy')
+axs[0].set_title('sin(x^2)')
+
+axs[1].plot(x, y_cos, color='orange')
+axs[1].set_title('cos(x^2)')
+plt.tight_layout() # Merapikan layout
 plt.show()</code></pre>
                     </div>
                 </div>
