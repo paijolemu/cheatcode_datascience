@@ -41,7 +41,7 @@ body {
     margin-left: var(--sidebar-width-expanded); padding: 40px; transition: margin-left 0.3s ease;
 }
 #main-content.collapsed { margin-left: var(--sidebar-width-collapsed); }
-header, main { max-width: 1200px; margin: 0 auto; text-align: center; }
+header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 header h1 {
     font-size: 3.5rem; font-weight: 700; margin-bottom: 10px;
     background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
@@ -65,9 +65,16 @@ main h2 {
 }
 .card-container {display: flex;justify-content: center;flex-wrap: wrap;gap: 30px;margin-top: 40px;}
 .card {
-    background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px; padding: 2px; width: 450px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    text-align: left; position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2px;
+    width: 700px;   /* <--- INI PERUBAHANNYA */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6); }
 .card::before {
