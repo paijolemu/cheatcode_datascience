@@ -1,278 +1,29 @@
+<!-- GANTI SEMUA ISI index.html DENGAN INI -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Science Cheat Codes</title>
-    
-    <!-- Ikon dari Font Awesome -->
+    <title>Home - Data Science Cheat Codes</title>
+    <!-- Link ke file CSS yang sudah kita rapikan -->
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
-    <!-- SEMUA CSS ADA DI SINI -->
-    <style>
-        /* Variabel Warna Baru yang Colorful */
-        :root {
-            --bg-color: #121212;
-            --sidebar-bg: #1A1A1A;
-            --card-bg: rgba(26, 26, 26, 0.7);
-            --text-color: #e0e0e0;
-            --primary-color-start: #4a00e0;
-            --primary-color-end: #8e2de2;
-            --sidebar-width-expanded: 240px;
-            --sidebar-width-collapsed: 70px;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            background-color: var(--bg-color);
-            overflow-x: hidden;
-        }
-        
-        #tsparticles {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        /* --- Sidebar --- */
-        #sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            width: var(--sidebar-width-expanded);
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid #333;
-            padding: 15px 0;
-            display: flex;
-            flex-direction: column;
-            transition: width 0.3s ease;
-            z-index: 100;
-        }
-        #sidebar.collapsed {
-            width: var(--sidebar-width-collapsed);
-        }
-        #sidebar-toggle {
-            background: none;
-            border: none;
-            color: #a0a0a0;
-            font-size: 1.5rem;
-            cursor: pointer;
-            text-align: right;
-            padding: 0 20px 20px 20px;
-            transition: color 0.2s ease;
-        }
-        #sidebar-toggle:hover {
-            color: #fff;
-        }
-        #sidebar.collapsed #sidebar-toggle {
-            text-align: center;
-            padding: 0 0 20px 0;
-        }
-        .sidebar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1;
-        }
-        .nav-item a {
-            display: flex;
-            align-items: center;
-            color: #d0d0d0;
-            text-decoration: none;
-            padding: 15px 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            transition: background-color 0.2s ease, color 0.2s ease;
-        }
-        /* Efek hover baru untuk sidebar */
-        .nav-item a:hover .nav-icon {
-            color: white;
-        }
-        .nav-item a:hover .nav-text {
-            background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 500;
-        }
-        .nav-icon {
-            font-size: 1.2rem;
-            min-width: 30px;
-            text-align: center;
-            margin-right: 20px;
-            transition: margin-right 0.3s ease, color 0.2s ease;
-        }
-        #sidebar.collapsed .nav-icon {
-            margin-right: 0;
-        }
-        .nav-text {
-            transition: opacity 0.2s ease;
-            opacity: 1;
-        }
-        #sidebar.collapsed .nav-text {
-            opacity: 0;
-            width: 0;
-        }
-
-        /* --- Konten Utama --- */
-        #main-content {
-            margin-left: var(--sidebar-width-expanded);
-            padding: 40px;
-            transition: margin-left 0.3s ease;
-        }
-        #main-content.collapsed {
-            margin-left: var(--sidebar-width-collapsed);
-        }
-        header, main {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        /* --- Header dengan Judul "Live" --- */
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            /* Trik gradien untuk teks */
-            background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            /* Trik untuk animasi */
-            background-size: 200% auto;
-            animation: gradient-animation 5s ease-in-out infinite;
-        }
-        header p {font-size: 1.2rem;color: #b3b3b3; margin-bottom: 30px;}
-        .main-button {
-            display: inline-block;
-            background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-            color: white;
-            padding: 12px 28px;
-            text-decoration: none;
-            border-radius: 50px;
-            margin-top: 20px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .main-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
-        }
-        main h2 {
-            margin-top: 60px; 
-            font-size: 2.5rem;
-            font-weight: 600;
-            display: inline-block;
-            padding-bottom: 10px;
-            border-bottom: 3px solid;
-            border-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end)) 1;
-        }
-
-        /* --- Kartu (Card) dengan Border Gradien --- */
-        .card-container {display: flex;justify-content: center;flex-wrap: wrap;gap: 30px;margin-top: 40px;}
-        .card {
-            background: var(--card-bg); /* Latar belakang semi transparan */
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2px; /* Ruang untuk border gradien */
-            width: 450px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            text-align: left;
-            position: relative; /* Diperlukan untuk border */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-        }
-        /* Trik untuk border gradien */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            z-index: -1;
-            margin: -2px;
-            border-radius: inherit;
-            background: linear-gradient(135deg, var(--primary-color-start), var(--primary-color-end));
-        }
-        .card-inner {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 13px; /* Lebih kecil dari parent */
-            height: 100%;
-        }
-        .card h3 {color: #ffffff;text-align: center;margin-top: 0;font-size: 1.4rem;}
-        .card img {max-width: 100%;border-radius: 5px;background-color: white;padding: 10px;box-sizing: border-box; margin: 15px 0;}
-        pre {background-color: #282a36;color: #f8f8f2;padding: 15px;border-radius: 5px;overflow-x: auto;font-size: 0.9em; border: 1px solid #44475a;}
-        code {font-family: "Fira Code", "Courier New", monospace;}
-
-        /* --- Definisi Animasi Gradien untuk Judul --- */
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-    </style>
 </head>
 <body>
     <div id="tsparticles"></div>
-
     <nav id="sidebar">
-        <button id="sidebar-toggle">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
         <ul class="sidebar-nav">
-            <li class="nav-item">
-                <a href="#">
-                    <i class="fa-solid fa-house nav-icon"></i>
-                    <span class="nav-text">Home</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="fa-solid fa-chart-pie nav-icon"></i>
-                    <span class="nav-text">Matplotlib</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="fa-solid fa-chart-bar nav-icon"></i>
-                    <span class="nav-text">Seaborn</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="fa-solid fa-table nav-icon"></i>
-                    <span class="nav-text">Pandas</span>
-                </a>
-            </li>
-            <li class="nav-item" style="margin-top: auto;">
-                <a href="#">
-                    <i class="fa-solid fa-gear nav-icon"></i>
-                    <span class="nav-text">Settings</span>
-                </a>
-            </li>
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
         </ul>
     </nav>
-
     <div id="main-content">
         <header>
             <h1>Data Science Cheat Codes</h1>
             <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
-            <a href="#" class="main-button">Lihat Semua Cheat Codes</a>
+            <a href="matplotlib.html" class="main-button">Lihat Semua Cheat Codes</a>
         </header>
-
         <main>
             <h2>Contoh Cheat Code</h2>
             <div class="card-container">
@@ -281,15 +32,7 @@
                         <h3>Scatter Plot dengan Matplotlib</h3>
                         <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scatter_plot_example.png?raw=true" alt="Contoh Scatter Plot">
                         <pre><code>import matplotlib.pyplot as plt
-
-usia = [2,4,6,8,10,12,14,16]
-kecepatan = [110,103,99,94,88,87,87,86]
-
-plt.scatter(usia, kecepatan)
-plt.xlabel('Usia Mobil')
-plt.ylabel('Kecepatan')
-plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
-plt.show()</code></pre>
+... kode ...</code></pre>
                     </div>
                 </div>
                 <div class="card">
@@ -297,92 +40,14 @@ plt.show()</code></pre>
                         <h3>Bar Chart dengan Matplotlib</h3>
                         <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/bar_chart_example.png?raw=true" alt="Contoh Bar Chart">
                         <pre><code>import matplotlib.pyplot as plt
-
-kategori = ['A','B','C','D']
-nilai = [23,45,17,51]
-
-plt.bar(kategori, nilai)
-plt.xlabel('Kategori Produk')
-plt.ylabel('Jumlah Terjual')
-plt.title('Contoh Bar Chart')
-plt.show()</code></pre>
+... kode ...</code></pre>
                     </div>
                 </div>
             </div>
         </main>
     </div>
-
-    <!-- SEMUA JAVASCRIPT ADA DI SINI -->
+    <!-- Link ke file JS yang sudah kita rapikan -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script>
-        // Konfigurasi animasi partikel yang lengkap
-        tsParticles.load("tsparticles", {
-            fpsLimit: 60,
-            interactivity: {
-                events: {
-                    onHover: {
-                        enable: true,
-                        mode: "repulse",
-                    },
-                    resize: true,
-                },
-                modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 0.4,
-                    },
-                },
-            },
-            particles: {
-                color: {
-                    value: "#ffffff",
-                },
-                links: {
-                    color: "#ffffff",
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.2,
-                    width: 1,
-                },
-                move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: {
-                        default: "bounce",
-                    },
-                    random: true,
-                    speed: 1.5,
-                    straight: false,
-                },
-                number: {
-                    density: {
-                        enable: true,
-                        area: 800,
-                    },
-                    value: 80,
-                },
-                opacity: {
-                    value: 0.3,
-                },
-                shape: {
-                    type: "circle",
-                },
-                size: {
-                    value: { min: 1, max: 4 },
-                },
-            },
-            detectRetina: true,
-        });
-
-        // JavaScript untuk mengontrol Sidebar (ini sudah benar, tidak diubah)
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('main-content');
-        const toggleBtn = document.getElementById('sidebar-toggle');
-
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('collapsed');
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
