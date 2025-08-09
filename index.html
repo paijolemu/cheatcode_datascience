@@ -1,4 +1,4 @@
-<!-- File: index.html (Versi yang Benar dan Lengkap dengan Kode Plot) -->
+<!-- File: index.html (Versi FINAL yang Sudah Benar) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Data Science Cheat Codes</title>
     
-    <!-- Link ke file CSS yang sudah kita rapikan -->
+    <!-- PENTING: Menghubungkan ke file CSS -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <div id="tsparticles"></div>
+
+    <!-- PENTING: Struktur sidebar yang benar -->
     <nav id="sidebar">
         <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
         <ul class="sidebar-nav">
@@ -19,6 +21,7 @@
             <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
         </ul>
     </nav>
+
     <div id="main-content">
         <header>
             <h1>Data Science Cheat Codes</h1>
@@ -28,17 +31,13 @@
         <main>
             <h2>Contoh Cheat Code</h2>
             <div class="card-container">
-                
-                <!-- KARTU SCATTER PLOT DENGAN KODE LENGKAP -->
                 <div class="card">
                     <div class="card-inner">
                         <h3>Scatter Plot dengan Matplotlib</h3>
-                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scatter_plot_example.png?raw=true" alt="Contoh Scatter Plot">
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scatter_plot_example.png" alt="Contoh Scatter Plot">
                         <pre><code>import matplotlib.pyplot as plt
-
 usia = [2,4,6,8,10,12,14,16]
 kecepatan = [110,103,99,94,88,87,87,86]
-
 plt.scatter(usia, kecepatan)
 plt.xlabel('Usia Mobil')
 plt.ylabel('Kecepatan')
@@ -46,17 +45,13 @@ plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
 plt.show()</code></pre>
                     </div>
                 </div>
-
-                <!-- KARTU BAR CHART DENGAN KODE LENGKAP -->
                 <div class="card">
                     <div class="card-inner">
                         <h3>Bar Chart dengan Matplotlib</h3>
-                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/bar_chart_example.png?raw=true" alt="Contoh Bar Chart">
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/bar_chart_example.png" alt="Contoh Bar Chart">
                         <pre><code>import matplotlib.pyplot as plt
-
 kategori = ['A','B','C','D']
 nilai = [23,45,17,51]
-
 plt.bar(kategori, nilai)
 plt.xlabel('Kategori Produk')
 plt.ylabel('Jumlah Terjual')
@@ -68,7 +63,7 @@ plt.show()</code></pre>
         </main>
     </div>
     
-    <!-- Link ke file JS yang sudah kita rapikan -->
+    <!-- PENTING: Menghubungkan ke file JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
