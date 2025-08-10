@@ -1,0 +1,112 @@
+<!-- File: seaborn.html (Halaman Baru untuk Seaborn) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seaborn - Data Science Cheat Codes</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div id="tsparticles"></div>
+    <nav id="sidebar">
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+        </ul>
+    </nav>
+
+    <div id="main-content">
+        <header>
+            <h1>Galeri Visualisasi Seaborn</h1>
+            <p>Membuat plot statistik yang indah dengan kode yang lebih ringkas.</p>
+        </header>
+        <main>
+            <h2>Plot Statistik Populer</h2>
+            <div class="card-container">
+
+                <!-- KARTU 1: VIOLIN PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Violin Plot</h3>
+                        <img src="https://i.imgur.com/2sL7gGk.png" alt="Contoh Violin Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Seaborn memiliki dataset bawaan
+tips = sns.load_dataset("tips")
+
+sns.violinplot(x="day", y="total_bill", data=tips, palette="muted")
+plt.title('Distribusi Total Tagihan per Hari')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 2: HEATMAP (KORELASI) -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Heatmap Korelasi</h3>
+                        <img src="https://i.imgur.com/9lQy3iF.png" alt="Contoh Heatmap Korelasi">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+
+# Membuat data acak dan matriks korelasi
+data = pd.DataFrame(np.random.rand(10, 10))
+correlation = data.corr()
+
+sns.heatmap(correlation, annot=True, cmap='coolwarm', fmt=".1f")
+plt.title('Heatmap Matriks Korelasi')
+plt.show()</code></pre>
+                    </div>
+                </div>
+                
+                <!-- KARTU 3: DISTRIBUTION PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Distribution Plot</h3>
+                        <img src="https://i.imgur.com/c4hBwJc.png" alt="Contoh Distribution Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+# Menampilkan histogram dengan kurva kepadatan (KDE)
+sns.histplot(data=tips, x="total_bill", kde=True, color="teal")
+plt.title('Distribusi Total Tagihan')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 4: PAIR PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Pair Plot</h3>
+                        <img src="https://i.imgur.com/7gNlUqG.png" alt="Contoh Pair Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Menggunakan dataset 'iris' yang terkenal
+iris = sns.load_dataset("iris")
+
+# Membuat scatter plot untuk setiap pasangan variabel
+# dan memberi warna berdasarkan spesies
+sns.pairplot(iris, hue="species", palette="viridis")
+plt.suptitle('Analisis Hubungan Antar Variabel Iris', y=1.02)
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
