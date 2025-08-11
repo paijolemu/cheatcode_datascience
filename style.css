@@ -97,8 +97,14 @@ main h2 {
 .card.is-visible .card-inner img { opacity: 1; transform: scale(1); }
 .card:hover .card-inner img { transform: scale(1.03); }
 pre {
-    background-color: #282a36; color: #f8f8f2; padding: 15px; border-radius: 5px;
-    overflow-x: auto; font-size: 0.9em; border: 1px solid #44475a;
+    background-color: #282a36;
+    color: #f8f8f2;
+    padding: 20px;
+    font-size: 0.9em;
+    overflow-x: auto; /* Tetap aktifkan scroll horizontal */
+    border-bottom-left-radius: 8px; /* Hanya sudut bawah */
+    border-bottom-right-radius: 8px;
+    margin: 0; /* Hapus margin agar menempel dengan header */
 }
 code { font-family: "Fira Code", "Courier New", monospace; }
 @keyframes gradient-animation {
@@ -158,4 +164,73 @@ code { font-family: "Fira Code", "Courier New", monospace; }
 .nav-button.disabled {
     opacity: 0;
     pointer-events: none;
+}
+/* ================================================= */
+/*       GAYA BARU UNTUK BLOK KODE PROFESIONAL       */
+/* ================================================= */
+
+/* Pembungkus utama untuk blok kode */
+.code-block {
+    text-align: left;
+    border: 1px solid #44475a;
+    border-radius: 8px;
+    margin-top: 15px;
+    overflow: hidden; /* Penting agar sudut melengkung bekerja */
+}
+
+/* Header di atas blok kode */
+.code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #3a3c4e;
+    padding: 10px 15px;
+}
+
+/* Titik-titik warna ala macOS */
+.code-block-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+/* Tombol untuk menyalin kode */
+.copy-button {
+    background-color: #4a4d64;
+    color: #e0e0e0;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-family: inherit;
+    transition: background-color 0.2s;
+}
+
+.copy-button:hover {
+    background-color: #616584;
+}
+
+/* Gaya untuk scrollbar yang cantik */
+pre::-webkit-scrollbar {
+    height: 8px;
+}
+pre::-webkit-scrollbar-track {
+    background: #3a3c4e;
+    border-radius: 4px;
+}
+pre::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    border-radius: 4px;
+}
+pre::-webkit-scrollbar-thumb:hover {
+    filter: brightness(1.2);
 }
