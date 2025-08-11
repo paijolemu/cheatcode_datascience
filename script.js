@@ -58,4 +58,25 @@ document.addEventListener("DOMContentLoaded", () => {
             observer.observe(card);
         });
     }
+    const copyButtons = document.querySelectorAll(".copy-button");
+
+    copyButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            // Cari elemen 'pre' terdekat di dalam parent '.code-block'
+            const codeBlock = button.closest('.code-block');
+            const preElement = codeBlock.querySelector('pre');
+            const codeToCopy = preElement.innerText;
+    
+            // Salin ke clipboard
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+                // Beri feedback visual
+                button.innerText = "Copied!";
+                setTimeout(() => {
+                    button.innerText = "Copy";
+                }, 2000); // Kembali ke teks "Copy" setelah 2 detik
+            }).catch(err => {
+                console.error("Gagal menyalin kode: ", err);
+            });
+        });
+    });
 });
