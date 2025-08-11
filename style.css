@@ -104,3 +104,58 @@ code { font-family: "Fira Code", "Courier New", monospace; }
 @keyframes gradient-animation {
     0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
 }
+/* --- CSS UNTUK TOMBOL NAVIGASI HALAMAN BAWAH --- */
+.page-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 80px; /* Jarak dari konten terakhir */
+    padding-top: 30px;
+    border-top: 1px solid #444;
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid #555;
+    transition: all 0.3s var(--smooth-ease);
+}
+
+.nav-button:hover {
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    border-color: var(--primary-color-end);
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 15px rgba(142, 45, 226, 0.3);
+}
+
+.nav-button .arrow {
+    font-size: 1.2rem;
+}
+
+.nav-button .prev .arrow {
+    margin-right: 10px;
+}
+
+.nav-button .next .arrow {
+    margin-left: 10px;
+}
+
+.nav-button .nav-text-main {
+    font-weight: 600;
+}
+
+.nav-button .nav-text-sub {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Sembunyikan tombol jika tidak ada link */
+.nav-button.disabled {
+    opacity: 0;
+    pointer-events: none;
+}
