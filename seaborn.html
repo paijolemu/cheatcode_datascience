@@ -1,4 +1,4 @@
-<!-- File: seaborn.html (Halaman Baru untuk Seaborn) -->
+<!-- File: seaborn.html (Versi BARU yang Lebih Banyak Konten) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,74 +29,104 @@
             <h2>Plot Statistik Populer</h2>
             <div class="card-container">
 
-                <!-- KARTU 1: VIOLIN PLOT -->
+                <!-- KARTU 1: DISTRIBUTION PLOT -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>Violin Plot</h3>
-                        <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/violin.png?raw=true" alt="Contoh Violin Plot">
-                        <pre><code>import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Seaborn memiliki dataset bawaan
-tips = sns.load_dataset("tips")
-
-sns.violinplot(x="day", y="total_bill", data=tips, palette="muted")
-plt.title('Distribusi Total Tagihan per Hari')
-plt.show()</code></pre>
-                    </div>
-                </div>
-
-                <!-- KARTU 2: HEATMAP (KORELASI) -->
-                <div class="card">
-                    <div class="card-inner">
-                        <h3>Heatmap Korelasi</h3>
-                        <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/heatmap,%20worm.png?raw=true" alt="Contoh Heatmap Korelasi">
-                        <pre><code>import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
-# Membuat data acak dan matriks korelasi
-data = pd.DataFrame(np.random.rand(10, 10))
-correlation = data.corr()
-
-sns.heatmap(correlation, annot=True, cmap='coolwarm', fmt=".1f")
-plt.title('Heatmap Matriks Korelasi')
-plt.show()</code></pre>
-                    </div>
-                </div>
-                
-                <!-- KARTU 3: DISTRIBUTION PLOT -->
-                <div class="card">
-                    <div class="card-inner">
-                        <h3>Distribution Plot</h3>
-                        <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/hist,%20true.png?raw=true" alt="Contoh Distribution Plot">
+                        <h3>Distribution Plot (histplot)</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_histplot.png" alt="Contoh Distribution Plot">
                         <pre><code>import seaborn as sns
 import matplotlib.pyplot as plt
 
 tips = sns.load_dataset("tips")
-
-# Menampilkan histogram dengan kurva kepadatan (KDE)
 sns.histplot(data=tips, x="total_bill", kde=True, color="teal")
 plt.title('Distribusi Total Tagihan')
 plt.show()</code></pre>
                     </div>
                 </div>
 
-                <!-- KARTU 4: PAIR PLOT -->
+                <!-- KARTU 2: VIOLIN PLOT -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>Pair Plot</h3>
-                        <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/pair%20plot.png?raw=true" alt="Contoh Pair Plot">
+                        <h3>Violin Plot</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_violinplot.png" alt="Contoh Violin Plot">
                         <pre><code>import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Menggunakan dataset 'iris' yang terkenal
-iris = sns.load_dataset("iris")
+tips = sns.load_dataset("tips")
+sns.violinplot(x="day", y="total_bill", data=tips, palette="muted")
+plt.title('Distribusi Total Tagihan per Hari')
+plt.show()</code></pre>
+                    </div>
+                </div>
+                
+                <!-- KARTU 3: BOX PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Box Plot</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_boxplot.png" alt="Contoh Box Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
 
+tips = sns.load_dataset("tips")
+sns.boxplot(x="day", y="total_bill", hue="smoker", data=tips, palette="coolwarm")
+plt.title('Box Plot Tagihan per Hari (Dipisah Perokok)')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 4: HEATMAP KORELASI -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Heatmap Korelasi</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_heatmap.png" alt="Contoh Heatmap Korelasi">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+# Membuat data acak
+data = pd.DataFrame(np.random.rand(10, 10), columns=[f'Var{i}' for i in range(10)])
+correlation = data.corr()
+
+sns.heatmap(correlation, annot=True, cmap='viridis', fmt=".1f")
+plt.title('Heatmap Matriks Korelasi')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 5: JOINT PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Joint Plot</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_jointplot.png" alt="Contoh Joint Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+# Menampilkan scatter plot dengan distribusi di setiap sumbu
+sns.jointplot(data=tips, x="total_bill", y="tip", kind="reg", color="purple")
+plt.suptitle('Hubungan Tagihan dan Tip', y=1.02)
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <!-- KARTU 6: PAIR PLOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Pair Plot</h3>
+                        <!-- Ganti src dengan link gambar Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/seaborn_pairplot.png" alt="Contoh Pair Plot">
+                        <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+
+iris = sns.load_dataset("iris")
 # Membuat scatter plot untuk setiap pasangan variabel
-# dan memberi warna berdasarkan spesies
-sns.pairplot(iris, hue="species", palette="viridis")
+sns.pairplot(iris, hue="species", palette="plasma")
 plt.suptitle('Analisis Hubungan Antar Variabel Iris', y=1.02)
 plt.show()</code></pre>
                     </div>
