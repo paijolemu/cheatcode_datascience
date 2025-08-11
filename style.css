@@ -75,9 +75,9 @@ main h2 {
 .card-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
 .card {
     background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    border-radius: 15px; padding: 2px; width: 700px; text-align: left; position: relative;
-    opacity: 0; transform: translateY(40px);
-    transition: opacity 0.6s var(--smooth-ease), transform 0.6s var(--smooth-ease);
+    border-radius: 15px; padding: 2px; width: 600px; text-align: left; position: relative;
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.5s var(--smooth-ease), transform 0.5s var(--smooth-ease), box-shadow 0.3s ease;
 }
 .card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5); }
 .card.is-visible { opacity: 1; transform: translateY(0); }
