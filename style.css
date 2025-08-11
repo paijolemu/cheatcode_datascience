@@ -76,7 +76,7 @@ main h2 {
 .card {
     background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     border-radius: 15px; padding: 2px; 
-    width: 45%;
+    flex: 0 1 45%;     /* Ini cara flexbox yang lebih baik */
     min-width: 600px;
     text-align: left; position: relative;
     opacity: 0; transform: translateY(30px);
