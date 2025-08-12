@@ -1,0 +1,167 @@
+<!-- File: pandas.html (Halaman Baru untuk Pandas) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pandas - Data Science Cheat Codes</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div id="tsparticles"></div>
+    <nav id="sidebar">
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+            <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
+        </ul>
+    </nav>
+
+    <div id="main-content">
+        <header>
+            <h1>Contekan Manipulasi Data Pandas</h1>
+            <p>Operasi paling umum untuk membersihkan, mengubah, dan menganalisis data.</p>
+        </header>
+        <main>
+            <h2>Operasi Dasar & Seleksi Data</h2>
+            <div class="card-container">
+
+                <!-- KARTU 1: MEMBACA CSV & MELIHAT DATA -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Membaca CSV & Melihat Data Awal</h3>
+                        <img src="https://i.imgur.com/u5uP8aA.png" alt="Output df.head()">
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code>import pandas as pd
+
+# Ganti 'nama_file.csv' dengan path file Anda
+# df = pd.read_csv('nama_file.csv') 
+
+# Contoh membuat DataFrame manual
+data = {'Nama': ['Ana', 'Budi', 'Caca'], 'Usia': [28, 34, 29]}
+df = pd.DataFrame(data)
+
+# Melihat 5 baris pertama
+print(df.head())</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU 2: SELEKSI KOLOM -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Seleksi Kolom</h3>
+                        <img src="https://i.imgur.com/4zYgO2t.png" alt="Output seleksi kolom">
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code># data dari kartu sebelumnya
+# df = ...
+
+# Memilih satu kolom (hasilnya Series)
+nama_series = df['Nama']
+print(nama_series)
+
+# Memilih beberapa kolom (hasilnya DataFrame)
+subset_df = df[['Nama', 'Usia']]
+print(subset_df)</code></pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- KARTU 3: SELEKSI BARIS DENGAN .LOC & .ILOC -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Seleksi Baris (.loc & .iloc)</h3>
+                        <img src="https://i.imgur.com/gK9pZ9x.png" alt="Output seleksi baris">
+                        <div class="code-block">
+                           <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code># .iloc memilih berdasarkan posisi integer (mulai dari 0)
+baris_pertama = df.iloc[0] 
+print(baris_pertama)
+
+# .loc memilih berdasarkan label index
+# Jika indexnya default, maka sama dengan .iloc
+baris_kedua = df.loc[1]
+print(baris_kedua)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU 4: FILTERING / SELEKSI KONDISIONAL -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Filtering Data</h3>
+                        <img src="https://i.imgur.com/L5b1Y0g.png" alt="Output filtering data">
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code># data dari kartu sebelumnya
+# df = ...
+
+# Memilih baris dimana Usia di atas 30
+diatas_30 = df[df['Usia'] > 30]
+print(diatas_30)
+
+# Kondisi ganda (usia > 25 DAN Nama adalah 'Caca')
+kondisi_ganda = df[(df['Usia'] > 25) & (df['Nama'] == 'Caca')]
+print(kondisi_ganda)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU 5: GROUP BY (MENGELOMPOKKAN DATA) -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Group By & Agregasi</h3>
+                        <img src="https://i.imgur.com/tYtV9mS.png" alt="Output groupby">
+                        <div class="code-block">
+                           <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code>data = {'Tim': ['A','B','A','B'], 'Poin': [10,12,5,8]}
+df_poin = pd.DataFrame(data)
+
+# Kelompokkan berdasarkan 'Tim' lalu hitung total poin
+total_poin_per_tim = df_poin.groupby('Tim')['Poin'].sum()
+print(total_poin_per_tim)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU 6: MENAMBAH & MENGHAPUS KOLOM -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Menambah & Menghapus Kolom</h3>
+                        <img src="https://i.imgur.com/4qGfJzV.png" alt="Output modifikasi kolom">
+                        <div class="code-block">
+                           <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code># data dari kartu pertama
+# df = ...
+
+# Menambah kolom baru
+df['Pekerjaan'] = ['Dokter', 'Insinyur', 'Guru']
+print("Setelah ditambah:")
+print(df)
+
+# Menghapus kolom 'Pekerjaan'
+df = df.drop('Pekerjaan', axis=1)
+print("\nSetelah dihapus:")
+print(df)</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="page-navigation">
+            <a href="seaborn.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">Seaborn</div></div></a>
+            <a href="#" class="nav-button next disabled"><div><div class="nav-text-sub">Selanjutnya</div><div class="nav-text-main">Coming Soon</div></div><i class="fas fa-arrow-right arrow"></i></a>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
