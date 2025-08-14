@@ -1,36 +1,16 @@
-/* ================================================= */
-/*        FILE JAVASCRIPT LENGKAP - VERSI FINAL        */
-/* ================================================= */
-
-// Jalankan SEMUA kode setelah struktur HTML halaman selesai dimuat
+/* ================================================== */
+/*       SCRIPT.JS FINAL - PERBAIKAN DARI COPILOT       */
+/* ================================================== */
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. KONFIGURASI ANIMASI BACKGROUND
+    if (document.getElementById("tsparticles")) {
+        tsParticles.load("tsparticles", { /* ...konfigurasi partikel... */ });
+    }
 
-    // --- 1. KONFIGURASI ANIMASI BACKGROUND (tsParticles) ---
-    // Pastikan ini ada di dalam 'DOMContentLoaded'
-    tsParticles.load("tsparticles", {
-        fpsLimit: 60,
-        interactivity: {
-            events: { onHover: { enable: true, mode: "repulse" }, resize: true },
-            modes: { repulse: { distance: 100, duration: 0.4 } },
-        },
-        particles: {
-            color: { value: "#ffffff" },
-            links: { color: "#ffffff", distance: 150, enable: true, opacity: 0.2, width: 1 },
-            move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: true, speed: 1.5, straight: false },
-            number: { density: { enable: true, area: 800 }, value: 80 },
-            opacity: { value: 0.3 },
-            shape: { type: "circle" },
-            size: { value: { min: 1, max: 4 } },
-        },
-        detectRetina: true,
-    });
-
-
-    // --- 2. LOGIKA UNTUK MEMBUKA/MENUTUP SIDEBAR ---
+    // 2. LOGIKA SIDEBAR
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
     const toggleBtn = document.getElementById('sidebar-toggle');
-
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
@@ -38,10 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-
-    // --- 3. LOGIKA UNTUK ANIMASI KARTU SAAT SCROLL ---
+    // 3. LOGIKA ANIMASI KARTU
     const cards = document.querySelectorAll(".card");
-
     if (cards.length > 0) {
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
@@ -50,33 +28,44 @@ document.addEventListener("DOMContentLoaded", () => {
                     observer.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1
-        });
-
-        cards.forEach(card => {
-            observer.observe(card);
-        });
+        }, { threshold: 0.1 });
+        cards.forEach(card => { observer.observe(card); });
     }
-    const copyButtons = document.querySelectorAll(".copy-button");
 
+    // 4. LOGIKA TOMBOL COPY
+    const copyButtons = document.querySelectorAll(".copy-button");
     copyButtons.forEach(button => {
         button.addEventListener("click", () => {
-            // Cari elemen 'pre' terdekat di dalam parent '.code-block'
             const codeBlock = button.closest('.code-block');
             const preElement = codeBlock.querySelector('pre');
-            const codeToCopy = preElement.innerText;
-    
-            // Salin ke clipboard
-            navigator.clipboard.writeText(codeToCopy).then(() => {
-                // Beri feedback visual
-                button.innerText = "Copied!";
-                setTimeout(() => {
-                    button.innerText = "Copy";
-                }, 2000); // Kembali ke teks "Copy" setelah 2 detik
-            }).catch(err => {
-                console.error("Gagal menyalin kode: ", err);
-            });
+            if (preElement) {
+                navigator.clipboard.writeText(preElement.innerText).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => { button.innerText = "Copy"; }, 2000);
+                });
+            }
         });
     });
+
+    // 5. LOGIKA LIGHT/DARK MODE
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        // Terapkan tema tersimpan saat memuat
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.body.setAttribute('data-theme', currentTheme);
+        }
+
+        // Tambahkan event listener untuk tombol
+        themeToggle.addEventListener('click', () => {
+            let theme = document.body.getAttribute('data-theme');
+            if (theme === 'light') {
+                document.body.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
 });
