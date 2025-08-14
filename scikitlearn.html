@@ -1,4 +1,4 @@
-<!-- File: scikitlearn.html (Halaman Baru untuk Scikit-learn) -->
+<!-- File: scikitlearn.html (Versi BARU dengan Kode Mandiri & Lengkap) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +12,7 @@
 <body>
     <div id="tsparticles"></div>
     <nav id="sidebar">
+        <!-- ... (Kode sidebar Anda tetap sama, pastikan link ke scikitlearn.html ada) ... -->
         <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
         <ul class="sidebar-nav">
             <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
@@ -25,108 +26,174 @@
     <div id="main-content">
         <header>
             <h1>Alur Kerja Machine Learning dengan Scikit-learn</h1>
-            <p>Langkah-langkah fundamental untuk membangun model prediktif.</p>
+            <p>Contoh kode mandiri untuk berbagai tugas Machine Learning.</p>
         </header>
         <main>
-            <h2>Model Klasifikasi & Regresi</h2>
+            <h2>Contoh Lengkap dari Awal hingga Akhir</h2>
             <div class="card-container">
 
-                <!-- KARTU 1: MEMBAGI DATA TRAINING & TESTING -->
+                <!-- KARTU 1: KLASIFIKASI DENGAN RANDOM FOREST -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>1. Membagi Data (Train-Test Split)</h3>
-                        <img src="https://i.imgur.com/r6eB28T.png" alt="Konsep Train-Test Split">
+                        <h3>Klasifikasi: Random Forest</h3>
+                        <!-- Ganti dengan link gambar confusion matrix Anda -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scikitlearn_confusion_matrix.png" alt="Confusion Matrix">
                         <div class="code-block">
                             <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code>from sklearn.model_selection import train_test_split
+                            <pre><code># 1. Import library yang dibutuhkan
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, classification_report
 
-# Memuat dataset contoh
+# 2. Muat dan siapkan data
 iris = load_iris()
 X, y = iris.data, iris.target
 
-# Membagi data: 80% untuk training, 20% untuk testing
+# 3. Bagi data menjadi training dan testing
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+    X, y, test_size=0.3, random_state=42)
 
-print(f"Bentuk X_train: {X_train.shape}")
-print(f"Bentuk X_test: {X_test.shape}")</code></pre>
+# 4. Inisialisasi dan latih model
+model = RandomForestClassifier(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# 5. Lakukan prediksi pada data test
+predictions = model.predict(X_test)
+
+# 6. Evaluasi dan visualisasikan hasil
+print(classification_report(y_test, predictions, target_names=iris.target_names))
+
+cm = confusion_matrix(y_test, predictions)
+sns.heatmap(cm, annot=True, cmap='Blues',
+            xticklabels=iris.target_names,
+            yticklabels=iris.target_names)
+plt.title('Confusion Matrix - Random Forest')
+plt.xlabel('Predicted')
+plt.ylabel('Actual')
+plt.show()</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- KARTU 2: MEMBUAT & MELATIH MODEL KLASIFIKASI -->
+                <!-- KARTU 2: REGRESI DENGAN LINEAR REGRESSION -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>2. Melatih Model Klasifikasi (Random Forest)</h3>
-                        <img src="https://i.imgur.com/CgYhX5G.png" alt="Konsep Model Training">
+                        <h3>Regresi: Linear Regression</h3>
+                        <!-- Anda perlu membuat gambar untuk ini -->
+                        <img src="https://i.imgur.com/gK0q3wP.png" alt="Hasil Linear Regression">
                          <div class="code-block">
                             <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code>from sklearn.ensemble import RandomForestClassifier
+                            <pre><code># 1. Import library
+import matplotlib.pyplot as plt
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
-# Inisialisasi model
-model = RandomForestClassifier(n_estimators=100, random_state=42)
+# 2. Muat dan siapkan data
+housing = fetch_california_housing()
+X, y = housing.data, housing.target
 
-# Latih model menggunakan data training
+# 3. Bagi data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42)
+
+# 4. Inisialisasi dan latih model
+model = LinearRegression()
 model.fit(X_train, y_train)
 
-print("Model Random Forest berhasil dilatih.")</code></pre>
+# 5. Lakukan prediksi
+predictions = model.predict(X_test)
+
+# 6. Evaluasi dan visualisasikan
+mse = mean_squared_error(y_test, predictions)
+print(f"Mean Squared Error: {mse:.2f}")
+
+plt.scatter(y_test, predictions, alpha=0.5)
+plt.plot([y.min(), y.max()], [y.min(), y.max()], '--r', linewidth=2)
+plt.title('Actual vs. Predicted Housing Prices')
+plt.xlabel('Actual Prices')
+plt.ylabel('Predicted Prices')
+plt.show()</code></pre>
                         </div>
                     </div>
                 </div>
                 
-                <!-- KARTU 3: MEMBUAT PREDIKSI -->
+                <!-- KARTU 3: CLUSTERING DENGAN K-MEANS -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>3. Membuat Prediksi</h3>
-                        <img src="https://i.imgur.com/3D1K6zJ.png" alt="Contoh Hasil Prediksi">
+                        <h3>Clustering: K-Means</h3>
+                        <!-- Anda perlu membuat gambar untuk ini -->
+                        <img src="https://i.imgur.com/Bf2T9R4.png" alt="Hasil K-Means Clustering">
                         <div class="code-block">
                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code># Gunakan data testing yang belum pernah dilihat model
-predictions = model.predict(X_test)
+                            <pre><code># 1. Import library
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
 
-print("Label Sebenarnya:\n", y_test)
-print("\nHasil Prediksi:\n", predictions)
+# 2. Buat data sintetis untuk clustering
+X, _ = make_blobs(n_samples=300, centers=4, 
+                  cluster_std=0.60, random_state=0)
 
-# Terlihat prediksi model sangat akurat!</code></pre>
+# 3. Inisialisasi dan latih model K-Means
+kmeans = KMeans(n_clusters=4, random_state=0, n_init=10)
+kmeans.fit(X)
+
+# 4. Dapatkan hasil cluster dan pusatnya
+y_kmeans = kmeans.predict(X)
+centers = kmeans.cluster_centers_
+
+# 5. Visualisasikan hasil
+plt.scatter(X[:, 0], X[:, 1], c=y_kmeans, s=50, cmap='viridis')
+plt.scatter(centers[:, 0], centers[:, 1], c='red', s=200, alpha=0.75, marker='X')
+plt.title('K-Means Clustering')
+plt.show()</code></pre>
                         </div>
                     </div>
                 </div>
 
-                <!-- KARTU 4: EVALUASI MODEL -->
+                <!-- KARTU 4: PENGURANGAN DIMENSI DENGAN PCA -->
                 <div class="card">
-                <div class="card-inner">
-                    <h3>4. Evaluasi dengan Confusion Matrix</h3>
-                    <!-- Ganti dengan link gambar confusion matrix Anda -->
-                    <img src="https://i.imgur.com/5u8sT2e.png" alt="Contoh Confusion Matrix">
-                    <div class="code-block">
-                        <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                        <pre><code>from sklearn.metrics import confusion_matrix
-            import seaborn as sns
-            import matplotlib.pyplot as plt
-            
-            # Membuat confusion matrix
-            cm = confusion_matrix(y_test, predictions)
-            
-            # Visualisasi dengan Seaborn heatmap
-            plt.figure(figsize=(8, 6))
-            sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-                        xticklabels=iris.target_names,
-                        yticklabels=iris.target_names)
-            
-            plt.xlabel('Predicted Label')
-            plt.ylabel('True Label')
-            plt.title('Confusion Matrix')
-            plt.show()</code></pre>
+                    <div class="card-inner">
+                        <h3>Reduksi Dimensi: PCA</h3>
+                        <!-- Anda perlu membuat gambar untuk ini -->
+                        <img src="https://i.imgur.com/7b7rT0A.png" alt="Hasil PCA">
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code># 1. Import library
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_digits
+from sklearn.decomposition import PCA
+
+# 2. Muat data (64 dimensi)
+digits = load_digits()
+X = digits.data
+
+# 3. Inisialisasi PCA untuk mereduksi menjadi 2 dimensi
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# 4. Visualisasikan data setelah direduksi
+plt.figure(figsize=(8, 6))
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=digits.target,
+            edgecolor='none', alpha=0.7, cmap='plasma')
+plt.title('Visualisasi Data Digits dengan PCA')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.colorbar(label='Digit Label')
+plt.show()</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
         
         <footer class="page-navigation">
-            <a href="pandas.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">Pandas</div></div></a>
-            <a href="#" class="nav-button next disabled"><div><div class="nav-text-sub">Selanjutnya</div><div class="nav-text-main">Coming Soon</div></div><i class="fas fa-arrow-right arrow"></i></a>
+            <!-- ... (Kode footer Anda tetap sama, mengarah dari Pandas) ... -->
         </footer>
     </div>
 
