@@ -300,7 +300,26 @@ pre::-webkit-scrollbar-thumb:hover {
     border-color: var(--primary-color-start);
 }
 
-/* Logika untuk menampilkan ikon yang benar */
-.icon-sun { display: none; }
-body[data-theme='light'] .icon-sun { display: block; }
-body[data-theme='light'] .icon-moon { display: none; }
+/* ================================================= */
+/*   GANTI DENGAN INI - LOGIKA BARU UNTUK IKON TEMA    */
+/* ================================================= */
+
+/* Saat tema gelap (default), sembunyikan matahari */
+#theme-toggle .icon-sun {
+    display: none;
+}
+
+/* Saat tema gelap (default), tampilkan bulan */
+#theme-toggle .icon-moon {
+    display: block;
+}
+
+/* Saat tema terang, sembunyikan bulan */
+body[data-theme='light'] #theme-toggle .icon-moon {
+    display: none;
+}
+
+/* Saat tema terang, tampilkan matahari */
+body[data-theme='light'] #theme-toggle .icon-sun {
+    display: block;
+}
