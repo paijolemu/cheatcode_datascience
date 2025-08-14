@@ -43,20 +43,20 @@ body {
 }
 #tsparticles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
 #sidebar {
-    position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-width-expanded); background-color: var(--sidebar-bg);
+    position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-width-expanded); background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color);
     border-right: 1px solid #333; padding: 15px 0; display: flex; flex-direction: column; 
     transition: width 0.4s var(--smooth-ease); z-index: 100;
 }
 #sidebar.collapsed { width: var(--sidebar-width-collapsed); }
 #sidebar-toggle {
-    background: none; border: none; color: #a0a0a0; font-size: 1.5rem; cursor: pointer; text-align: right;
+    background: none; border: none; color: var(--text-color-muted); font-size: 1.5rem; cursor: pointer; text-align: right;
     padding: 0 20px 20px 20px; transition: color 0.2s ease;
 }
 #sidebar-toggle:hover { color: #fff; }
 #sidebar.collapsed #sidebar-toggle { text-align: center; padding: 0 0 20px 0; }
 .sidebar-nav { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
 .nav-item a {
-    display: flex; align-items: center; color: #d0d0d0; text-decoration: none; padding: 15px 20px;
+    display: flex; align-items: center; color: var(--text-color-muted); text-decoration: none; padding: 15px 20px;
     white-space: nowrap; overflow: hidden; transition: background-color 0.2s ease, color 0.2s ease;
 }
 .nav-item a:hover .nav-icon { color: white; }
@@ -83,7 +83,7 @@ header h1 {
     background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-size: 200% auto; animation: gradient-animation 5s ease-in-out infinite;
 }
-header p { font-size: 1.2rem; color: #b3b3b3; margin-bottom: 30px; }
+header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 .main-button {
     display: inline-block; background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
     color: white; padding: 12px 28px; text-decoration: none; border-radius: 50px; margin-top: 20px;
@@ -124,8 +124,8 @@ main h2 {
 .card.is-visible .card-inner img { opacity: 1; transform: scale(1); }
 .card:hover .card-inner img { transform: scale(1.03); }
 pre {
-    background-color: #282a36;
-    color: #f8f8f2;
+    background-color: var(--code-bg);
+    color: var(--code-color);
     padding: 20px;
     font-size: 0.9em;
     overflow-x: auto; /* Tetap aktifkan scroll horizontal */
@@ -144,7 +144,7 @@ code { font-family: "Fira Code", "Courier New", monospace; }
     align-items: center;
     margin-top: 80px; /* Jarak dari konten di atas */
     padding-top: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Garis pemisah yang lebih halus */
+    border-top: 1px solid var(--border-color); /* Garis pemisah yang lebih halus */
 }
 
 .nav-button {
@@ -155,7 +155,7 @@ code { font-family: "Fira Code", "Courier New", monospace; }
     color: var(--text-color);
     text-decoration: none;
     border-radius: 50px; /* Bentuk pil yang modern */
-    border: 1px solid #444;
+    border: 1px solid var(--border-color-light);
     transition: all 0.3s var(--smooth-ease); /* Menggunakan transisi halus yang sudah ada */
 }
 
@@ -211,7 +211,7 @@ code { font-family: "Fira Code", "Courier New", monospace; }
 /* Pembungkus utama untuk blok kode */
 .code-block {
     text-align: left;
-    border: 1px solid #44475a;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     margin-top: 15px;
     overflow: hidden; /* Penting agar sudut melengkung bekerja */
@@ -222,7 +222,7 @@ code { font-family: "Fira Code", "Courier New", monospace; }
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #3a3c4e;
+    background-color: var(--header-bg);
     padding: 10px 15px;
 }
 
@@ -243,8 +243,8 @@ code { font-family: "Fira Code", "Courier New", monospace; }
 
 /* Tombol untuk menyalin kode */
 .copy-button {
-    background-color: #4a4d64;
-    color: #e0e0e0;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
