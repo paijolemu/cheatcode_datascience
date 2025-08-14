@@ -273,3 +273,34 @@ pre::-webkit-scrollbar-thumb {
 pre::-webkit-scrollbar-thumb:hover {
     filter: brightness(1.2);
 }
+/* --- GAYA UNTUK TOMBOL THEME TOGGLE DI SIDEBAR --- */
+.sidebar-footer {
+    margin-top: auto; /* Mendorong ke bagian paling bawah */
+    padding: 20px;
+    text-align: center;
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color-light);
+    color: var(--text-color-muted);
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s var(--smooth-ease);
+}
+
+#theme-toggle:hover {
+    color: var(--text-color);
+    border-color: var(--primary-color-start);
+}
+
+/* Logika untuk menampilkan ikon yang benar */
+.icon-sun { display: none; }
+body[data-theme='light'] .icon-sun { display: block; }
+body[data-theme='light'] .icon-moon { display: none; }
