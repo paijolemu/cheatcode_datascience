@@ -1,13 +1,39 @@
 /* ================================================== */
 /*       SCRIPT.JS FINAL - PERBAIKAN DARI COPILOT       */
 /* ================================================== */
+
+// JALANKAN SEMUA SETELAH HTML SELESAI DIMUAT
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. KONFIGURASI ANIMASI BACKGROUND
+
+    // --- 1. KONFIGURASI ANIMASI BACKGROUND ---
+    // Dipindahkan ke dalam agar pasti berjalan
     if (document.getElementById("tsparticles")) {
-        tsParticles.load("tsparticles", { /* ...konfigurasi partikel... */ });
+        tsParticles.load("tsparticles", {
+            fpsLimit: 60,
+            interactivity: {
+                events: { onHover: { enable: true, mode: "repulse" }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 } },
+            },
+            particles: {
+                color: { value: "var(--text-color)" }, // Menggunakan variabel CSS untuk warna
+                links: {
+                    color: "var(--text-color)", // Menggunakan variabel CSS
+                    distance: 150, enable: true, opacity: 0.1, width: 1
+                },
+                move: {
+                    direction: "none", enable: true, outModes: { default: "bounce" },
+                    random: true, speed: 1.5, straight: false
+                },
+                number: { density: { enable: true, area: 800 }, value: 80 },
+                opacity: { value: 0.3 },
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 4 } },
+            },
+            detectRetina: true,
+        });
     }
 
-    // 2. LOGIKA SIDEBAR
+    // --- 2. LOGIKA SIDEBAR ---
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
     const toggleBtn = document.getElementById('sidebar-toggle');
@@ -18,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 3. LOGIKA ANIMASI KARTU
+    // --- 3. LOGIKA ANIMASI KARTU ---
     const cards = document.querySelectorAll(".card");
     if (cards.length > 0) {
         const observer = new IntersectionObserver(entries => {
@@ -32,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cards.forEach(card => { observer.observe(card); });
     }
 
-    // 4. LOGIKA TOMBOL COPY
+    // --- 4. LOGIKA TOMBOL COPY ---
     const copyButtons = document.querySelectorAll(".copy-button");
     copyButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -47,16 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 5. LOGIKA LIGHT/DARK MODE
+    // --- 5. LOGIKA LIGHT/DARK MODE ---
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        // Terapkan tema tersimpan saat memuat
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme) {
             document.body.setAttribute('data-theme', currentTheme);
         }
-
-        // Tambahkan event listener untuk tombol
         themeToggle.addEventListener('click', () => {
             let theme = document.body.getAttribute('data-theme');
             if (theme === 'light') {
@@ -68,4 +91,5 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
 });
