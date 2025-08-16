@@ -1,35 +1,82 @@
 /* ================================================== */
-/*       SCRIPT.JS FINAL - PERBAIKAN DARI COPILOT       */
+/*        SCRIPT.JS FINAL DENGAN LIVE BACKGROUND BARU       */
 /* ================================================== */
 
-// JALANKAN SEMUA SETELAH HTML SELESAI DIMUAT
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. KONFIGURASI ANIMASI BACKGROUND ---
-    // Dipindahkan ke dalam agar pasti berjalan
+    // --- 1. KONFIGURASI ANIMASI BACKGROUND "LIVE" BARU ---
     if (document.getElementById("tsparticles")) {
         tsParticles.load("tsparticles", {
-            fpsLimit: 60,
+            background: {
+                color: {
+                    value: "transparent" // Mengikuti warna body
+                }
+            },
+            fpsLimit: 120,
             interactivity: {
-                events: { onHover: { enable: true, mode: "repulse" }, resize: true },
-                modes: { repulse: { distance: 100, duration: 0.4 } },
+                events: {
+                    onClick: {
+                        enable: true,
+                        mode: "push" // Menambah partikel saat diklik
+                    },
+                    onHover: {
+                        enable: true,
+                        mode: "repulse" // Partikel menjauh dari kursor
+                    },
+                    resize: true
+                },
+                modes: {
+                    push: {
+                        quantity: 4
+                    },
+                    repulse: {
+                        distance: 150,
+                        duration: 0.4
+                    }
+                }
             },
             particles: {
-                color: { value: "var(--text-color)" }, // Menggunakan variabel CSS untuk warna
+                color: {
+                    value: "#ffffff" // Warna partikel
+                },
                 links: {
-                    color: "var(--text-color)", // Menggunakan variabel CSS
-                    distance: 150, enable: true, opacity: 0.1, width: 1
+                    color: "#ffffff",
+                    distance: 150,
+                    enable: true,
+                    opacity: 0.2,
+                    width: 1
+                },
+                collisions: {
+                    enable: true
                 },
                 move: {
-                    direction: "none", enable: true, outModes: { default: "bounce" },
-                    random: true, speed: 1.5, straight: false
+                    direction: "none",
+                    enable: true,
+                    outModes: {
+                        default: "bounce"
+                    },
+                    random: false,
+                    speed: 2, // Kecepatan partikel
+                    straight: false
                 },
-                number: { density: { enable: true, area: 800 }, value: 80 },
-                opacity: { value: 0.3 },
-                shape: { type: "circle" },
-                size: { value: { min: 1, max: 4 } },
+                number: {
+                    density: {
+                        enable: true,
+                        area: 800
+                    },
+                    value: 80
+                },
+                opacity: {
+                    value: 0.3
+                },
+                shape: {
+                    type: "circle"
+                },
+                size: {
+                    value: { min: 1, max: 5 }
+                }
             },
-            detectRetina: true,
+            detectRetina: true
         });
     }
 
@@ -45,51 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- 3. LOGIKA ANIMASI KARTU ---
-    const cards = document.querySelectorAll(".card");
-    if (cards.length > 0) {
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        cards.forEach(card => { observer.observe(card); });
-    }
+    // ... (kode animasi kartu Anda) ...
 
     // --- 4. LOGIKA TOMBOL COPY ---
-    const copyButtons = document.querySelectorAll(".copy-button");
-    copyButtons.forEach(button => {
-        button.addEventListener("click", () => {
-            const codeBlock = button.closest('.code-block');
-            const preElement = codeBlock.querySelector('pre');
-            if (preElement) {
-                navigator.clipboard.writeText(preElement.innerText).then(() => {
-                    button.innerText = "Copied!";
-                    setTimeout(() => { button.innerText = "Copy"; }, 2000);
-                });
-            }
-        });
-    });
+    // ... (kode tombol copy Anda) ...
 
     // --- 5. LOGIKA LIGHT/DARK MODE ---
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            document.body.setAttribute('data-theme', currentTheme);
-        }
-        themeToggle.addEventListener('click', () => {
-            let theme = document.body.getAttribute('data-theme');
-            if (theme === 'light') {
-                document.body.removeAttribute('data-theme');
-                localStorage.removeItem('theme');
-            } else {
-                document.body.setAttribute('data-theme', 'light');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-    }
+    // ... (kode light/dark mode Anda) ...
 
 });
