@@ -150,5 +150,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+// --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
+const typingTitle = document.getElementById('typing-title');
+if (typingTitle) {
+    const textToType = "Data Science Cheat Codes";
+    let index = 0;
+
+    function type() {
+        if (index < textToType.length) {
+            typingTitle.innerHTML = textToType.substring(0, index + 1);
+            index++;
+            setTimeout(type, 150); // Kecepatan ketikan (ms)
+        }
+    }
+
+    // Mulai animasi setelah jeda singkat
+    setTimeout(type, 500);
+}
 
 }); // <-- Ini adalah kurung kurawal penutup untuk DOMContentLoaded
