@@ -81,17 +81,28 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 2. LOGIKA SIDEBAR ---
+  // GANTI BLOK LOGIKA SIDEBAR LAMA DENGAN INI
+// --- 2. LOGIKA SIDEBAR (DESKTOP & MOBILE) ---
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
     const toggleBtn = document.getElementById('sidebar-toggle');
+    
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('collapsed');
+            // Cek ukuran layar
+            const isMobile = window.innerWidth <= 768;
+    
+            if (isMobile) {
+                // Di mobile, toggle kelas 'open'
+                sidebar.classList.toggle('open');
+                mainContent.classList.toggle('sidebar-open');
+            } else {
+                // Di desktop, toggle kelas 'collapsed'
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('collapsed');
+            }
         });
     }
-
     // --- 3. LOGIKA ANIMASI KARTU SAAT SCROLL ---
     const cards = document.querySelectorAll(".card");
     if (cards.length > 0) {
