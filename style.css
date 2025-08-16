@@ -96,10 +96,17 @@ body {
 
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 header h1 {
-    font-size: 3.5rem; font-weight: 700; margin-bottom: 10px;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
     background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
-    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-size: 200% auto; animation: gradient-animation 5s ease-in-out infinite;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* --- DUA BARIS INI MENGAKTIFKAN ANIMASI --- */
+    background-size: 200% auto;
+    animation: gradient-animation 5s ease-in-out infinite;
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 
