@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 // === THIS IS THE FIX ===
                 // When typing is done, remove the right border (the cursor)
-                typingTitle.style.borderRight = 'none';
+                typingTitle.classList.add('typing-done');
             }
         }
         setTimeout(type, 500); // Start the animation
