@@ -161,11 +161,13 @@ if (typingTitle) {
             typingTitle.innerHTML = textToType.substring(0, index + 1);
             index++;
             setTimeout(type, 150); // Kecepatan ketikan (ms)
+        } else {
+            // === BAGIAN BARU: Hapus kursor setelah selesai ===
+            // Menghapus border-right akan menghentikan kedipan
+            typingTitle.style.borderRight = 'none';
         }
     }
 
     // Mulai animasi setelah jeda singkat
     setTimeout(type, 500);
-}
-
 }); // <-- Ini adalah kurung kurawal penutup untuk DOMContentLoaded
