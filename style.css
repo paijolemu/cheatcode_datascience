@@ -101,21 +101,22 @@ header h1 {
     font-weight: 700;
     margin-bottom: 10px;
     
-    /* Warna gradien statis, tidak dianimasikan */
     background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    /* Menambahkan kursor ketikan di akhir teks */
-    border-right: 4px solid var(--text-color-muted);
-    
-    /* Menambahkan animasi untuk kursor berkedip */
-    animation: blink-caret 0.75s step-end infinite;
-    
-    /* Penting agar teks tidak 'wrap' saat animasi berjalan */
+    /* Mengatur agar teks ditampilkan huruf per huruf */
+    overflow: hidden; 
     white-space: nowrap;
-    overflow: hidden;
+    border-right: 4px solid var(--text-color-muted);
+    width: 0; /* Mulai dari lebar 0 */
+
+    /* === INI PERUBAHAN UTAMANYA === */
+    /* Animasi ketikan + animasi kedipan kursor */
+    animation: 
+        typing 3.5s steps(25, end) forwards, /* Animasi ketikan */
+        blink-caret 0.75s step-end infinite;  /* Animasi kedipan */
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 
@@ -249,6 +250,10 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
 
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: var(--text-color-muted); }
