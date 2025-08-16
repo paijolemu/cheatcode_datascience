@@ -117,6 +117,11 @@ header h1 {
     animation: 
         typing 3.5s steps(25, end) forwards, /* Animasi ketikan */
         blink-caret 0.75s step-end infinite;  /* Animasi kedipan */
+    animation: blink-caret 0.75s step-end infinite;
+}
+header h1.typing-done {
+    animation: none; /* Matikan animasi */
+    border-right: none; /* Hapus border */
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 
