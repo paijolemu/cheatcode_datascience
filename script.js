@@ -1,7 +1,8 @@
-/* ================================================== */
-/*        SCRIPT.JS FINAL DENGAN LIVE BACKGROUND BARU       */
-/* ================================================== */
+/* ======================================================= */
+/*      SCRIPT.JS FINAL LENGKAP - SEMUA FITUR TERMASUK      */
+/* ======================================================= */
 
+// Jalankan semua fungsi setelah struktur HTML halaman selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
 
     // --- 1. KONFIGURASI ANIMASI BACKGROUND "LIVE" BARU ---
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tsParticles.load("tsparticles", {
             background: {
                 color: {
-                    value: "transparent" // Mengikuti warna body
+                    value: "transparent"
                 }
             },
             fpsLimit: 120,
@@ -17,11 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 events: {
                     onClick: {
                         enable: true,
-                        mode: "push" // Menambah partikel saat diklik
+                        mode: "push"
                     },
                     onHover: {
                         enable: true,
-                        mode: "repulse" // Partikel menjauh dari kursor
+                        mode: "repulse"
                     },
                     resize: true
                 },
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             particles: {
                 color: {
-                    value: "#ffffff" // Warna partikel
+                    value: "#ffffff"
                 },
                 links: {
                     color: "#ffffff",
@@ -56,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         default: "bounce"
                     },
                     random: false,
-                    speed: 2, // Kecepatan partikel
+                    speed: 2,
                     straight: false
                 },
                 number: {
@@ -91,13 +92,52 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 3. LOGIKA ANIMASI KARTU ---
-    // ... (kode animasi kartu Anda) ...
+    // --- 3. LOGIKA ANIMASI KARTU SAAT SCROLL ---
+    const cards = document.querySelectorAll(".card");
+    if (cards.length > 0) {
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        cards.forEach(card => { observer.observe(card); });
+    }
 
-    // --- 4. LOGIKA TOMBOL COPY ---
-    // ... (kode tombol copy Anda) ...
+    // --- 4. LOGIKA TOMBOL COPY KODE ---
+    const copyButtons = document.querySelectorAll(".copy-button");
+    copyButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const codeBlock = button.closest('.code-block');
+            const preElement = codeBlock.querySelector('pre');
+            if (preElement) {
+                navigator.clipboard.writeText(preElement.innerText).then(() => {
+                    button.innerText = "Copied!";
+                    setTimeout(() => { button.innerText = "Copy"; }, 2000);
+                });
+            }
+        });
+    });
 
-    // --- 5. LOGIKA LIGHT/DARK MODE ---
-    // ... (kode light/dark mode Anda) ...
+    // --- 5. LOGIKA LIGHT/DARK MODE TOGGLE ---
+    const themeToggle = document.getElementById('theme-toggle');
+    if (themeToggle) {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            document.body.setAttribute('data-theme', currentTheme);
+        }
+        themeToggle.addEventListener('click', () => {
+            let theme = document.body.getAttribute('data-theme');
+            if (theme === 'light') {
+                document.body.removeAttribute('data-theme');
+                localStorage.removeItem('theme');
+            } else {
+                document.body.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
 
-});
+}); // <-- Ini adalah kurung kurawal penutup untuk DOMContentLoaded
