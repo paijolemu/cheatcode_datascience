@@ -1,108 +1,60 @@
-/* ======================================================= *
-/*      SCRIPT.JS FINAL LENGKAP - SEMUA FITUR TERMASUK      */
+/* ======================================================= */
+/*      SCRIPT.JS FINAL LENGKAP - SEMUA FITUR DIPERBAIKI      */
 /* ======================================================= */
 
 // Jalankan semua fungsi setelah struktur HTML halaman selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
 
-    // --- 1. KONFIGURASI ANIMASI BACKGROUND "LIVE" BARU ---
+    // --- 1. KONFIGURASI ANIMASI BACKGROUND "LIVE" ---
     if (document.getElementById("tsparticles")) {
         tsParticles.load("tsparticles", {
-            background: {
-                color: {
-                    value: "transparent"
-                }
-            },
+            background: { color: { value: "transparent" } },
             fpsLimit: 120,
             interactivity: {
                 events: {
-                    onClick: {
-                        enable: true,
-                        mode: "push"
-                    },
-                    onHover: {
-                        enable: true,
-                        mode: "repulse"
-                    },
+                    onClick: { enable: true, mode: "push" },
+                    onHover: { enable: true, mode: "repulse" },
                     resize: true
                 },
                 modes: {
-                    push: {
-                        quantity: 4
-                    },
-                    repulse: {
-                        distance: 150,
-                        duration: 0.4
-                    }
+                    push: { quantity: 4 },
+                    repulse: { distance: 150, duration: 0.4 }
                 }
             },
             particles: {
-                color: {
-                    value: "#ffffff"
-                },
-                links: {
-                    color: "#ffffff",
-                    distance: 150,
-                    enable: true,
-                    opacity: 0.2,
-                    width: 1
-                },
-                collisions: {
-                    enable: true
-                },
+                color: { value: "#ffffff" },
+                links: { color: "#ffffff", distance: 150, enable: true, opacity: 0.2, width: 1 },
+                collisions: { enable: true },
                 move: {
-                    direction: "none",
-                    enable: true,
-                    outModes: {
-                        default: "bounce"
-                    },
-                    random: false,
-                    speed: 2,
-                    straight: false
+                    direction: "none", enable: true, outModes: { default: "bounce" },
+                    random: false, speed: 2, straight: false
                 },
-                number: {
-                    density: {
-                        enable: true,
-                        area: 800
-                    },
-                    value: 80
-                },
-                opacity: {
-                    value: 0.3
-                },
-                shape: {
-                    type: "circle"
-                },
-                size: {
-                    value: { min: 1, max: 5 }
-                }
+                number: { density: { enable: true, area: 800 }, value: 80 },
+                opacity: { value: 0.3 },
+                shape: { type: "circle" },
+                size: { value: { min: 1, max: 5 } }
             },
             detectRetina: true
         });
     }
 
-  // GANTI BLOK LOGIKA SIDEBAR LAMA DENGAN INI
-// --- 2. LOGIKA SIDEBAR (DESKTOP & MOBILE) ---
+    // --- 2. LOGIKA SIDEBAR (DESKTOP & MOBILE) ---
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
     const toggleBtn = document.getElementById('sidebar-toggle');
-    
     if (toggleBtn) {
         toggleBtn.addEventListener('click', () => {
-            // Cek ukuran layar
             const isMobile = window.innerWidth <= 768;
-    
             if (isMobile) {
-                // Di mobile, toggle kelas 'open'
                 sidebar.classList.toggle('open');
                 mainContent.classList.toggle('sidebar-open');
             } else {
-                // Di desktop, toggle kelas 'collapsed'
                 sidebar.classList.toggle('collapsed');
                 mainContent.classList.toggle('collapsed');
             }
         });
     }
+
     // --- 3. LOGIKA ANIMASI KARTU SAAT SCROLL ---
     const cards = document.querySelectorAll(".card");
     if (cards.length > 0) {
@@ -150,24 +102,24 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-// --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
-const typingTitle = document.getElementById('typing-title');
-if (typingTitle) {
-    const textToType = "Data Science Cheat Codes";
-    let index = 0;
 
-    function type() {
-        if (index < textToType.length) {
-            typingTitle.innerHTML = textToType.substring(0, index + 1);
-            index++;
-            setTimeout(type, 150); // Kecepatan ketikan (ms)
-        } else {
-            // === BAGIAN BARU: Hapus kursor setelah selesai ===
-            // Menghapus border-right akan menghentikan kedipan
-            typingTitle.style.borderRight = 'none';
+    // --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
+    const typingTitle = document.getElementById('typing-title');
+    if (typingTitle) {
+        const textToType = "Data Science Cheat Codes";
+        let index = 0;
+        typingTitle.innerHTML = ''; // Pastikan kosong sebelum mulai
+
+        function type() {
+            if (index < textToType.length) {
+                typingTitle.innerHTML += textToType.charAt(index);
+                index++;
+                setTimeout(type, 150);
+            } else {
+                typingTitle.style.borderRight = 'none'; // Hapus kursor setelah selesai
+            }
         }
+        setTimeout(type, 500); // Mulai animasi
     }
 
-    // Mulai animasi setelah jeda singkat
-    setTimeout(type, 500);
-}); // <-- Ini adalah kurung kurawal penutup untuk DOMContentLoaded
+}); // <-- Penutup DOMContentLoaded
