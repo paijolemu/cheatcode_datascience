@@ -104,22 +104,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
+// --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
     const typingTitle = document.getElementById('typing-title');
     if (typingTitle) {
         const textToType = "Data Science Cheat Codes";
         let index = 0;
-        typingTitle.innerHTML = ''; // Pastikan kosong sebelum mulai
-
+        typingTitle.innerHTML = ''; // Ensure it's empty before starting
+    
         function type() {
             if (index < textToType.length) {
                 typingTitle.innerHTML += textToType.charAt(index);
                 index++;
                 setTimeout(type, 150);
             } else {
-                typingTitle.style.borderRight = 'none'; // Hapus kursor setelah selesai
+                // === THIS IS THE FIX ===
+                // When typing is done, remove the right border (the cursor)
+                typingTitle.style.borderRight = 'none';
             }
         }
-        setTimeout(type, 500); // Mulai animasi
+        setTimeout(type, 500); // Start the animation
     }
-
 }); // <-- Penutup DOMContentLoaded
