@@ -95,18 +95,27 @@ body {
 #main-content.collapsed { margin-left: var(--sidebar-width-collapsed); }
 
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
+/* GANTI SELURUH BLOK header h1 ANDA DENGAN INI */
 header h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
+    
+    /* Warna gradien statis, tidak dianimasikan */
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    /* Menambahkan kursor ketikan di akhir teks */
+    border-right: 4px solid var(--text-color-muted);
     
-    /* --- DUA BARIS INI MENGAKTIFKAN ANIMASI --- */
-    background-size: 200% auto;
-    animation: gradient-animation 5s ease-in-out infinite;
+    /* Menambahkan animasi untuk kursor berkedip */
+    animation: blink-caret 0.75s step-end infinite;
+    
+    /* Penting agar teks tidak 'wrap' saat animasi berjalan */
+    white-space: nowrap;
+    overflow: hidden;
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 
@@ -240,10 +249,9 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
 
-@keyframes gradient-animation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--text-color-muted); }
 }
 /* ======================================================= */
 /*             MEDIA QUERIES UNTUK TAMPILAN MOBILE             */
