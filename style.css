@@ -102,7 +102,7 @@ header h1 {
     font-weight: 700;
     margin-bottom: 10px;
     
-    /* Gradien yang diperpanjang untuk loop yang mulus */
+    /* Gradien diperpanjang untuk loop yang mulus */
     background: linear-gradient(
         90deg, 
         var(--primary-color-start), 
@@ -116,10 +116,9 @@ header h1 {
     -webkit-text-fill-color: transparent;
     
     /* Mengaktifkan animasi gradien */
-    background-size: 200% auto; /* Penting! */
+    background-size: 200% auto;
     animation: gradient-animation 5s ease-in-out infinite;
 }
-
 header h1.typing-done {
     animation: none; /* Matikan animasi */
     border-right: none; /* Hapus border */
