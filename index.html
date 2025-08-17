@@ -1,4 +1,3 @@
-<!-- File: index.html (Versi FINAL yang Sudah Benar) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,10 +12,9 @@
 <body>
     <div id="tsparticles"></div>
 
-    <!-- PENTING: Struktur sidebar yang benar -->
+    <!-- Sidebar -->
     <nav id="sidebar">
         <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
-        <!-- Ganti bagian ul.sidebar-nav di index.html dengan ini -->
         <ul class="sidebar-nav">
             <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
             <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
@@ -24,12 +22,12 @@
             <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
             <li class="nav-item"><a href="scikitlearn.html"><i class="fa-solid fa-robot nav-icon"></i><span class="nav-text">Scikit-learn</span></a></li>
         </ul>
-            <div class="sidebar-footer">
-                <button id="theme-toggle" title="Ganti Tema">
-                    <i class="fas fa-moon icon-moon"></i>
-                    <i class="fas fa-sun icon-sun"></i>
-                </button>
-            </div>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+            </button>
+        </div>
     </nav>
 
     <div id="main-content">
@@ -38,8 +36,11 @@
           <p>Kumpulan "contekan" visualisasi data paling berguna.</p>
           <a href="#" class="main-button">LIHAT SEMUA CHEAT CODES</a>
         </header>
+
         <main>
             <h2>Contoh Cheat Code</h2>
+
+            <!-- Semua card harus ada di dalam .card-container -->
             <div class="card-container">
                 <div class="card">
                     <div class="card-inner">
@@ -62,9 +63,10 @@ plt.xlabel('Usia Mobil')
 plt.ylabel('Kecepatan')
 plt.title('Scatter Plot: Usia vs Kecepatan Mobil')
 plt.show()</code></pre>
+                        </div>
                     </div>
                 </div>
-            </div>
+
                 <div class="card">
                     <div class="card-inner">
                         <h3>Bar Chart dengan Matplotlib</h3>
@@ -86,13 +88,15 @@ plt.xlabel('Kategori Produk')
 plt.ylabel('Jumlah Terjual')
 plt.title('Contoh Bar Chart')
 plt.show()</code></pre>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- /.card-container -->
+
         </main>
     </div>
     
-    <!-- PENTING: Menghubungkan ke file JavaScript -->
+    <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="script.js"></script>
     <script>
