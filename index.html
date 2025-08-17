@@ -95,5 +95,23 @@ plt.show()</code></pre>
     <!-- PENTING: Menghubungkan ke file JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script src="script.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const text = "Data Science Cheat Codes";
+      const target = document.getElementById('typing-title');
+      let idx = 0;
+      function type() {
+        if (!target) return;
+        if (idx <= text.length) {
+          target.innerHTML = `<span class="live-gradient">${text.slice(0, idx)}</span><span class="live-caret">|</span>`;
+          idx++;
+          setTimeout(type, 80);
+        } else {
+          target.innerHTML = `<span class="live-gradient">${text}</span>`;
+        }
+      }
+      type();
+    });
+    </script>
 </body>
 </html>
