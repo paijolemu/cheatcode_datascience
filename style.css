@@ -101,15 +101,23 @@ header h1 {
     font-size: 3.5rem;
     font-weight: 700;
     margin-bottom: 10px;
-    
-    /* Penting: Setel agar span di dalamnya bisa diposisikan */
-    position: relative; 
-    
-    /* Gradien statis sebagai fallback */
+    min-height: 1.2em; /* Mencegah 'lompatan' layout saat teks diisi */
+    text-align: center; /* Pastikan teks tetap di tengah */
+}
+
+/* Gaya untuk teks yang sudah diketik */
+.live-gradient {
     background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* Gaya untuk kursor ketikan yang berkedip */
+.live-caret {
+    color: var(--text-color-muted);
+    font-weight: 300;
+    animation: blink-caret 1s step-end infinite;
 }
 
 /* Gaya untuk setiap huruf yang dibungkus span oleh JS */
@@ -262,7 +270,10 @@ body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
         top: 0;
     }
 }
-
+@keyframes blink-caret {
+  from, to { color: transparent }
+  50% { color: var(--text-color-muted); }
+}
 /* ======================================================= */
 /*             MEDIA QUERIES UNTUK TAMPILAN MOBILE             */
 /* ======================================================= */
