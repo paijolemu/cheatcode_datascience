@@ -103,26 +103,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 // --- 6. LOGIKA BARU UNTUK ANIMASI JUDUL (DARI COPILOT) ---
-    const title = document.querySelector('#main-content header h1');
-    if (title) {
-        const text = title.innerText;
-        title.innerHTML = ''; // Kosongkan H1
+        <script>
+        const text = "Data Science Cheat Codes";
+        const target = document.getElementById('typing-title');
+        let idx = 0;
         
-        // Pecah teks menjadi huruf dan bungkus dengan span
-        for (let i = 0; i < text.length; i++) {
-            const span = document.createElement('span');
-            
-            // Jika karakter adalah spasi, gunakan non-breaking space
-            if (text[i] === ' ') {
-                span.innerHTML = '&nbsp;';
-            } else {
-                span.innerText = text[i];
-            }
-    
-            // Tambahkan delay animasi yang berbeda untuk setiap huruf
-            span.style.animationDelay = `${i * 0.05}s`;
-            
-            title.appendChild(span);
+        function type() {
+          if (!target) return; // Cegah error jika id tidak ditemukan
+          if (idx <= text.length) {
+            target.innerHTML = `<span class="live-gradient">${text.slice(0, idx)}</span><span class="live-caret">|</span>`;
+            idx++;
+            setTimeout(type, 90);
+          } else {
+            target.innerHTML = `<span class="live-gradient">${text}</span>`;
+          }
         }
-    }
+        type();
+        </script>
 }); // <-- Penutup DOMContentLoaded
