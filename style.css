@@ -100,9 +100,26 @@ header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 header h1 {
     font-size: 3.5rem;
     font-weight: 700;
-    color: red !important; /* Paksa warna merah agar sangat jelas */
-    border: 2px solid yellow !important; /* Beri border kuning */
+    margin-bottom: 10px;
+    
+    /* Gradien yang diperpanjang untuk loop yang mulus */
+    background: linear-gradient(
+        90deg, 
+        var(--primary-color-start), 
+        var(--primary-color-end), 
+        var(--primary-color-start)
+    );
+    
+    /* Trik untuk membuat background hanya terlihat pada teks */
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Mengaktifkan animasi gradien */
+    background-size: 200% auto; /* Penting! */
+    animation: gradient-animation 5s ease-in-out infinite;
 }
+
 header h1.typing-done {
     animation: none; /* Matikan animasi */
     border-right: none; /* Hapus border */
@@ -238,7 +255,17 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 #theme-toggle .icon-moon { display: block; }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
-
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
