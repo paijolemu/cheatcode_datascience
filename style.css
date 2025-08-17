@@ -262,14 +262,7 @@ body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
         top: 0;
     }
 }
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: var(--text-color-muted); }
-}
+
 /* ======================================================= */
 /*             MEDIA QUERIES UNTUK TAMPILAN MOBILE             */
 /* ======================================================= */
