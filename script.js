@@ -103,25 +103,29 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
-// --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
-    const typingTitle = document.getElementById('typing-title');
-    if (typingTitle) {
-        const textToType = "Data Science Cheat Codes";
-        let index = 0;
-        typingTitle.innerHTML = ''; // Ensure it's empty before starting
+  // --- 6. LOGIKA UNTUK ANIMASI KETIKAN JUDUL ---
+console.log("Mencoba menjalankan animasi ketikan..."); // <-- LOG #1
+
+const typingTitle = document.getElementById('typing-title');
+if (typingTitle) {
+    console.log("Elemen h1#typing-title DITEMUKAN!"); // <-- LOG #2
     
-        function type() {
-            if (index < textToType.length) {
-                typingTitle.innerHTML += textToType.charAt(index);
-                index++;
-                setTimeout(type, 150);
-            } else {
-                // === THIS IS THE FIX ===
-                // When typing is done, remove the right border (the cursor)
-                typingTitle.classList.add('typing-done');
-            }
+    const textToType = "Data Science Cheat Codes";
+    let index = 0;
+    typingTitle.innerHTML = ''; // Pastikan kosong
+
+    function type() {
+        if (index < textToType.length) {
+            typingTitle.innerHTML += textToType.charAt(index);
+            index++;
+            setTimeout(type, 150);
+        } else {
+            typingTitle.classList.add('typing-done');
         }
-        setTimeout(type, 500); // Start the animation
     }
+    setTimeout(type, 500);
+} else {
+    // Tambahkan ini untuk debugging
+    console.error("ERROR: Elemen h1#typing-title TIDAK ditemukan.");
+}
 }); // <-- Penutup DOMContentLoaded
