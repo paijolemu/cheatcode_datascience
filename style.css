@@ -107,19 +107,30 @@ header h1 {
 
 /* Gaya untuk teks yang sudah diketik */
 .live-gradient {
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(90deg, #a259f7, #6e13c7, #a259f7 90%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-move 3s linear infinite;
+  font-weight: 700;
 }
-
+@keyframes gradient-move {
+  0% { background-position: 0% 50%;}
+  100% { background-position: 100% 50%;}
+}
 /* Gaya untuk kursor ketikan yang berkedip */
 .live-caret {
-    color: var(--text-color-muted);
-    font-weight: 300;
-    animation: blink-caret 1s step-end infinite;
+  display: inline-block;
+  width: 1ch;
+  color: #a259f7;
+  animation: blink 1s steps(1) infinite;
 }
-
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
 /* Gaya untuk setiap huruf yang dibungkus span oleh JS */
 header h1 span {
     position: relative;
@@ -264,16 +275,7 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 #theme-toggle .icon-moon { display: block; }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        top: 0;
-    }
-}
-@keyframes blink-caret {
-  from, to { color: transparent }
-  50% { color: var(--text-color-muted); }
-}
+
 /* ======================================================= */
 /*             MEDIA QUERIES UNTUK TAMPILAN MOBILE             */
 /* ======================================================= */
