@@ -102,5 +102,27 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
+// --- 6. LOGIKA BARU UNTUK ANIMASI JUDUL (DARI COPILOT) ---
+    const title = document.querySelector('#main-content header h1');
+    if (title) {
+        const text = title.innerText;
+        title.innerHTML = ''; // Kosongkan H1
+        
+        // Pecah teks menjadi huruf dan bungkus dengan span
+        for (let i = 0; i < text.length; i++) {
+            const span = document.createElement('span');
+            
+            // Jika karakter adalah spasi, gunakan non-breaking space
+            if (text[i] === ' ') {
+                span.innerHTML = '&nbsp;';
+            } else {
+                span.innerText = text[i];
+            }
+    
+            // Tambahkan delay animasi yang berbeda untuk setiap huruf
+            span.style.animationDelay = `${i * 0.05}s`;
+            
+            title.appendChild(span);
+        }
+    }
 }); // <-- Penutup DOMContentLoaded
