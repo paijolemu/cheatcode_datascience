@@ -103,21 +103,4 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 // --- 6. LOGIKA BARU UNTUK ANIMASI JUDUL (DARI COPILOT) ---
-        <script>
-        const text = "Data Science Cheat Codes";
-        const target = document.getElementById('typing-title');
-        let idx = 0;
-        
-        function type() {
-          if (!target) return; // Cegah error jika id tidak ditemukan
-          if (idx <= text.length) {
-            target.innerHTML = `<span class="live-gradient">${text.slice(0, idx)}</span><span class="live-caret">|</span>`;
-            idx++;
-            setTimeout(type, 90);
-          } else {
-            target.innerHTML = `<span class="live-gradient">${text}</span>`;
-          }
-        }
-        type();
-        </script>
 }); // <-- Penutup DOMContentLoaded
