@@ -102,22 +102,24 @@ header h1 {
     font-weight: 700;
     margin-bottom: 10px;
     
-    /* Gradien diperpanjang untuk loop yang mulus */
-    background: linear-gradient(
-        90deg, 
-        var(--primary-color-start), 
-        var(--primary-color-end), 
-        var(--primary-color-start)
-    );
+    /* Penting: Setel agar span di dalamnya bisa diposisikan */
+    position: relative; 
     
-    /* Trik untuk membuat background hanya terlihat pada teks */
+    /* Gradien statis sebagai fallback */
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* Gaya untuk setiap huruf yang dibungkus span oleh JS */
+header h1 span {
+    position: relative;
+    opacity: 0; /* Mulai dari transparan */
+    top: 1em;   /* Mulai dari posisi sedikit di bawah */
     
-    /* Mengaktifkan animasi gradien */
-    background-size: 200% auto;
-    animation: gradient-animation 5s ease-in-out infinite;
+    /* Animasi fade-in dan pergeseran ke atas */
+    animation: fadeIn 0.8s forwards;
 }
 header h1.typing-done {
     animation: none; /* Matikan animasi */
@@ -254,15 +256,10 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 #theme-toggle .icon-moon { display: block; }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
-@keyframes gradient-animation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        top: 0;
     }
 }
 @keyframes typing {
