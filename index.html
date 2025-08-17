@@ -103,15 +103,27 @@ plt.show()</code></pre>
     document.addEventListener("DOMContentLoaded", function() {
       const text = "Data Science Cheat Codes";
       const target = document.getElementById('typing-title');
+      if (!target) return;
+    
+      // buat elemen sekali saja
+      target.innerHTML = '<span class="live-gradient"></span><span class="live-caret">|</span>';
+      const span = target.querySelector('.live-gradient');
+      const caret = target.querySelector('.live-caret');
+    
+      // style caret supaya tidak aneh ukurannya
+      caret.style.display = 'inline-block';
+      caret.style.lineHeight = '1';
+      caret.style.marginLeft = '6px';
+    
       let idx = 0;
       function type() {
-        if (!target) return;
-        if (idx <= text.length) {
-          target.innerHTML = `<span class="live-gradient">${text.slice(0, idx)}</span><span class="live-caret">|</span>`;
+        if (idx < text.length) {
+          span.textContent += text[idx];
           idx++;
           setTimeout(type, 80);
         } else {
-          target.innerHTML = `<span class="live-gradient">${text}</span>`;
+          // selesai: sembunyikan caret atau biarkan blink
+          caret.style.display = 'none';
         }
       }
       type();
