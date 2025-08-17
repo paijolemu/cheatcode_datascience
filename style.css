@@ -97,35 +97,24 @@ body {
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 /* GANTI SELURUH BLOK header h1 ANDA DENGAN INI */
 /* CSS Sederhana untuk Debugging */
-header h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-    min-height: 1.2em; /* Mencegah 'lompatan' layout saat teks diisi */
-    text-align: center; /* Pastikan teks tetap di tengah */
-}
-
-/* Gaya untuk teks yang sudah diketik */
-.live-gradient {
-  background: linear-gradient(90deg, #a259f7, #6e13c7, #a259f7 90%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
+header h1 .live-gradient {
+  position: relative;
+  opacity: 1;              /* pastikan teks terlihat */
+  top: 0;
   animation: gradient-move 3s linear infinite;
-  font-weight: 700;
   display: inline-block;
 }
 
-.live-caret {
+/* Caret (tetap pakai blink) */
+header h1 .live-caret {
   display: inline-block;
-  width: auto;
   color: #a259f7;
   animation: blink 1s steps(1) infinite;
   font-weight: 700;
   line-height: 1;
+  margin-left: 6px;
 }
+
 @keyframes gradient-move {
   0% { background-position: 0% 50%;}
   100% { background-position: 100% 50%;}
