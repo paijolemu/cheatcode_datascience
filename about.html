@@ -1,64 +1,59 @@
+<!-- File: about.html (Halaman Baru) -->
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tentang Komunitas - Data Science Cheat Codes</title>
+    <title>About Me - Data Science Cheat Codes</title>
+    
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
+    <div id="tsparticles"></div>
+    <nav id="sidebar">
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+            <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
+            <li class="nav-item"><a href="scikitlearn.html"><i class="fa-solid fa-robot nav-icon"></i><span class="nav-text">Scikit-learn</span></a></li>
+            <li class="nav-item"><a href="about.html"><i class="fa-solid fa-user-circle nav-icon"></i><span class="nav-text">About</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+            </button>
+        </div>
+    </nav>
 
-    <div class="container">
-        <h1>Tentang Komunitas Kami</h1>
-        <p>Proyek ini dibangun oleh dan untuk komunitas. Terima kasih kepada semua kontributor!</p>
-        
-        <div class="contribution-guide">
-            <h3>Ingin Bergabung?</h3>
-            <p>Anda bisa menambahkan profil Anda di sini! Caranya sangat mudah:</p>
-            <ol>
-                <li><strong>Fork</strong> repositori ini di GitHub.</li>
-                <li>Edit file <code>community.json</code> dan tambahkan data diri Anda.</li>
-                <li>Buat <strong>Pull Request</strong>.</li>
-                <li>Setelah kami review dan merge, profil Anda akan otomatis muncul di sini.</li>
-            </ol>
-            <a href="https://github.com/your-username/your-repo-name/fork" class="cta-button" target="_blank">Fork Repositori Sekarang</a>
-        </div>
-        
-        <h2>Kontributor</h2>
-        <div id="community-grid">
-            <!-- Profil kontributor akan dimuat di sini oleh JavaScript -->
-        </div>
+    <div id="main-content">
+        <header>
+            <h1>Tentang Proyek Ini</h1>
+            <p>Sedikit cerita di balik layar pembuatan website ini.</p>
+        </header>
+        <main>
+            <div class="about-container">
+                <img class="profile-picture" src="https://via.placeholder.com/150" alt="Foto Profil">
+                <h2>Paijo Lemu</h2>
+                <p class="profile-bio">
+                    Selamat datang di Data Science Cheat Codes! Saya adalah seorang antusias data yang sedang dalam perjalanan untuk terus belajar dan bertumbuh di dunia data science. Website ini saya bangun sebagai catatan pribadi dan sarana untuk berbagi "contekan" atau kode-kode berguna yang sering saya gunakan.
+                </p>
+                <p class="profile-bio">
+                    Tujuan saya adalah menciptakan sumber daya yang cepat, praktis, dan mudah diakses bagi siapa saja yang membutuhkan referensi singkat saat bekerja dengan data. Semoga apa yang saya bagikan di sini bisa bermanfaat juga untuk Anda!
+                </p>
+                <div class="social-links">
+                    <a href="https://github.com/paijolemu" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" target="_blank" title="Twitter/X"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </main>
     </div>
-    
-    <script>
-        // JavaScript khusus untuk halaman ini
-        document.addEventListener('DOMContentLoaded', () => {
-            const communityGrid = document.getElementById('community-grid');
 
-            fetch('community.json')
-                .then(response => response.json())
-                .then(data => {
-                    data.forEach(member => {
-                        const memberCard = `
-                            <div class="community-card">
-                                <img src="${member.avatar}" alt="Avatar ${member.name}" class="avatar">
-                                <h3>${member.name}</h3>
-                                <h4>${member.role}</h4>
-                                <p>${member.bio}</p>
-                                <a href="${member.github_url}" target="_blank">Profil GitHub</a>
-                            </div>
-                        `;
-                        communityGrid.innerHTML += memberCard;
-                    });
-                })
-                .catch(error => {
-                    console.error('Error memuat data komunitas:', error);
-                    communityGrid.innerHTML = '<p>Gagal memuat data kontributor.</p>';
-                });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js?v=final_version_2"></script>
 </body>
 </html>
