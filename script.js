@@ -1,44 +1,28 @@
-/* ======================================================= */
-/*      SCRIPT.JS FINAL LENGKAP - SEMUA FITUR DIPERBAIKI      */
-/* ======================================================= */
-
-// Jalankan semua fungsi setelah struktur HTML halaman selesai dimuat
 document.addEventListener("DOMContentLoaded", () => {
-
-    // --- 1. KONFIGURASI ANIMASI BACKGROUND "LIVE" ---
+    // 1. KONFIGURASI ANIMASI BACKGROUND
     if (document.getElementById("tsparticles")) {
         tsParticles.load("tsparticles", {
-            background: { color: { value: "transparent" } },
-            fpsLimit: 120,
+            background: { color: { value: "transparent" } }, fpsLimit: 120,
             interactivity: {
                 events: {
                     onClick: { enable: true, mode: "push" },
                     onHover: { enable: true, mode: "repulse" },
                     resize: true
                 },
-                modes: {
-                    push: { quantity: 4 },
-                    repulse: { distance: 150, duration: 0.4 }
-                }
+                modes: { push: { quantity: 4 }, repulse: { distance: 150, duration: 0.4 } }
             },
             particles: {
-                color: { value: "#ffffff" },
-                links: { color: "#ffffff", distance: 150, enable: true, opacity: 0.2, width: 1 },
-                collisions: { enable: true },
-                move: {
-                    direction: "none", enable: true, outModes: { default: "bounce" },
-                    random: false, speed: 2, straight: false
-                },
+                color: { value: "var(--text-color)" },
+                links: { color: "var(--text-color)", distance: 150, enable: true, opacity: 0.1, width: 1 },
+                move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: true, speed: 1.5, straight: false },
                 number: { density: { enable: true, area: 800 }, value: 80 },
-                opacity: { value: 0.3 },
-                shape: { type: "circle" },
-                size: { value: { min: 1, max: 5 } }
+                opacity: { value: 0.3 }, shape: { type: "circle" }, size: { value: { min: 1, max: 4 } },
             },
             detectRetina: true
         });
     }
 
-    // --- 2. LOGIKA SIDEBAR (DESKTOP & MOBILE) ---
+    // 2. LOGIKA SIDEBAR (DESKTOP & MOBILE)
     const sidebar = document.getElementById('sidebar');
     const mainContent = document.getElementById('main-content');
     const toggleBtn = document.getElementById('sidebar-toggle');
@@ -55,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // --- 3. LOGIKA ANIMASI KARTU SAAT SCROLL ---
+    // 3. LOGIKA ANIMASI KARTU SAAT SCROLL
     const cards = document.querySelectorAll(".card");
     if (cards.length > 0) {
         const observer = new IntersectionObserver(entries => {
@@ -69,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         cards.forEach(card => { observer.observe(card); });
     }
 
-    // --- 4. LOGIKA TOMBOL COPY KODE ---
+    // 4. LOGIKA TOMBOL COPY KODE
     const copyButtons = document.querySelectorAll(".copy-button");
     copyButtons.forEach(button => {
         button.addEventListener("click", () => {
@@ -84,13 +68,11 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- 5. LOGIKA LIGHT/DARK MODE TOGGLE ---
+    // 5. LOGIKA LIGHT/DARK MODE TOGGLE
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
         const currentTheme = localStorage.getItem('theme');
-        if (currentTheme) {
-            document.body.setAttribute('data-theme', currentTheme);
-        }
+        if (currentTheme) { document.body.setAttribute('data-theme', currentTheme); }
         themeToggle.addEventListener('click', () => {
             let theme = document.body.getAttribute('data-theme');
             if (theme === 'light') {
@@ -102,5 +84,20 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-// --- 6. LOGIKA BARU UNTUK ANIMASI JUDUL (DARI COPILOT) ---
-}); // <-- Penutup DOMContentLoaded
+
+    // 6. LOGIKA ANIMASI KETIKAN JUDUL
+    const text = "Data Science Cheat Codes";
+    const target = document.getElementById('typing-title');
+    let idx = 0;
+    function type() {
+      if (!target) return;
+      if (idx <= text.length) {
+        target.innerHTML = `<span class="live-gradient">${text.slice(0, idx)}</span><span class="live-caret">|</span>`;
+        idx++;
+        setTimeout(type, 100);
+      } else {
+        target.innerHTML = `<span class="live-gradient">${text}</span>`;
+      }
+    }
+    if (target) { setTimeout(type, 500); }
+});
