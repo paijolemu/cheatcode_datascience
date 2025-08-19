@@ -1,65 +1,34 @@
-/* ======================================================= */
-/*      STYLE.CSS FINAL - PERBAIKAN DARI KODE COPILOT      */
-/* ======================================================= */
 :root {
     /* TEMA GELAP (DEFAULT) */
-    --bg-color: #121212;
-    --sidebar-bg: #1A1A1A;
-    --card-bg: rgba(26, 26, 26, 0.7);
-    --header-bg: #3a3c4e;
-    --text-color: #e0e0e0;
-    --text-color-muted: #b3b3b3;
-    --border-color: #444;
-    --border-color-light: #555;
-    --code-bg: #282a36;
-    --code-color: #f8f8f2;
-    --copy-btn-bg: rgba(0, 0, 0, 0.2);
-
+    --bg-color: #121212; --sidebar-bg: #1A1A1A; --card-bg: rgba(26, 26, 26, 0.7);
+    --header-bg: #3a3c4e; --text-color: #e0e0e0; --text-color-muted: #b3b3b3;
+    --border-color: #444; --border-color-light: #555; --code-bg: #282a36;
+    --code-color: #f8f8f2; --copy-btn-bg: rgba(0, 0, 0, 0.2);
     /* Warna & Ukuran Konsisten */
-    --primary-color-start: #4a00e0;
-    --primary-color-end: #8e2de2;
-    --sidebar-width-expanded: 240px;
-    --sidebar-width-collapsed: 70px;
+    --primary-color-start: #4a00e0; --primary-color-end: #8e2de2;
+    --sidebar-width-expanded: 240px; --sidebar-width-collapsed: 70px;
     --smooth-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-
 body[data-theme='light'] {
     /* TEMA TERANG */
-    --bg-color: #f5f5f7;
-    --sidebar-bg: #ffffff;
-    --card-bg: rgba(255, 255, 255, 0.7);
-    --header-bg: #e0e0e0;
-    --text-color: #1d1d1f;
-    --text-color-muted: #515154;
-    --border-color: #d2d2d7;
-    --border-color-light: #e5e5e5;
-    --code-bg: #f0f0f0;
-    --code-color: #212121;
-    --copy-btn-bg: rgba(0, 0, 0, 0.1);
+    --bg-color: #f5f5f7; --sidebar-bg: #ffffff; --card-bg: rgba(255, 255, 255, 0.7);
+    --header-bg: #e0e0e0; --text-color: #1d1d1f; --text-color-muted: #515154;
+    --border-color: #d2d2d7; --border-color-light: #e5e5e5; --code-bg: #f0f0f0;
+    --code-color: #212121; --copy-btn-bg: rgba(0, 0, 0, 0.1);
 }
-
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    margin: 0; padding: 0;
-    color: var(--text-color);
-    background-color: var(--bg-color);
-    transition: background-color 0.3s, color 0.3s;
-    overflow-x: hidden;
+    margin: 0; padding: 0; color: var(--text-color); background-color: var(--bg-color);
+    transition: background-color 0.3s, color 0.3s; overflow-x: hidden;
 }
-
 #tsparticles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
-
 #sidebar {
     position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-width-expanded);
-    background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
-    padding: 15px 0;
-    display: flex; flex-direction: column;
-    transition: width 0.4s var(--smooth-ease), background-color 0.3s;
-    z-index: 100;
+    background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color);
+    padding: 15px 0; display: flex; flex-direction: column;
+    transition: width 0.4s var(--smooth-ease), background-color 0.3s; z-index: 100;
 }
 #sidebar.collapsed { width: var(--sidebar-width-collapsed); }
-
 #sidebar-toggle {
     background: none; border: none; color: var(--text-color-muted); font-size: 1.5rem;
     cursor: pointer; text-align: right; padding: 0 20px 20px 20px;
@@ -67,7 +36,6 @@ body {
 }
 #sidebar-toggle:hover { color: var(--text-color); }
 #sidebar.collapsed #sidebar-toggle { text-align: center; padding: 0 0 20px 0; }
-
 .sidebar-nav { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
 .nav-item a {
     display: flex; align-items: center; color: var(--text-color-muted); text-decoration: none;
@@ -87,99 +55,42 @@ body {
 #sidebar.collapsed .nav-icon { margin-right: 0; }
 .nav-text { transition: opacity 0.2s ease; opacity: 1; }
 #sidebar.collapsed .nav-text { opacity: 0; width: 0; }
-
 #main-content {
     margin-left: var(--sidebar-width-expanded); padding: 40px;
     transition: margin-left 0.4s var(--smooth-ease);
 }
 #main-content.collapsed { margin-left: var(--sidebar-width-collapsed); }
-
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
-/* GANTI SELURUH BLOK header h1 ANDA DENGAN INI */
-/* CSS Sederhana untuk Debugging */
-header h1 .live-gradient {
-  position: relative;
-  opacity: 1;              /* pastikan teks terlihat */
-  top: 0;
-  animation: gradient-move 3s linear infinite;
-  display: inline-block;
+header h1 {
+    font-size: 3.5rem; font-weight: 700; margin-bottom: 10px;
+    min-height: 1.2em; text-align: center;
 }
-
-/* Caret (tetap pakai blink) */
-header h1 .live-caret {
-  display: inline-block;
-  color: #a259f7;
-  animation: blink 1s steps(1) infinite;
-  font-weight: 700;
-  line-height: 1;
-  margin-left: 6px;
+.live-gradient {
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-
-@keyframes gradient-move {
-  0% { background-position: 0% 50%;}
-  100% { background-position: 100% 50%;}
+.live-caret {
+    color: var(--text-color-muted); font-weight: 300;
+    animation: blink-caret 1s step-end infinite;
 }
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
-}
-/* Gaya untuk setiap huruf yang dibungkus span oleh JS */
-header h1 span {
-    position: relative;
-    opacity: 0; /* Mulai dari transparan */
-    top: 1em;   /* Mulai dari posisi sedikit di bawah */
-    
-    /* Animasi fade-in dan pergeseran ke atas */
-    animation: fadeIn 0.8s forwards;
-}
-header h1.typing-done {
-    animation: none; /* Matikan animasi */
-    border-right: none; /* Hapus border */
+@keyframes blink-caret {
+  from, to { color: transparent }
+  50% { color: var(--text-color-muted); }
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
-
+.main-button {
+    display: inline-block; background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    color: #fff; padding: 12px 28px; text-decoration: none; border-radius: 50px; margin-top: 20px;
+    font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s var(--smooth-ease), box-shadow 0.3s var(--smooth-ease);
+}
+.main-button:hover {
+    transform: translateY(-3px); box-shadow: 0 8px 20px rgba(142, 45, 226, 0.4);
+}
 main h2 {
     margin-top: 60px; font-size: 2.5rem; font-weight: 600; display: inline-block;
     padding-bottom: 10px; border-bottom: 3px solid;
     border-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end)) 1;
-}
-.main-button {
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-color); /* Menggunakan variabel agar bisa ganti tema */
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 14px 35px;
-    margin-top: 30px;
-    border-radius: 50px;
-    position: relative;
-    overflow: hidden; /* Penting untuk efek gradien */
-    z-index: 1;
-    border: 2px solid var(--primary-color-end); /* Border dengan warna aksen */
-    transition: color 0.4s var(--smooth-ease);
-}
-
-.main-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0; /* Mulai dari lebar 0 */
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-    z-index: -1;
-    transition: width 0.4s var(--smooth-ease);
-}
-
-.main-button:hover {
-    color: #fff; /* Teks menjadi putih saat di-hover */
-    border-color: transparent; /* Sembunyikan border saat gradien masuk */
-}
-
-.main-button:hover::before {
-    width: 100%; /* Gradien mengisi seluruh tombol saat di-hover */
 }
 .card-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
 .card {
@@ -200,7 +111,6 @@ main h2 {
     max-width: 100%; border-radius: 5px; background-color: #fff; padding: 10px;
     box-sizing: border-box; margin: 15px 0;
 }
-
 .code-block { border: 1px solid var(--border-color); border-radius: 8px; margin-top: 15px; overflow: hidden; }
 .code-block-header {
     display: flex; align-items: center; justify-content: space-between;
@@ -227,7 +137,6 @@ pre::-webkit-scrollbar-thumb {
     border-radius: 4px;
 }
 pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
-
 .page-navigation {
     display: flex; justify-content: space-between; align-items: center;
     margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color);
@@ -252,7 +161,6 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
     text-transform: uppercase; letter-spacing: 0.5px;
 }
 .nav-button.disabled { opacity: 0; pointer-events: none; visibility: hidden; }
-
 .sidebar-footer { margin-top: auto; padding: 20px; text-align: center; }
 #theme-toggle {
     background: none; border: 1px solid var(--border-color-light);
@@ -262,104 +170,22 @@ pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
     transition: all 0.3s var(--smooth-ease);
 }
 #theme-toggle:hover { color: var(--text-color); border-color: var(--primary-color-start); }
-
 #theme-toggle .icon-sun { display: none; }
 #theme-toggle .icon-moon { display: block; }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
-
-/* ======================================================= */
-/*             MEDIA QUERIES UNTUK TAMPILAN MOBILE             */
-/* ======================================================= */
-
-/* Terapkan gaya ini untuk layar dengan lebar MAKSIMAL 768px (tablet & smartphone) */
 @media (max-width: 768px) {
-
-    /* --- 1. Penyesuaian Layout Utama --- */
-    #main-content {
-        /* Hapus margin kiri dari sidebar karena akan disembunyikan */
-        margin-left: 0;
-        padding: 20px; /* Kurangi padding di mobile */
-    }
-    
-    #main-content.sidebar-open {
-        /* Saat sidebar terbuka, konten tidak boleh bisa di-scroll */
-        overflow: hidden;
-    }
-
-    /* --- 2. Perilaku Sidebar di Mobile --- */
-    #sidebar {
-        /* Posisikan di atas segalanya dengan z-index tinggi */
-        z-index: 1000;
-        /* Sembunyikan di luar layar sebelah kiri secara default */
-        transform: translateX(-100%);
-        transition: transform 0.4s var(--smooth-ease);
-        /* Sidebar jangan lagi 'collapsed' di mobile, lebarnya tetap */
-        width: var(--sidebar-width-expanded);
-    }
-    
-    #sidebar.open {
-        /* Munculkan sidebar saat kelas 'open' ditambahkan oleh JS */
-        transform: translateX(0);
-        /* Beri bayangan agar terlihat di atas konten */
-        box-shadow: 5px 0 15px rgba(0,0,0,0.5);
-    }
-
-    /* Tombol toggle sidebar selalu terlihat */
-    #sidebar-toggle {
-        position: fixed;
-        top: 15px;
-        left: 15px;
-        z-index: 1001; /* Di atas segalanya */
-        background-color: var(--sidebar-bg);
-        border-radius: 50%;
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        text-align: center;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    }
-
-    /* --- 3. Penyesuaian Konten --- */
-    header, main {
-        max-width: 100%; /* Gunakan lebar penuh */
-    }
-
-    header h1 {
-        font-size: 2.5rem; /* Kecilkan ukuran judul utama */
-    }
-
-    main h2 {
-        font-size: 1.8rem; /* Kecilkan ukuran sub-judul */
-    }
-
-    .card-container {
-        /* Tidak perlu diubah, flex-wrap akan otomatis membuatnya jadi 1 kolom */
-        gap: 20px;
-    }
-
-    .card {
-        /* Kartu sekarang mengambil hampir seluruh lebar layar */
-        width: 95%;
-        min-width: unset; /* Hapus min-width di mobile */
-    }
-    
-    /* --- 4. Penyesuaian Tombol Navigasi Bawah --- */
-    .page-navigation {
-        flex-direction: column; /* Tumpuk tombol secara vertikal */
-        gap: 15px;
-        align-items: stretch; /* Buat tombol sama lebar */
-    }
-    
-    .nav-button {
-        justify-content: center; /* Teks di tengah */
-    }
-    
-    .nav-button.prev > div,
-    .nav-button > div {
-        text-align: center; /* Semua teks di tengah */
-    }
+    #main-content { margin-left: 0; padding: 20px; }
+    #main-content.sidebar-open { overflow: hidden; }
+    #sidebar { z-index: 1000; transform: translateX(-100%); transition: transform 0.4s var(--smooth-ease); width: var(--sidebar-width-expanded); }
+    #sidebar.open { transform: translateX(0); box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+    #sidebar-toggle { position: fixed; top: 15px; left: 15px; z-index: 1001; background-color: var(--sidebar-bg); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; padding: 0; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+    header, main { max-width: 100%; }
+    header h1 { font-size: 2.5rem; }
+    main h2 { font-size: 1.8rem; }
+    .card-container { gap: 20px; }
+    .card { width: 95%; min-width: unset; }
+    .page-navigation { flex-direction: column; gap: 15px; align-items: stretch; }
+    .nav-button { justify-content: center; }
+    .nav-button.prev > div, .nav-button > div { text-align: center; }
 }
