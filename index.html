@@ -98,36 +98,6 @@ plt.show()</code></pre>
     
     <!-- Script -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="script.js"></script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const text = "Data Science Cheat Codes";
-      const target = document.getElementById('typing-title');
-      if (!target) return;
-    
-      // buat elemen sekali saja
-      target.innerHTML = '<span class="live-gradient"></span><span class="live-caret">|</span>';
-      const span = target.querySelector('.live-gradient');
-      const caret = target.querySelector('.live-caret');
-    
-      // style caret supaya tidak aneh ukurannya
-      caret.style.display = 'inline-block';
-      caret.style.lineHeight = '1';
-      caret.style.marginLeft = '6px';
-    
-      let idx = 0;
-      function type() {
-        if (idx < text.length) {
-          span.textContent += text[idx];
-          idx++;
-          setTimeout(type, 80);
-        } else {
-          // selesai: sembunyikan caret atau biarkan blink
-          caret.style.display = 'none';
-        }
-      }
-      type();
-    });
-    </script>
+    <script src="script.js?v=final_version"></script> <!-- Cache busting -->
 </body>
 </html>
