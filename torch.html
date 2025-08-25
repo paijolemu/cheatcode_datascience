@@ -9,11 +9,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
-    <!-- PENTING: Pastikan div ini ada untuk Live Background -->
+    <!-- BAGIAN PENTING #1: DIV UNTUK LIVE BACKGROUND -->
     <div id="tsparticles"></div>
     
+    <!-- BAGIAN PENTING #2: STRUKTUR LENGKAP SIDEBAR -->
     <nav id="sidebar">
-        <!-- ... (Isi sidebar Anda yang sudah benar) ... -->
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+            <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
+            <li class="nav-item"><a href="scikitlearn.html"><i class="fa-solid fa-robot nav-icon"></i><span class="nav-text">Scikit-learn</span></a></li>
+            <li class="nav-item"><a href="torch.html"><i class="fa-solid fa-brain nav-icon"></i><span class="nav-text">PyTorch</span></a></li>
+            <li class="nav-item"><a href="about.html"><i class="fa-solid fa-user-circle nav-icon"></i><span class="nav-text">About</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+            </button>
+        </div>
     </nav>
 
     <div id="main-content">
@@ -22,144 +38,87 @@
             <p>Alur kerja lengkap untuk melatih Neural Network dari awal hingga akhir.</p>
         </header>
         <main>
-            <h2>Alur Kerja Klasifikasi Gambar (MNIST)</h2>
+            <h2>Klasifikasi Gambar (MNIST)</h2>
             <div class="card-container">
 
-                <!-- KARTU 1: PERSIAPAN DATA & MODEL -->
+                <!-- KARTU TUNGGAL DENGAN KODE YANG BISA DIJALANKAN -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>1. Persiapan Data & Arsitektur Model</h3>
-                        <img src="https://i.imgur.com/r6eB28T.png" alt="Konsep Data Pipeline">
+                        <h3>Alur Kerja Lengkap Klasifikasi MNIST</h3>
+                        <!-- Anda perlu membuat gambar confusion matrix dari kode di bawah -->
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scikitlearn_confusion_matrix.png" alt="Contoh Confusion Matrix PyTorch">
+                        
+                        <div class="code-output">
+                            <p><strong>Contoh Output:</strong></p>
+                            <pre class="output-text">Epoch 1/5, Loss: 0.1549
+Epoch 2/5, Loss: 0.2206
+...
+Akurasi pada test set: 93.30 %</pre>
+                        </div>
+                        
                         <div class="code-block">
-                            <div class="code-block-header"><div class="code-block-dots"></div><button class="copy-button">Copy</button></div>
-                            <pre><code>import torch
-import torch.nn as nn
+                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
+                            <pre><code>import torch, torch.nn as nn, torch.optim as optim
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
-
-# ==================================
-# 1. MENYIAPKAN DATA PIPELINE
-# ==================================
-
-# Transformasi untuk normalisasi gambar
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
-
-# Download dan muat dataset training
-train_dataset = datasets.MNIST(
-    root='./data', 
-    train=True, 
-    download=True, 
-    transform=transform
-)
-# Muat data testing
-test_dataset = datasets.MNIST(
-    root='./data', 
-    train=False, 
-    download=True, 
-    transform=transform
-)
-
-# Buat DataLoaders untuk iterasi per batch
-train_loader = DataLoader(
-    train_dataset, 
-    batch_size=64, 
-    shuffle=True
-)
-test_loader = DataLoader(
-    test_dataset, 
-    batch_size=1000, 
-    shuffle=False
-)
-
-# ==================================
-# 2. MEMBUAT ARSITEKTUR MODEL
-# ==================================
-class SimpleNN(nn.Module):
-    def __init__(self):
-        super(SimpleNN, self).__init__()
-        self.flatten = nn.Flatten()
-        self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(512, 512),
-            nn.ReLU(),
-            nn.Dropout(0.2),
-            nn.Linear(512, 10) # 10 kelas (angka 0-9)
-        )
-    def forward(self, x):
-        x = self.flatten(x)
-        logits = self.linear_relu_stack(x)
-        return logits
-
-# Inisialisasi model
-model = SimpleNN()
-print("Model dan Data berhasil disiapkan!")</code></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KARTU 2: TRAINING & EVALUASI -->
-                <div class="card">
-                    <div class="card-inner">
-                        <h3>2. Training, Evaluasi & Visualisasi</h3>
-                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/scikitlearn_confusion_matrix.png" alt="Contoh Confusion Matrix">
-                        <div class="code-block">
-                            <div class="code-block-header"><div class="code-block-dots"></div><button class="copy-button">Copy</button></div>
-                            <pre><code>import torch
-import torch.nn as nn
-import torch.optim as optim
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
-# Pastikan data & model dari Kartu 1 sudah dijalankan
-# train_loader, test_loader, model = ...
 
-# ==================================
-# 3. SETUP TRAINING
-# ==================================
+# 1. DATA PIPELINE
+transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5,), (0.5,))])
+train_dset = datasets.MNIST('./data', train=True, download=True, transform=transform)
+test_dset = datasets.MNIST('./data', train=False, download=True, transform=transform)
+train_loader = DataLoader(train_dset, batch_size=64, shuffle=True)
+test_loader = DataLoader(test_dset, batch_size=1000, shuffle=False)
+
+# 2. ARSITEKTUR MODEL
+class SimpleNN(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.stack = nn.Sequential(
+            nn.Linear(28*28, 512), nn.ReLU(), nn.Dropout(0.2),
+            nn.Linear(512, 512), nn.ReLU(), nn.Dropout(0.2),
+            nn.Linear(512, 10))
+    def forward(self, x):
+        return self.stack(self.flatten(x))
+model = SimpleNN()
+
+# 3. TRAINING SETUP
 loss_fn = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 num_epochs = 5
 
-# ==================================
 # 4. TRAINING LOOP
-# ==================================
-model.train() # Set model ke mode training
+model.train()
 for epoch in range(num_epochs):
     for data, targets in train_loader:
         scores = model(data)
         loss = loss_fn(scores, targets)
-        
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-    print(f"Epoch {epoch+1}/{num_epochs} | Loss: {loss.item():.4f}")
+    print(f"Epoch {epoch+1}/{num_epochs}, Loss: {loss.item():.4f}")
 
-# ==================================
 # 5. EVALUASI & VISUALISASI
-# ==================================
-model.eval() # Set model ke mode evaluasi
-all_preds = []
-all_targets = []
+model.eval()
+preds, actual = [], []
 with torch.no_grad():
     for data, targets in test_loader:
         scores = model(data)
         _, predictions = torch.max(scores, 1)
-        all_preds.extend(predictions.tolist())
-        all_targets.extend(targets.tolist())
+        preds.extend(predictions.tolist())
+        actual.extend(targets.tolist())
 
-# Visualisasi dengan Confusion Matrix
-cm = confusion_matrix(all_targets, all_preds)
+# Visualisasi Confusion Matrix
+cm = confusion_matrix(actual, preds)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm, annot=True, fmt='d', cmap='BuPu')
 plt.title('Confusion Matrix - PyTorch')
-plt.xlabel('Predicted')
-plt.ylabel('Actual')
-plt.show()</code></pre>
+plt.xlabel('Predicted'); plt.ylabel('Actual')
+plt.show()
+</code></pre>
                         </div>
                     </div>
                 </div>
@@ -168,11 +127,13 @@ plt.show()</code></pre>
         </main>
         
         <footer class="page-navigation">
-            <!-- ... (Isi footer Anda yang sudah benar) ... -->
+            <a href="scikitlearn.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">Scikit-learn</div></div></a>
+            <a href="about.html" class="nav-button next"><i class="fas fa-arrow-right arrow"></i><div><div class="nav-text-sub">Selanjutnya</div><div class="nav-text-main">About</div></div></a>
         </footer>
     </div>
 
+    <!-- BAGIAN PENTING #3: PEMANGGILAN SCRIPT -->
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="script.js?v=torch_page_fixed"></script> <!-- Ganti versi -->
+    <script src="script.js?v=final_fix_torch"></script> <!-- Cache busting -->
 </body>
 </html>
