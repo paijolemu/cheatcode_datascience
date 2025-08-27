@@ -1,25 +1,27 @@
 /* ======================================================= */
-/*      STYLE.CSS FINAL LENGKAP (DENGAN SEMUA FITUR)       */
+/*      STYLE.CSS FINAL, LENGKAP, DAN SUDAH DIPERIKSA      */
 /* ======================================================= */
 
-/* --- Variabel untuk Kedua Tema --- */
+/* --- Variabel Global untuk Tema & Ukuran --- */
 :root {
     /* TEMA GELAP (DEFAULT) */
     --bg-color: #121212; --sidebar-bg: #1A1A1A; --card-bg: rgba(26, 26, 26, 0.7);
     --header-bg: #3a3c4e; --text-color: #e0e0e0; --text-color-muted: #b3b3b3;
     --border-color: #444; --border-color-light: #555; --code-bg: #282a36;
     --code-color: #f8f8f2; --copy-btn-bg: rgba(0, 0, 0, 0.2);
+
     /* Warna & Ukuran Konsisten */
     --primary-color-start: #4a00e0; --primary-color-end: #8e2de2;
     --sidebar-width-expanded: 240px; --sidebar-width-collapsed: 70px;
     --smooth-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
 body[data-theme='light'] {
     /* TEMA TERANG */
-    --bg-color: #f5f5f7; --sidebar-bg: #ffffff; --card-bg: rgba(255, 255, 255, 0.7);
-    --header-bg: #e0e0e0; --text-color: #1d1d1f; --text-color-muted: #515154;
+    --bg-color: #f5f5f7; --sidebar-bg: #ffffff; --card-bg: rgba(255, 255, 255, 0.8);
+    --header-bg: #e8e8e8; --text-color: #1d1d1f; --text-color-muted: #515154;
     --border-color: #d2d2d7; --border-color-light: #e5e5e5; --code-bg: #f0f0f0;
-    --code-color: #212121; --copy-btn-bg: rgba(0, 0, 0, 0.1);
+    --code-color: #212121; --copy-btn-bg: rgba(0, 0, 0, 0.05);
 }
 
 /* --- Gaya Dasar & Latar Belakang --- */
@@ -70,15 +72,10 @@ body {
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 header h1 {
     font-size: 3.5rem; font-weight: 700; margin-bottom: 10px;
-    min-height: 1.2em; text-align: center;
-}
-.live-gradient {
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
     background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.live-caret {
-    color: var(--text-color-muted); font-weight: 300;
-    animation: blink-caret 1s step-end infinite;
+    background-size: 200% auto;
+    animation: gradient-animation 5s ease-in-out infinite;
 }
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 .main-button {
@@ -122,7 +119,10 @@ main h2 {
 
 /* --- Blok Kode & Output --- */
 .code-block { border: 1px solid var(--border-color); border-radius: 8px; margin-top: 15px; overflow: hidden; }
-.code-block-header { display: flex; align-items: center; justify-content: space-between; background-color: var(--header-bg); padding: 10px 15px; }
+.code-block-header {
+    display: flex; align-items: center; justify-content: space-between;
+    background-color: var(--header-bg); padding: 10px 15px;
+}
 .code-block-dots { display: flex; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
@@ -132,12 +132,14 @@ main h2 {
 }
 .copy-button:hover { filter: brightness(1.2); }
 pre {
-    background-color: var(--code-bg); color: var(--code-color); padding: 20px; font-size: 0.9em;
-    overflow-x: auto; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin: 0;
+    background-color: var(--code-bg); color: var(--code-color);
+    padding: 20px; font-size: 0.9em; overflow-x: auto;
+    border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin: 0;
 }
 pre::-webkit-scrollbar { height: 8px; }
 pre::-webkit-scrollbar-track { background: #3a3c4e; border-radius: 4px; }
 pre::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end)); border-radius: 4px; }
+pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
 .code-output { margin: 20px 0; padding: 15px; background-color: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid var(--border-color-light); }
 .code-output p { margin-top: 0; margin-bottom: 10px; color: var(--text-color-muted); font-size: 0.9rem; }
 .code-output .output-text { padding: 10px; background-color: var(--code-bg); color: var(--code-color); border-radius: 5px; white-space: pre-wrap; }
@@ -152,7 +154,7 @@ pre::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--primary-
 .nav-button:hover {
     background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
     background-size: 200% auto; animation: gradient-animation 3s ease-in-out infinite;
-    border-color: var(--primary-color-end); color: #fff; transform: translateY(-5px);
+    border-color: transparent; color: #fff; transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(142, 45, 226, 0.25);
 }
 .nav-button .arrow { font-size: 1.4rem; line-height: 1; }
@@ -163,7 +165,12 @@ pre::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--primary-
 .nav-button.disabled { opacity: 0; pointer-events: none; visibility: hidden; }
 
 /* --- Halaman About --- */
-.about-container { /* ... */ } .profile-picture { /* ... */ } .profile-bio { /* ... */ } .social-links { /* ... */ } .social-links a { /* ... */ } .social-links a:hover { /* ... */ }
+.about-container { background-color: var(--card-bg); backdrop-filter: blur(10px); padding: 40px; border-radius: 15px; max-width: 800px; margin: 40px auto; text-align: center; border: 1px solid var(--border-color); }
+.profile-picture { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color-start); margin-bottom: 20px; }
+.profile-bio { font-size: 1.1rem; line-height: 1.8; color: var(--text-color-muted); max-width: 600px; margin: 20px auto; }
+.social-links { margin-top: 30px; }
+.social-links a { color: var(--text-color-muted); font-size: 1.8rem; margin: 0 15px; transition: color 0.3s, transform 0.3s; }
+.social-links a:hover { color: var(--primary-color-end); transform: scale(1.2); }
 
 /* --- Tombol Tema --- */
 .sidebar-footer { margin-top: auto; padding: 20px; text-align: center; }
@@ -179,7 +186,6 @@ body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
 
 /* --- Keyframes & Media Queries --- */
-@keyframes blink-caret { from, to { color: transparent } 50% { color: var(--text-color-muted); } }
 @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 @media (max-width: 768px) {
     #main-content { margin-left: 0; padding: 20px; }
