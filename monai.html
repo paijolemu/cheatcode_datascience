@@ -34,142 +34,80 @@
     <div id="main-content">
         <header>
             <h1>Deep Learning untuk Citra Medis dengan MONAI</h1>
-            <p>Alur kerja yang disederhanakan untuk analisis gambar medis.</p>
+            <p>Alur kerja lengkap yang bisa dijalankan untuk klasifikasi gambar medis.</p>
         </header>
         <main>
-            <h2>Segmentasi Gambar Medis (Contoh)</h2>
+            <h2>Klasifikasi Gambar MedNIST (Lengkap)</h2>
             <div class="card-container">
 
-                <!-- KARTU 1: PERSIAPAN DATA & MODEL -->
+                <!-- KARTU TUNGGAL UNTUK ALUR KERJA LENGKAP -->
                 <div class="card">
                     <div class="card-inner">
-                        <h3>Bagian 1: Persiapan Data & Augmentasi</h3>
-                        <img src="https://i.imgur.com/G5g2f2u.png" alt="Contoh Augmentasi MONAI">
-                        <div class="code-block">
-                            <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code>import os, tempfile, glob, monai
-from monai.data import Dataset, DataLoader
-from monai.transforms import (
-    Compose, LoadImaged, EnsureChannelFirstd, 
-    ScaleIntensityd, RandRotate90d, RandZoomd
-)
-
-# 1. DOWNLOAD DATASET (Hanya berjalan sekali)
-print("Mempersiapkan dataset MedNIST...")
-root_dir = tempfile.mkdtemp()
-data_dir = os.path.join(root_dir, "MedNIST")
-resource = "https://github.com/Project-MONAI/MONAI-extra-test-data/releases/download/0.8.1/MedNIST.tar.gz"
-compressed_file = os.path.join(root_dir, "MedNIST.tar.gz")
-if not os.path.exists(data_dir):
-    monai.apps.download_and_extract(resource, compressed_file, root_dir)
-
-# 2. PERSIAPAN PATH & LABEL
-# Ambil semua path gambar dan buat dictionary
-all_image_files = sorted(glob.glob(os.path.join(data_dir, "*", "*.jpeg")))
-class_names = sorted(os.path.basename(os.path.dirname(f)) for f in all_image_files)
-num_classes = len(class_names)
-image_class_indices = {name: i for i, name in enumerate(class_names)}
-image_files_dict = [{"image": f, "label": image_class_indices[os.path.basename(os.path.dirname(f))]} 
-                    for f in all_image_files]
-
-# Pisahkan data (contoh sederhana: 80% train, 20% validation)
-val_split = int(len(image_files_dict) * 0.2)
-train_files, val_files = image_files_dict[:-val_split], image_files_dict[-val_split:]
-
-# 3. TRANSFORMASI & AUGMENTASI DATA
-# Definisikan transformasi untuk data training (dengan augmentasi)
-train_transforms = Compose([
-    LoadImaged(keys=["image"]),
-    EnsureChannelFirstd(keys=["image"]),
-    ScaleIntensityd(keys=["image"]),
-    RandRotate90d(keys=["image"], prob=0.5, max_k=3),
-    RandZoomd(keys=["image"], prob=0.5, min_zoom=0.9, max_zoom=1.1),
-])
-# Definisikan transformasi untuk data validasi (tanpa augmentasi)
-val_transforms = Compose([
-    LoadImaged(keys=["image"]),
-    EnsureChannelFirstd(keys=["image"]),
-    ScaleIntensityd(keys=["image"]),
-])
-
-# 4. BUAT DATASET & DATALOADER
-train_ds = Dataset(data=train_files, transform=train_transforms)
-train_loader = DataLoader(train_ds, batch_size=300, shuffle=True, num_workers=2)
-val_ds = Dataset(data=val_files, transform=val_transforms)
-val_loader = DataLoader(val_ds, batch_size=300, num_workers=2)
-
-print("Dataset dan DataLoader siap untuk Bagian 2.")
-</code></pre>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- KARTU 2: TRAINING & VISUALISASI HASIL -->
-                <div class="card">
-                    <div class="card-inner">
-                        <h3>Bagian 2: Training & Evaluasi Model</h3>
+                        <h3>Alur Kerja Lengkap Klasifikasi MedNIST</h3>
+                        <!-- Anda perlu membuat gambar hasil prediksi dari kode di bawah -->
                         <img src="https://i.imgur.com/333jI5J.png" alt="Contoh Prediksi MONAI">
                         <div class="code-block">
                             <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code># CATATAN: Kode ini melanjutkan dari Bagian 1.
-# Pastikan variabel 'train_loader', 'val_loader', 'num_classes' sudah ada.
-import torch, torch.nn as nn, monai, matplotlib.pyplot as plt
+                            <pre><code>import os, tempfile, glob, monai, torch, torch.nn as nn
+import matplotlib.pyplot as plt
+from monai.data import Dataset, DataLoader
+from monai.transforms import (Compose, LoadImaged, EnsureChannelFirstd, 
+ScaleIntensityd, RandRotate90d, RandZoomd)
 
-# 5. DEFINISI MODEL DARI MONAI
-# Menggunakan arsitektur DenseNet121 yang sudah terbukti
+# 1. DOWNLOAD DATASET
+root_dir = tempfile.mkdtemp(); data_dir = os.path.join(root_dir, "MedNIST")
+resource = "https://github.com/Project-MONAI/MONAI-extra-test-data/releases/download/0.8.1/MedNIST.tar.gz"
+if not os.path.exists(data_dir):
+    monai.apps.download_and_extract(resource, os.path.join(root_dir, "MedNIST.tar.gz"), root_dir)
+
+# 2. PERSIAPAN DATA
+all_files = sorted(glob.glob(os.path.join(data_dir, "*", "*.jpeg")))
+class_names = sorted(os.path.basename(os.path.dirname(f)) for f in all_files)
+num_classes = len(class_names)
+class_indices = {name: i for i, name in enumerate(class_names)}
+files_dict = [{"image": f, "label": class_indices[os.path.basename(os.path.dirname(f))]} for f in all_files]
+val_split = int(len(files_dict) * 0.2); train_files, val_files = files_dict[:-val_split], files_dict[-val_split:]
+
+# 3. TRANSFORMASI & DATALOADER
+transforms = Compose([LoadImaged(keys=["image"]),EnsureChannelFirstd(keys=["image"]),ScaleIntensityd(keys=["image"])])
+train_ds = Dataset(data=train_files, transform=transforms)
+train_loader = DataLoader(train_ds, batch_size=300, shuffle=True)
+val_ds = Dataset(data=val_files, transform=transforms)
+val_loader = DataLoader(val_ds, batch_size=300)
+
+# 4. DEFINISI & SETUP MODEL
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = monai.networks.nets.DenseNet121(
-    spatial_dims=2, in_channels=1, out_channels=num_classes
-).to(device)
-
-# 6. SETUP TRAINING
+model = monai.networks.nets.DenseNet121(spatial_dims=2, in_channels=1, out_channels=num_classes).to(device)
 loss_function = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), 1e-4)
 max_epochs = 4
 
-# 7. TRAINING LOOP
-print("Memulai proses training...")
+# 5. TRAINING LOOP
 for epoch in range(max_epochs):
-    model.train()
-    epoch_loss = 0
+    model.train(); epoch_loss = 0
     for batch_data in train_loader:
         inputs, labels = batch_data["image"].to(device), batch_data["label"].to(device)
-        optimizer.zero_grad()
-        outputs = model(inputs)
-        loss = loss_function(outputs, labels)
-        loss.backward()
-        optimizer.step()
-        epoch_loss += loss.item()
-    print(f"Epoch {epoch + 1}/{max_epochs}, Loss: {epoch_loss / len(train_loader):.4f}")
-print("Training selesai.")
+        optimizer.zero_grad(); outputs = model(inputs); loss = loss_function(outputs, labels)
+        loss.backward(); optimizer.step(); epoch_loss += loss.item()
+    print(f"Epoch {epoch+1}, Loss: {epoch_loss/len(train_loader):.4f}")
 
-# 8. EVALUASI DAN VISUALISASI
-print("\nMembuat prediksi pada data validasi...")
+# 6. EVALUASI & VISUALISASI
 model.eval()
 with torch.no_grad():
-    # Ambil satu batch dari data validasi
     val_data = next(iter(val_loader))
     val_images, val_labels = val_data["image"].to(device), val_data["label"].to(device)
-    
-    # Lakukan prediksi
     val_outputs = model(val_images)
     predicted_labels = torch.argmax(val_outputs, dim=1)
 
-# Tampilkan beberapa gambar, label asli, dan label prediksi
 plt.figure("check", (10, 5))
 for i in range(5):
-    plt.subplot(2, 5, i + 1)
-    plt.imshow(val_images[i, 0, :, :].cpu(), cmap="gray")
-    plt.axis('off')
-    
+    plt.subplot(2, 5, i + 1); plt.imshow(val_images[i, 0, :, :].cpu(), cmap="gray"); plt.axis('off')
     plt.subplot(2, 5, i + 6)
+    color = "green" if val_labels[i] == predicted_labels[i] else "red"
     plt.text(0.5, 0.5, f"Asli: {class_names[val_labels[i]]}\nPred: {class_names[predicted_labels[i]]}",
-             ha="center", va="center", size=10, 
-             color="green" if val_labels[i] == predicted_labels[i] else "red")
+             ha="center", va="center", color=color)
     plt.axis('off')
-    
-plt.suptitle("Contoh Hasil Prediksi Model MONAI")
-plt.show()
+plt.suptitle("Contoh Hasil Prediksi Model MONAI"); plt.show()
 </code></pre>
                         </div>
                     </div>
@@ -179,12 +117,12 @@ plt.show()
         </main>
         
         <footer class="page-navigation">
-            <a href="scikitlearn.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">Scikit-learn</div></div></a>
+            <a href="pytorch.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">PyTorch</div></div></a>
             <a href="about.html" class="nav-button next"><i class="fas fa-arrow-right arrow"></i><div><div class="nav-text-sub">Selanjutnya</div><div class="nav-text-main">About</div></div></a>
         </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-    <script src="script.js?v=monai_page_perfect"></script>
+    <script src="script.js?v=monai_page_final_fix"></script>
 </body>
 </html>
