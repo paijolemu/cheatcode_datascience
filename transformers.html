@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformers - Data Science Cheat Codes</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div id="tsparticles"></div>
+    
+    <nav id="sidebar">
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+            <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
+            <li class="nav-item"><a href="scikitlearn.html"><i class="fa-solid fa-robot nav-icon"></i><span class="nav-text">Scikit-learn</span></a></li>
+            <li class="nav-item"><a href="torch.html"><i class="fa-solid fa-brain nav-icon"></i><span class="nav-text">PyTorch</span></a></li>
+            <li class="nav-item"><a href="monai.html"><i class="fa-solid fa-lungs nav-icon"></i><span class="nav-text">MONAI</span></a></li>
+            <li class="nav-item"><a href="transformers.html"><i class="fa-solid fa-language nav-icon"></i><span class="nav-text">Transformers</span></a></li>
+            <li class="nav-item"><a href="about.html"><i class="fa-solid fa-user-circle nav-icon"></i><span class="nav-text">About</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="main-content">
+        <header>
+            <h1>Keajaiban NLP dengan Transformers</h1>
+            <p>Memanfaatkan model bahasa canggih dengan beberapa baris kode.</p>
+        </header>
+        <main>
+            <h2>Contoh Penggunaan Pipeline</h2>
+            <div class="card-container">
+
+                <!-- KARTU 1: ANALISIS SENTIMEN -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>1. Analisis Sentimen</h3>
+                        <div class="code-output">
+                            <p><strong>Contoh Output:</strong></p>
+                            <pre class="output-text">Kalimat: 'I love this new phone, it's amazing!'
+Hasil: Label=POSITIVE, Score=0.9999
+
+Kalimat: 'The flight was delayed and the service was terrible.'
+Hasil: Label=NEGATIVE, Score=0.9998</pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"></div><button class="copy-button">Copy</button></div>
+                            <pre><code># 1. Instal library yang dibutuhkan (jalankan di Colab/terminal)
+# !pip install transformers torch
+
+from transformers import pipeline
+
+# 2. Muat pipeline analisis sentimen (model akan di-download otomatis)
+classifier = pipeline("sentiment-analysis")
+
+# 3. Siapkan beberapa kalimat contoh
+sentences = [
+    "I love this new phone, it's amazing!",
+    "The flight was delayed and the service was terrible."
+]
+
+# 4. Lakukan prediksi
+results = classifier(sentences)
+
+# 5. Tampilkan hasil
+for sentence, result in zip(sentences, results):
+    label = result['label']
+    score = result['score']
+    print(f"Kalimat: '{sentence}'")
+    print(f"Hasil: Label={label}, Score={score:.4f}\n")
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KARTU 2: KLASIFIKASI ZERO-SHOT -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>2. Klasifikasi Zero-Shot</h3>
+                         <div class="code-output">
+                            <p><strong>Contoh Output:</strong></p>
+                            <pre class="output-text">Urutan Label: ['teknologi', 'olahraga', 'politik']
+Skor:         [0.985, 0.008, 0.007]
+
+Kalimat ini paling relevan dengan label 'teknologi'.</pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-block-header"><div class="code-block-dots"></div><button class="copy-button">Copy</button></div>
+                            <pre><code># Library harus sudah terinstal dari contoh sebelumnya
+from transformers import pipeline
+
+# 1. Muat pipeline klasifikasi zero-shot
+classifier = pipeline("zero-shot-classification")
+
+# 2. Siapkan sekuens dan label kandidat
+sequence_to_classify = "Apple just announced the new M4 chip for the iPad Pro."
+candidate_labels = ["teknologi", "olahraga", "politik"]
+
+# 3. Lakukan prediksi
+result = classifier(sequence_to_classify, candidate_labels)
+
+# 4. Tampilkan hasil
+print(f"Kalimat: '{result['sequence']}'")
+print(f"Urutan Label: {result['labels']}")
+print(f"Skor:         {[round(score, 3) for score in result['scores']]}")
+print("\nKalimat ini paling relevan dengan label '{}'.".format(result['labels'][0]))
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <footer class="page-navigation">
+            <a href="monai.html" class="nav-button prev"><i class="fas fa-arrow-left arrow"></i><div><div class="nav-text-sub">Sebelumnya</div><div class="nav-text-main">MONAI</div></div></a>
+            <a href="about.html" class="nav-button next"><i class="fas fa-arrow-right arrow"></i><div><div class="nav-text-sub">Selanjutnya</div><div class="nav-text-main">About</div></div></a>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js?v=transformers_page_added"></script>
+</body>
+</html>ss
