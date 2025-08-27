@@ -1,3 +1,8 @@
+/* ======================================================= */
+/*      STYLE.CSS FINAL LENGKAP (DENGAN SEMUA FITUR)       */
+/* ======================================================= */
+
+/* --- Variabel untuk Kedua Tema --- */
 :root {
     /* TEMA GELAP (DEFAULT) */
     --bg-color: #121212; --sidebar-bg: #1A1A1A; --card-bg: rgba(26, 26, 26, 0.7);
@@ -16,12 +21,16 @@ body[data-theme='light'] {
     --border-color: #d2d2d7; --border-color-light: #e5e5e5; --code-bg: #f0f0f0;
     --code-color: #212121; --copy-btn-bg: rgba(0, 0, 0, 0.1);
 }
+
+/* --- Gaya Dasar & Latar Belakang --- */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0; padding: 0; color: var(--text-color); background-color: var(--bg-color);
     transition: background-color 0.3s, color 0.3s; overflow-x: hidden;
 }
 #tsparticles { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
+
+/* --- Sidebar --- */
 #sidebar {
     position: fixed; left: 0; top: 0; height: 100vh; width: var(--sidebar-width-expanded);
     background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color);
@@ -31,8 +40,7 @@ body {
 #sidebar.collapsed { width: var(--sidebar-width-collapsed); }
 #sidebar-toggle {
     background: none; border: none; color: var(--text-color-muted); font-size: 1.5rem;
-    cursor: pointer; text-align: right; padding: 0 20px 20px 20px;
-    transition: color 0.2s ease;
+    cursor: pointer; text-align: right; padding: 0 20px 20px 20px; transition: color 0.2s ease;
 }
 #sidebar-toggle:hover { color: var(--text-color); }
 #sidebar.collapsed #sidebar-toggle { text-align: center; padding: 0 0 20px 0; }
@@ -55,10 +63,9 @@ body {
 #sidebar.collapsed .nav-icon { margin-right: 0; }
 .nav-text { transition: opacity 0.2s ease; opacity: 1; }
 #sidebar.collapsed .nav-text { opacity: 0; width: 0; }
-#main-content {
-    margin-left: var(--sidebar-width-expanded); padding: 40px;
-    transition: margin-left 0.4s var(--smooth-ease);
-}
+
+/* --- Area Konten Utama & Header --- */
+#main-content { margin-left: var(--sidebar-width-expanded); padding: 40px; transition: margin-left 0.4s var(--smooth-ease); }
 #main-content.collapsed { margin-left: var(--sidebar-width-collapsed); }
 header, main { max-width: 1600px; margin: 0 auto; text-align: center; }
 header h1 {
@@ -73,15 +80,14 @@ header h1 {
     color: var(--text-color-muted); font-weight: 300;
     animation: blink-caret 1s step-end infinite;
 }
-@keyframes blink-caret {
-  from, to { color: transparent }
-  50% { color: var(--text-color-muted); }
-}
 header p { font-size: 1.2rem; color: var(--text-color-muted); margin-bottom: 30px; }
 .main-button {
-    display: inline-block; background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
+    background-size: 200% auto;
     color: #fff; padding: 12px 28px; text-decoration: none; border-radius: 50px; margin-top: 20px;
     font-weight: 600; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: gradient-animation 4s ease-in-out infinite;
     transition: transform 0.3s var(--smooth-ease), box-shadow 0.3s var(--smooth-ease);
 }
 .main-button:hover {
@@ -92,6 +98,8 @@ main h2 {
     padding-bottom: 10px; border-bottom: 3px solid;
     border-image: linear-gradient(to right, var(--primary-color-start), var(--primary-color-end)) 1;
 }
+
+/* --- Kartu (Card) & Animasi --- */
 .card-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
 .card {
     background: var(--card-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
@@ -103,151 +111,76 @@ main h2 {
 .card.is-visible { opacity: 1; transform: translateY(0); }
 .card::before {
     content: ''; position: absolute; top: 0; right: 0; bottom: 0; left: 0; z-index: -1; margin: -2px;
-    border-radius: inherit; background: linear-gradient(135deg, var(--primary-color-start), var(--primary-color-end));
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
+    background-size: 200% 200%;
+    animation: gradient-animation 6s ease-in-out infinite;
 }
 .card-inner { background: var(--card-bg); padding: 25px; border-radius: 13px; height: 100%; }
 .card h3 { color: var(--text-color); text-align: center; margin-top: 0; font-size: 1.4rem; }
-.card img {
-    max-width: 100%; border-radius: 5px; background-color: #fff; padding: 10px;
-    box-sizing: border-box; margin: 15px 0;
-}
+.card img { max-width: 100%; border-radius: 5px; background-color: #fff; padding: 10px; box-sizing: border-box; margin: 15px 0; }
+
+/* --- Blok Kode & Output --- */
 .code-block { border: 1px solid var(--border-color); border-radius: 8px; margin-top: 15px; overflow: hidden; }
-.code-block-header {
-    display: flex; align-items: center; justify-content: space-between;
-    background-color: var(--header-bg); padding: 10px 15px;
-}
+.code-block-header { display: flex; align-items: center; justify-content: space-between; background-color: var(--header-bg); padding: 10px 15px; }
 .code-block-dots { display: flex; gap: 8px; }
 .dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot.red { background-color: #ff5f56; } .dot.yellow { background-color: #ffbd2e; } .dot.green { background-color: #27c93f; }
 .copy-button {
-    background-color: var(--copy-btn-bg); color: var(--text-color); border: none;
-    padding: 5px 10px; border-radius: 5px; cursor: pointer;
-    font-size: 0.8rem; font-family: inherit; transition: background-color 0.2s;
+    background-color: var(--copy-btn-bg); color: var(--text-color); border: none; padding: 5px 10px;
+    border-radius: 5px; cursor: pointer; font-size: 0.8rem; font-family: inherit; transition: background-color 0.2s;
 }
 .copy-button:hover { filter: brightness(1.2); }
 pre {
-    background-color: var(--code-bg); color: var(--code-color);
-    padding: 20px; font-size: 0.9em; overflow-x: auto;
-    border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin: 0;
+    background-color: var(--code-bg); color: var(--code-color); padding: 20px; font-size: 0.9em;
+    overflow-x: auto; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; margin: 0;
 }
 pre::-webkit-scrollbar { height: 8px; }
 pre::-webkit-scrollbar-track { background: #3a3c4e; border-radius: 4px; }
-pre::-webkit-scrollbar-thumb {
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-    border-radius: 4px;
-}
-pre::-webkit-scrollbar-thumb:hover { filter: brightness(1.2); }
-.page-navigation {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color);
-}
+pre::-webkit-scrollbar-thumb { background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end)); border-radius: 4px; }
+.code-output { margin: 20px 0; padding: 15px; background-color: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid var(--border-color-light); }
+.code-output p { margin-top: 0; margin-bottom: 10px; color: var(--text-color-muted); font-size: 0.9rem; }
+.code-output .output-text { padding: 10px; background-color: var(--code-bg); color: var(--code-color); border-radius: 5px; white-space: pre-wrap; }
+
+/* --- Navigasi & Footer --- */
+.page-navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border-color); }
 .nav-button {
-    display: inline-flex; align-items: center; padding: 15px 25px;
-    background-color: transparent; color: var(--text-color); text-decoration: none;
-    border-radius: 50px; border: 1px solid var(--border-color-light);
-    transition: all 0.3s var(--smooth-ease);
+    display: inline-flex; align-items: center; padding: 15px 25px; background-color: transparent;
+    color: var(--text-color); text-decoration: none; border-radius: 50px;
+    border: 1px solid var(--border-color-light); transition: all 0.3s var(--smooth-ease);
 }
 .nav-button:hover {
-    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end));
-    border-color: var(--primary-color-end); color: #fff;
-    transform: translateY(-5px); box-shadow: 0 10px 20px rgba(142, 45, 226, 0.25);
+    background: linear-gradient(90deg, var(--primary-color-start), var(--primary-color-end), var(--primary-color-start));
+    background-size: 200% auto; animation: gradient-animation 3s ease-in-out infinite;
+    border-color: var(--primary-color-end); color: #fff; transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(142, 45, 226, 0.25);
 }
 .nav-button .arrow { font-size: 1.4rem; line-height: 1; }
 .nav-button.prev .arrow { margin-right: 15px; }
 .nav-button.next .arrow { margin-left: 15px; }
 .nav-button .nav-text-main { font-size: 1.1rem; font-weight: 600; }
-.nav-button .nav-text-sub {
-    font-size: 0.8rem; font-weight: 300; opacity: 0.7;
-    text-transform: uppercase; letter-spacing: 0.5px;
-}
+.nav-button .nav-text-sub { font-size: 0.8rem; font-weight: 300; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.5px; }
 .nav-button.disabled { opacity: 0; pointer-events: none; visibility: hidden; }
+
+/* --- Halaman About --- */
+.about-container { /* ... */ } .profile-picture { /* ... */ } .profile-bio { /* ... */ } .social-links { /* ... */ } .social-links a { /* ... */ } .social-links a:hover { /* ... */ }
+
+/* --- Tombol Tema --- */
 .sidebar-footer { margin-top: auto; padding: 20px; text-align: center; }
 #theme-toggle {
-    background: none; border: 1px solid var(--border-color-light);
-    color: var(--text-color-muted); font-size: 1.2rem; width: 40px;
-    height: 40px; border-radius: 50%; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.3s var(--smooth-ease);
+    background: none; border: 1px solid var(--border-color-light); color: var(--text-color-muted); font-size: 1.2rem;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex;
+    align-items: center; justify-content: center; transition: all 0.3s var(--smooth-ease);
 }
 #theme-toggle:hover { color: var(--text-color); border-color: var(--primary-color-start); }
 #theme-toggle .icon-sun { display: none; }
 #theme-toggle .icon-moon { display: block; }
 body[data-theme='light'] #theme-toggle .icon-moon { display: none; }
 body[data-theme='light'] #theme-toggle .icon-sun { display: block; }
-/* ======================================================= */
-/*             GAYA UNTUK HALAMAN TENTANG (ABOUT)            */
-/* ======================================================= */
 
-.about-container {
-    background-color: var(--card-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 15px;
-    max-width: 800px;
-    margin: 40px auto; /* Posisi di tengah */
-    text-align: center;
-    border: 1px solid var(--border-color);
-}
-
-.profile-picture {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover; /* Pastikan gambar tidak gepeng */
-    border: 4px solid var(--primary-color-start);
-    margin-bottom: 20px;
-}
-
-.profile-bio {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--text-color-muted);
-    max-width: 600px;
-    margin: 20px auto;
-}
-
-.social-links {
-    margin-top: 30px;
-}
-
-.social-links a {
-    color: var(--text-color-muted);
-    font-size: 1.8rem;
-    margin: 0 15px;
-    transition: color 0.3s, transform 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--primary-color-end);
-    transform: scale(1.2);
-}
-/* ======================================================= */
-/*             GAYA UNTUK OUTPUT TRAINING (PYTORCH)            */
-/* ======================================================= */
-
-.code-output {
-    margin: 20px 0;
-    padding: 15px;
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 8px;
-    border: 1px solid var(--border-color-light);
-}
-
-.code-output p {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--text-color-muted);
-    font-size: 0.9rem;
-}
-
-.code-output .output-text {
-    padding: 10px;
-    background-color: var(--code-bg);
-    color: var(--code-color);
-    border-radius: 5px;
-    white-space: pre-wrap; /* Agar teks tidak butuh scroll horizontal */
-}
+/* --- Keyframes & Media Queries --- */
+@keyframes blink-caret { from, to { color: transparent } 50% { color: var(--text-color-muted); } }
+@keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 @media (max-width: 768px) {
     #main-content { margin-left: 0; padding: 20px; }
     #main-content.sidebar-open { overflow: hidden; }
