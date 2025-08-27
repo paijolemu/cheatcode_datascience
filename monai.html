@@ -46,69 +46,124 @@
                     <div class="card-inner">
                         <h3>Alur Kerja Lengkap Klasifikasi MedNIST</h3>
                         <!-- Anda perlu membuat gambar hasil prediksi dari kode di bawah -->
-                        <img src="https://i.imgur.com/333jI5J.png" alt="Contoh Prediksi MONAI">
+                        <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/monai_hand.jpg?raw=true" alt="Contoh Prediksi MONAI">
                         <div class="code-block">
                             <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code>import os, tempfile, glob, monai, torch, torch.nn as nn
+                            <pre><code># === CELL 2 ===
+# Paste & run setelah runtime reconnects.
+import os, tempfile, glob, random, torch
+import torch.nn as nn
 import matplotlib.pyplot as plt
 from monai.data import Dataset, DataLoader
-from monai.transforms import (Compose, LoadImaged, EnsureChannelFirstd, 
-ScaleIntensityd, RandRotate90d, RandZoomd)
+from monai.transforms import (
+    Compose, LoadImaged, EnsureChannelFirstd, ResizeWithPadOrCropd, ScaleIntensityd
+)
+from monai.apps import download_and_extract
+from monai.networks.nets import DenseNet121
 
-# 1. DOWNLOAD DATASET
-root_dir = tempfile.mkdtemp(); data_dir = os.path.join(root_dir, "MedNIST")
+# ---------- config ----------
+seed = 42
+random.seed(seed)
+torch.manual_seed(seed)
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print("Device:", device, "torch:", torch.__version__)
+
+# ---------- download MedNIST (MONAI extra test data) ----------
+root_dir = tempfile.mkdtemp()
+data_dir = os.path.join(root_dir, "MedNIST")
 resource = "https://github.com/Project-MONAI/MONAI-extra-test-data/releases/download/0.8.1/MedNIST.tar.gz"
 if not os.path.exists(data_dir):
-    monai.apps.download_and_extract(resource, os.path.join(root_dir, "MedNIST.tar.gz"), root_dir)
+    print("Download MedNIST ... (sekitar 60MB)")
+    download_and_extract(resource, os.path.join(root_dir, "MedNIST.tar.gz"), root_dir)
+    print("Download selesai.")
 
-# 2. PERSIAPAN DATA
+# ---------- file list & classes ----------
 all_files = sorted(glob.glob(os.path.join(data_dir, "*", "*.jpeg")))
-class_names = sorted(os.path.basename(os.path.dirname(f)) for f in all_files)
+if len(all_files) == 0:
+    raise RuntimeError("Gagal menemukan file MedNIST. Cek download path:", data_dir)
+
+class_names = sorted({os.path.basename(os.path.dirname(f)) for f in all_files})
 num_classes = len(class_names)
 class_indices = {name: i for i, name in enumerate(class_names)}
-files_dict = [{"image": f, "label": class_indices[os.path.basename(os.path.dirname(f))]} for f in all_files]
-val_split = int(len(files_dict) * 0.2); train_files, val_files = files_dict[:-val_split], files_dict[-val_split:]
+files = [{"image": f, "label": class_indices[os.path.basename(os.path.dirname(f))]} for f in all_files]
 
-# 3. TRANSFORMASI & DATALOADER
-transforms = Compose([LoadImaged(keys=["image"]),EnsureChannelFirstd(keys=["image"]),ScaleIntensityd(keys=["image"])])
+# simple split: last 20% val
+val_split = max(1, int(len(files) * 0.2))
+train_files, val_files = files[:-val_split], files[-val_split:]
+print(f"Total files: {len(files)}  train: {len(train_files)}  val: {len(val_files)}  classes: {class_names}")
+
+# ---------- transforms & dataloaders ----------
+image_size = (64, 64)
+transforms = Compose([
+    LoadImaged(keys=["image"]),
+    EnsureChannelFirstd(keys=["image"]),                 # -> (C,H,W)
+    ResizeWithPadOrCropd(keys=["image"], spatial_size=image_size),
+    ScaleIntensityd(keys=["image"]),
+])
+
 train_ds = Dataset(data=train_files, transform=transforms)
-train_loader = DataLoader(train_ds, batch_size=300, shuffle=True)
 val_ds = Dataset(data=val_files, transform=transforms)
-val_loader = DataLoader(val_ds, batch_size=300)
 
-# 4. DEFINISI & SETUP MODEL
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = monai.networks.nets.DenseNet121(spatial_dims=2, in_channels=1, out_channels=num_classes).to(device)
+train_loader = DataLoader(train_ds, batch_size=32, shuffle=True, num_workers=2)
+val_loader = DataLoader(val_ds, batch_size=32, num_workers=2)
+
+# ---------- model, loss, optim ----------
+model = DenseNet121(spatial_dims=2, in_channels=1, out_channels=num_classes).to(device)
 loss_function = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), 1e-4)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 max_epochs = 4
 
-# 5. TRAINING LOOP
+# ---------- training ----------
+print("Start training...")
 for epoch in range(max_epochs):
-    model.train(); epoch_loss = 0
+    model.train()
+    epoch_loss = 0.0
+    n_batches = 0
     for batch_data in train_loader:
-        inputs, labels = batch_data["image"].to(device), batch_data["label"].to(device)
-        optimizer.zero_grad(); outputs = model(inputs); loss = loss_function(outputs, labels)
-        loss.backward(); optimizer.step(); epoch_loss += loss.item()
-    print(f"Epoch {epoch+1}, Loss: {epoch_loss/len(train_loader):.4f}")
+        inputs = batch_data["image"].to(device)
+        labels = batch_data["label"].to(device).long()
+        optimizer.zero_grad()
+        outputs = model(inputs)
+        loss = loss_function(outputs, labels)
+        loss.backward()
+        optimizer.step()
+        epoch_loss += loss.item()
+        n_batches += 1
+    avg_loss = epoch_loss / max(1, n_batches)
+    print(f"Epoch {epoch+1}/{max_epochs}  avg_loss={avg_loss:.4f}")
 
-# 6. EVALUASI & VISUALISASI
+# ---------- eval & visualisasi ----------
 model.eval()
 with torch.no_grad():
-    val_data = next(iter(val_loader))
-    val_images, val_labels = val_data["image"].to(device), val_data["label"].to(device)
+    val_batch = next(iter(val_loader))
+    val_images = val_batch["image"].to(device)
+    val_labels = val_batch["label"].to(device).long()
     val_outputs = model(val_images)
-    predicted_labels = torch.argmax(val_outputs, dim=1)
+    predicted = torch.argmax(val_outputs, dim=1)
 
+# plot few examples
 plt.figure("check", (10, 5))
-for i in range(5):
-    plt.subplot(2, 5, i + 1); plt.imshow(val_images[i, 0, :, :].cpu(), cmap="gray"); plt.axis('off')
+n_show = min(5, val_images.shape[0])
+for i in range(n_show):
+    plt.subplot(2, 5, i + 1)
+    plt.imshow(val_images[i, 0].cpu(), cmap="gray")
+    plt.axis("off")
+
     plt.subplot(2, 5, i + 6)
-    color = "green" if val_labels[i] == predicted_labels[i] else "red"
-    plt.text(0.5, 0.5, f"Asli: {class_names[val_labels[i]]}\nPred: {class_names[predicted_labels[i]]}",
-             ha="center", va="center", color=color)
-    plt.axis('off')
-plt.suptitle("Contoh Hasil Prediksi Model MONAI"); plt.show()
+    correct = (val_labels[i] == predicted[i]).item()
+    color = "green" if correct else "red"
+    actual = class_names[int(val_labels[i].cpu())]
+    predc = class_names[int(predicted[i].cpu())]
+    plt.text(0.5, 0.5, f"Asli: {actual}\nPred: {predc}", ha="center", va="center", color=color)
+    plt.axis("off")
+
+plt.suptitle("Contoh Hasil Prediksi Model MONAI (DenseNet121)")
+plt.show()
+
+print("Selesai. Kalau ada error, ambil screenshot dan kirim. Tapi ini setup yang stabil di Colab.")
 </code></pre>
                         </div>
                     </div>
