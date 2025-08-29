@@ -49,7 +49,20 @@
                         <img src="https://github.com/paijolemu/cheatcode_datascience/blob/main/images/monai_hand.jpg?raw=true" alt="Contoh Prediksi MONAI">
                         <div class="code-block">
                             <div class="code-block-header"><div class="code-block-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div><button class="copy-button">Copy</button></div>
-                            <pre><code># === CELL 2 ===
+                            <pre><code># === CELL 1 ===
+%% capture
+# Run this cell first. It reinstalls torch (cu118) and monai, then restarts the runtime.
+!pip uninstall -y torch torchvision torchaudio
+!pip cache purge
+!pip install --index-url https://download.pytorch.org/whl/cu118 torch torchvision torchaudio --upgrade
+!pip install --upgrade monai
+
+# restart kernel so new torch is loaded
+import os
+print("Install selesai. Restarting runtime now...")
+os.kill(os.getpid(), 9)
+
+                                # === CELL 2 ===
 # Paste & run setelah runtime reconnects.
 import os, tempfile, glob, random, torch
 import torch.nn as nn
