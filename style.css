@@ -1,7 +1,4 @@
-/* style.css
-   Live background + integrated site styles for cheatcode_datascience
-   Replace the current style.css with this file (keeps sidebar, cards, etc.)
-*/
+/* style.css (updated) - stronger live background + UI polish */
 
 /* ========== Variables ========== */
 :root{
@@ -9,192 +6,197 @@
   --bg-2: #071025;
   --accent-1: #5eead4;
   --accent-2: #7c3aed;
-  --muted: rgba(255,255,255,0.75);
+  --muted: rgba(255,255,255,0.80);
   --glass: rgba(255,255,255,0.03);
 
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   --base-font-size: 16px;
 
   --sidebar-width: 220px;
-  --header-height: 120px;
-
   --radius: 10px;
-  --shadow-1: 0 8px 30px rgba(2,6,23,0.55);
+  --shadow-1: 0 10px 40px rgba(2,6,23,0.6);
 
   --bg-speed-1: 20s;
-  --bg-speed-2: 28s;
-  --blob-speed: 26s;
+  --bg-speed-2: 30s;
+  --blob-speed: 24s;
 }
 
-/* ========== Base / Reset ========== */
+/* ========== Base ========== */
 *{box-sizing:border-box}
 html,body{height:100%}
 html{font-family:var(--font-sans);font-size:var(--base-font-size);-webkit-font-smoothing:antialiased}
 body{
   margin:0;
-  color:#e6eef8;
+  color:#eaf2fb;
   background: linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 100%);
   overflow-x:hidden;
   line-height:1.45;
   -webkit-font-smoothing:antialiased;
 }
 
-/* ========== Live background layers ========== */
+/* ========== Live background layers (non-blocking for pointer events) ========== */
 body::before{
   content:"";
   position:fixed; inset:0; z-index:0;
-  background: linear-gradient(120deg, rgba(124,58,237,0.10), rgba(94,234,212,0.06) 40%, rgba(124,58,237,0.04) 70%);
+  background: linear-gradient(120deg, rgba(124,58,237,0.16), rgba(94,234,212,0.08) 40%, rgba(124,58,237,0.06) 70%);
   mix-blend-mode: screen;
   filter: blur(36px) saturate(1.05);
-  animation: bgMove var(--bg-speed-1) linear infinite alternate;
+  animation: bgMove var(--bg-speed-1) ease-in-out infinite alternate;
+  pointer-events: none; /* <-- important: allow clicks through */
 }
 body::after{
   content:"";
   position:fixed; inset:0; z-index:0;
   background:
-    radial-gradient(800px 400px at 10% 20%, rgba(124,58,237,0.12), transparent 20%),
-    radial-gradient(700px 300px at 85% 80%, rgba(94,234,212,0.09), transparent 18%);
-  filter: blur(28px) contrast(1);
-  animation: bgMoveAlt var(--bg-speed-2) ease-in-out infinite alternate-reverse;
-  pointer-events:none;
+    radial-gradient(900px 480px at 8% 18%, rgba(124,58,237,0.14), transparent 18%),
+    radial-gradient(700px 320px at 84% 82%, rgba(94,234,212,0.12), transparent 14%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,0.01) 0 2px, transparent 2px 6px);
+  filter: blur(26px) contrast(1);
+  animation: bgMoveAlt calc(var(--bg-speed-2)) ease-in-out infinite alternate-reverse;
+  pointer-events: none; /* <-- important */
 }
 
-/* blob container (must exist in HTML: <div class="bg-blobs"><span></span></div>) */
+/* blob container: static element (must exist in HTML) */
 .bg-blobs{
   position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
 }
 .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{
   content:""; display:block; position:absolute; border-radius:50%;
-  filter: blur(34px) opacity(.88);
+  filter: blur(34px) opacity(.92);
   mix-blend-mode: screen;
 }
 .bg-blobs::before{
-  width:520px; height:520px; left:-8%; top:6%;
-  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.9), rgba(124,58,237,0.14));
-  animation: blobMove1 var(--blob-speed) ease-in-out infinite;
+  width:560px; height:560px; left:-10%; top:6%;
+  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.95), rgba(124,58,237,0.18));
+  animation: blobMove1 var(--blob-speed) cubic-bezier(.4,.2,.2,1) infinite;
 }
 .bg-blobs::after{
-  width:420px; height:420px; right:-6%; bottom:10%;
-  background: radial-gradient(circle at 70% 70%, rgba(94,234,212,0.9), rgba(94,234,212,0.12));
-  animation: blobMove2 calc(var(--blob-speed)*1.2) ease-in-out infinite;
+  width:460px; height:460px; right:-6%; bottom:8%;
+  background: radial-gradient(circle at 70% 70%, rgba(94,234,212,0.95), rgba(94,234,212,0.14));
+  animation: blobMove2 calc(var(--blob-speed)*1.15) cubic-bezier(.4,.2,.2,1) infinite;
 }
 .bg-blobs > span{
-  width:320px; height:320px; left:30%; bottom:-6%;
-  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
-  animation: blobMove3 calc(var(--blob-speed)*0.9) ease-in-out infinite;
+  width:340px; height:340px; left:28%; bottom:-6%;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
+  animation: blobMove3 calc(var(--blob-speed)*0.92) cubic-bezier(.4,.2,.2,1) infinite;
 }
 
-/* ========== Site layering ========== */
-.site-wrapper{position:relative; z-index:20; min-height:100vh; display:block}
+/* subtle vignette to focus content */
+.content-vignette{
+  position:fixed; inset:0; z-index:2; pointer-events:none;
+  background: radial-gradient(60% 60% at 20% 20%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.12) 65%, rgba(0,0,0,0.25) 100%);
+}
 
-/* keep tsparticles behind UI if present */
-#tsparticles{position:fixed; inset:0; z-index:5; pointer-events:none}
+/* ========== Layering and UI ========== */
+.site-wrapper{position:relative; z-index:30; min-height:100vh}
 
-/* ========== Sidebar (kept compatible) ========== */
+/* keep tsparticles behind UI (if still in use) */
+#tsparticles{position:fixed; inset:0; z-index:10; pointer-events:none}
+
+/* ========== Sidebar ========== */
 #sidebar{
   position:fixed;
   left:0; top:0;
   width:var(--sidebar-width);
   height:100vh;
-  padding:10px 12px;
-  background: rgba(6,10,20,0.36);
-  border-right: 1px solid rgba(255,255,255,0.03);
-  z-index:30; /* above bg, below main content is okay but ensure clickable */
+  padding:14px 12px;
+  background: linear-gradient(180deg, rgba(8,12,20,0.75), rgba(6,9,18,0.65));
+  border-right: 1px solid rgba(255,255,255,0.02);
+  z-index:35;
   overflow:auto;
+  box-shadow: 4px 0 18px rgba(2,6,23,0.45);
 }
 
-/* Hide default bullets and spacing for nav lists */
-#sidebar .sidebar-nav{list-style:none; padding:10px 6px; margin:6px 0}
-#sidebar .nav-item{margin:6px 0}
-#sidebar a{display:flex; align-items:center; gap:10px; color:var(--accent-2); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600}
+/* nav list styling */
+#sidebar .sidebar-nav{list-style:none; padding:6px 2px; margin:6px 0}
+#sidebar .nav-item{margin:8px 0}
+#sidebar a{display:flex; align-items:center; gap:12px; color:var(--accent-2); text-decoration:none; padding:10px 12px; border-radius:10px; font-weight:600}
 #sidebar a:hover, #sidebar a:focus{background:rgba(255,255,255,0.02); color:var(--accent-1); outline:none}
+#sidebar a .nav-icon{width:20px; text-align:center; opacity:0.95}
 
-/* sidebar toggle icon (keep visible on top) */
+/* sidebar compact state */
+body.sidebar-collapsed #sidebar{width:72px}
+body.sidebar-collapsed #sidebar .sidebar-nav a{justify-content:center}
+body.sidebar-collapsed #main-content{margin-left:calc(72px + 20px)}
+
+/* toggles in sidebar */
 #sidebar-toggle{display:inline-flex; align-items:center; justify-content:center; background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); padding:6px; border-radius:6px; cursor:pointer}
-.sidebar-footer{margin-top:14px; padding-top:6px; border-top:1px dashed rgba(255,255,255,0.02)}
+#sidebar .sidebar-footer{margin-top:14px; padding-top:8px; border-top:1px dashed rgba(255,255,255,0.02)}
+#theme-toggle{background:transparent; border:0; color:var(--muted); cursor:pointer; padding:6px; display:inline-flex; align-items:center; gap:6px}
 
-/* Theme toggle icons */
-#theme-toggle{background:transparent; border:0; color:var(--muted); cursor:pointer; padding:6px}
-
-/* ========== Main content (push to right to avoid sidebar) ========== */
+/* ========== Main content ========== */
 #main-content{
-  margin-left: calc(var(--sidebar-width) + 24px);
+  margin-left: calc(var(--sidebar-width) + 36px);
   padding:36px 48px;
   z-index:40;
   position:relative;
   min-height:100vh;
 }
 
-/* header inside main-content */
-#main-content header{max-width:1200px; margin-bottom:18px}
-#typing-title{font-size:2.25rem; margin:0 0 6px; font-weight:800; color: #fff}
+/* header */
+#typing-title{font-size:2.4rem; margin:0 0 8px; font-weight:800; color:#fff; text-shadow:0 6px 22px rgba(2,6,23,0.5)}
 #main-content p{color:var(--muted); margin:0 0 14px}
-.main-button{display:inline-block; margin-top:10px; text-decoration:none; padding:10px 14px; border-radius:8px; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#071022; font-weight:700}
+.main-button{display:inline-block; margin-top:10px; text-decoration:none; padding:10px 14px; border-radius:12px; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#071022; font-weight:700; box-shadow:0 8px 20px rgba(7,16,30,0.6)}
 
-/* ========== Card grid and content ========== */
-.card-container{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; align-items:start; margin-top:12px}
-.card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:10px; box-shadow:var(--shadow-1); border:1px solid rgba(255,255,255,0.03)}
-.card-inner h3{margin:0 0 8px; font-size:1.05rem; color:#fff}
+/* ========== Cards ========== */
+.card-container{display:grid; grid-template-columns:repeat(2,1fr); gap:20px; align-items:start; margin-top:18px}
+@media (max-width:980px){ .card-container{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))} }
+
+.card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:12px; box-shadow:var(--shadow-1); border:1px solid rgba(255,255,255,0.03); min-height:420px}
+.card-inner h3{margin:0 0 10px; font-size:1.05rem; color:#fff}
 .card img{max-width:100%; height:auto; display:block; border-radius:6px; margin-bottom:10px}
-.code-block{background:rgba(0,0,0,0.35); padding:10px; border-radius:8px; overflow:auto; border:1px solid rgba(255,255,255,0.02)}
-.code-block pre{margin:0; color:#eaf6f2; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:0.9rem}
-.code-block-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+.code-block{background:rgba(0,0,0,0.38); padding:12px; border-radius:10px; overflow:auto; border:1px solid rgba(255,255,255,0.02)}
+.code-block pre{margin:0; color:#dff6ef; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:0.9rem}
+.code-block-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px}
 .code-block-dots{display:flex; gap:6px; align-items:center}
-.dot{width:10px; height:10px; border-radius:50%}
+.dot{width:11px; height:11px; border-radius:50%}
 .dot.red{background:#ff5f56}
 .dot.yellow{background:#ffbd2e}
 .dot.green{background:#27c93f}
 
 /* copy button */
-.copy-button{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); padding:6px 10px; border-radius:8px; cursor:pointer}
+.copy-button{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); padding:8px 12px; border-radius:10px; cursor:pointer}
 .copy-button:hover{background:rgba(255,255,255,0.02); color:#fff}
 
-/* ========== Utility, headings ========== */
-h1,h2,h3{color:#fff}
-h2{font-size:1.25rem; margin:8px 0 10px}
-.lead{color:var(--muted)}
-
-/* ========== Mobile / responsive ========== */
-@media (max-width:980px){
-  :root{--sidebar-width:200px}
-  #main-content{margin-left:calc(var(--sidebar-width) + 16px); padding:24px}
+/* ========== Theme: light override ========== */
+body.light{
+  color:#0f1724;
+  background: linear-gradient(180deg,#f6fbff 0%, #eef6ff 100%);
 }
-@media (max-width:720px){
-  /* collapse sidebar to top bar (simple approach) */
-  #sidebar{position:fixed; left:0; top:0; width:100%; height:auto; display:flex; gap:10px; align-items:center; padding:8px 10px; z-index:45}
-  #sidebar .sidebar-nav{display:none} /* hide full nav on small screens, rely on toggle script */
-  #main-content{margin-left:0; padding:18px 14px}
-  .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{display:none} /* reduce heavy blur on mobile */
-}
+body.light .card{background:linear-gradient(180deg, rgba(6,10,20,0.02), rgba(6,10,20,0.01)); border:1px solid rgba(6,10,20,0.03)}
+body.light #sidebar{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-right-color: rgba(7,16,30,0.03)}
+body.light a{color:var(--accent-2)}
 
-/* ========== Reduce motion preference ========== */
+/* ========== Accessibility & reduced motion ========== */
 @media (prefers-reduced-motion: reduce){
-  body::before, body::after, .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{animation:none; transition:none}
+  body::before, body::after, .bg-blobs::before, .bg-blobs::after, .bg-blobs>span{animation:none; transition:none}
 }
 
 /* ========== Keyframes ========== */
 @keyframes bgMove{
-  0%{transform: translate3d(-3%, -2%, 0) scale(1.02)}
-  100%{transform: translate3d(3%, 2%, 0) scale(1)}
+  0%{transform: translate3d(-4%, -2%, 0) scale(1.03)}
+  50%{transform: translate3d(4%, 2%, 0) scale(1)}
+  100%{transform: translate3d(-4%, -2%, 0) scale(1.03)}
 }
 @keyframes bgMoveAlt{
-  0%{transform: translate3d(2%, 1%, 0)}
-  100%{transform: translate3d(-2%, -1%, 0)}
+  0%{transform: translate3d(2%, 1%, 0) scale(1)}
+  100%{transform: translate3d(-2%, -1%, 0) scale(1.02)}
 }
 @keyframes blobMove1{
-  0%{transform: translateY(0) translateX(0) scale(1)}
-  50%{transform: translateY(-6vh) translateX(4vw) scale(1.06)}
-  100%{transform: translateY(0) translateX(0) scale(1)}
+  0%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
+  33%{transform: translateY(-4vh) translateX(6vw) rotate(6deg) scale(1.06)}
+  66%{transform: translateY(4vh) translateX(-3vw) rotate(-6deg) scale(0.98)}
+  100%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
 }
 @keyframes blobMove2{
-  0%{transform: translateY(0) translateX(0) scale(1)}
-  50%{transform: translateY(8vh) translateX(-6vw) scale(.96)}
-  100%{transform: translateY(0) translateX(0) scale(1)}
+  0%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
+  50%{transform: translateY(10vh) translateX(-8vw) rotate(8deg) scale(.94)}
+  100%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
 }
 @keyframes blobMove3{
-  0%{transform: translateY(0) translateX(0) scale(1)}
-  50%{transform: translateY(-10vh) translateX(-3vw) scale(1.08)}
-  100%{transform: translateY(0) translateX(0) scale(1)}
+  0%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
+  50%{transform: translateY(-8vh) translateX(-2vw) rotate(-4deg) scale(1.08)}
+  100%{transform: translateY(0) translateX(0) rotate(0) scale(1)}
 }
 
 /* ========== Print fallback ========== */
@@ -203,5 +205,3 @@ h2{font-size:1.25rem; margin:8px 0 10px}
   #sidebar{position:relative; width:100%}
   #main-content{margin-left:0; padding:8px}
 }
-
-/* ========== End of file ========== */
