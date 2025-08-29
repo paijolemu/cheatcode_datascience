@@ -1,169 +1,185 @@
-/* ---------------------------------------------------------------
-   style-live.css
-   Improved, production-ready stylesheet with a "live" animated
-   background (pure CSS), responsive layout, accessible defaults,
-   and small-detail polish.
+/* style.css
+   Live background + integrated site styles for cheatcode_datascience
+   Replace the current style.css with this file (keeps sidebar, cards, etc.)
+*/
 
-   HOW TO USE:
-   1) Link this CSS in your HTML: <link rel="stylesheet" href="style-live.css">
-   2) Minimal HTML structure expected (example below in chat):
-      - <body> contains an element with class .site-wrapper
-      - Optional header, nav, main, footer
-
-   Notes:
-   - The live background is implemented using layered pseudo-elements
-     on the <body> and a set of floating "blobs" created with
-     pseudo-elements on .bg-blobs. No JS required.
-   - If the user prefers a JS particle/canvas background later, it's
-     straightforward to add; ask me if you want that.
-
-   Accessibility:
-   - respects prefers-reduced-motion
-   - high-contrast text tokens
-
-   Variables: tweak colors and timings inside :root.
-   --------------------------------------------------------------- */
-
+/* ========== Variables ========== */
 :root{
-  /* Color system */
-  --bg-1: #0f1724;        /* dark navy */
-  --bg-2: #071025;        /* deeper navy */
-  --accent-1: #5eead4;    /* mint */
-  --accent-2: #7c3aed;    /* violet */
-  --muted: rgba(255,255,255,0.65);
-  --glass: rgba(255,255,255,0.04);
+  --bg-1: #0f1724;
+  --bg-2: #071025;
+  --accent-1: #5eead4;
+  --accent-2: #7c3aed;
+  --muted: rgba(255,255,255,0.75);
+  --glass: rgba(255,255,255,0.03);
 
-  /* typography */
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   --base-font-size: 16px;
-  --max-width: 1100px;
 
-  /* sizing */
-  --radius: 12px;
-  --shadow-1: 0 6px 20px rgba(2,6,23,0.6);
+  --sidebar-width: 220px;
+  --header-height: 120px;
 
-  /* animation */
-  --bg-speed-1: 18s;
+  --radius: 10px;
+  --shadow-1: 0 8px 30px rgba(2,6,23,0.55);
+
+  --bg-speed-1: 20s;
   --bg-speed-2: 28s;
-  --blob-speed: 22s;
+  --blob-speed: 26s;
 }
 
-/* Reset & sensible defaults */
+/* ========== Base / Reset ========== */
 *{box-sizing:border-box}
-html,body{height:100%;}
-html{font-family:var(--font-sans);font-size:var(--base-font-size);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{height:100%}
+html{font-family:var(--font-sans);font-size:var(--base-font-size);-webkit-font-smoothing:antialiased}
 body{
   margin:0;
-  color: #e6eef8;
+  color:#e6eef8;
   background: linear-gradient(180deg,var(--bg-1) 0%, var(--bg-2) 100%);
-  position:relative;
   overflow-x:hidden;
   line-height:1.45;
+  -webkit-font-smoothing:antialiased;
 }
 
-/* -------------------------------------------------------------------
-   LIVE BACKGROUND: layered animated gradients + soft blurred blobs
-   Implemented using body::before, body::after and a dedicated .bg-blobs
-   element that holds multiple floating, blurred shapes using pseudo-elements
-   ------------------------------------------------------------------- */
-
-/* base layer: subtle animated diagonal gradient */
+/* ========== Live background layers ========== */
 body::before{
-  content: "";
+  content:"";
   position:fixed; inset:0; z-index:0;
-  background: linear-gradient(120deg, rgba(124,58,237,0.12), rgba(94,234,212,0.08) 40%, rgba(124,58,237,0.06) 70%);
+  background: linear-gradient(120deg, rgba(124,58,237,0.10), rgba(94,234,212,0.06) 40%, rgba(124,58,237,0.04) 70%);
   mix-blend-mode: screen;
-  filter: blur(40px) saturate(1.05);
-  transform: translateZ(0);
+  filter: blur(36px) saturate(1.05);
   animation: bgMove var(--bg-speed-1) linear infinite alternate;
 }
-
-/* second layer: slow-moving radial highlights */
 body::after{
-  content: "";
+  content:"";
   position:fixed; inset:0; z-index:0;
   background:
     radial-gradient(800px 400px at 10% 20%, rgba(124,58,237,0.12), transparent 20%),
-    radial-gradient(700px 300px at 85% 80%, rgba(94,234,212,0.10), transparent 18%);
-  filter: blur(30px) contrast(1);
+    radial-gradient(700px 300px at 85% 80%, rgba(94,234,212,0.09), transparent 18%);
+  filter: blur(28px) contrast(1);
   animation: bgMoveAlt var(--bg-speed-2) ease-in-out infinite alternate-reverse;
   pointer-events:none;
 }
 
-/* floating blobs container (place near top of <body>) */
+/* blob container (must exist in HTML: <div class="bg-blobs"><span></span></div>) */
 .bg-blobs{
   position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
 }
 .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{
-  content: ""; display:block; position:absolute; border-radius:50%;
-  filter: blur(36px) opacity(.85);
+  content:""; display:block; position:absolute; border-radius:50%;
+  filter: blur(34px) opacity(.88);
   mix-blend-mode: screen;
 }
-
-/* three blobs with different sizes, colors, positions */
 .bg-blobs::before{
-  width:520px; height:520px; left:-10%; top:5%;
-  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.9), rgba(124,58,237,0.15));
+  width:520px; height:520px; left:-8%; top:6%;
+  background: radial-gradient(circle at 30% 30%, rgba(124,58,237,0.9), rgba(124,58,237,0.14));
   animation: blobMove1 var(--blob-speed) ease-in-out infinite;
 }
 .bg-blobs::after{
-  width:420px; height:420px; right:-8%; bottom:10%;
+  width:420px; height:420px; right:-6%; bottom:10%;
   background: radial-gradient(circle at 70% 70%, rgba(94,234,212,0.9), rgba(94,234,212,0.12));
-  animation: blobMove2 calc(var(--blob-speed) * 1.2) ease-in-out infinite;
+  animation: blobMove2 calc(var(--blob-speed)*1.2) ease-in-out infinite;
 }
 .bg-blobs > span{
   width:320px; height:320px; left:30%; bottom:-6%;
-  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.14), rgba(255,255,255,0.02));
-  animation: blobMove3 calc(var(--blob-speed) * 0.9) ease-in-out infinite;
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.12), rgba(255,255,255,0.02));
+  animation: blobMove3 calc(var(--blob-speed)*0.9) ease-in-out infinite;
 }
 
-/* put UI above background layers */
-.site-wrapper{position:relative; z-index:10; min-height:100vh; display:flex; flex-direction:column}
+/* ========== Site layering ========== */
+.site-wrapper{position:relative; z-index:20; min-height:100vh; display:block}
 
-/* header / nav */
-.header{
-  padding:20px clamp(14px, 3vw, 32px);
-  display:flex; align-items:center; gap:16px; justify-content:space-between;
+/* keep tsparticles behind UI if present */
+#tsparticles{position:fixed; inset:0; z-index:5; pointer-events:none}
+
+/* ========== Sidebar (kept compatible) ========== */
+#sidebar{
+  position:fixed;
+  left:0; top:0;
+  width:var(--sidebar-width);
+  height:100vh;
+  padding:10px 12px;
+  background: rgba(6,10,20,0.36);
+  border-right: 1px solid rgba(255,255,255,0.03);
+  z-index:30; /* above bg, below main content is okay but ensure clickable */
+  overflow:auto;
 }
-.brand{font-weight:700; letter-spacing:0.3px; font-size:1.05rem; color:var(--accent-1)}
-.nav{display:flex; gap:12px; align-items:center}
-.nav a{color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:8px; font-weight:600; font-size:.95rem}
-.nav a:hover, .nav a:focus{background:var(--glass); outline:none; color:#fff}
 
-/* main card area */
-.container{width:100%; max-width:var(--max-width); margin:24px auto; padding:28px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:var(--radius); box-shadow:var(--shadow-1);}
-.h1{font-size:clamp(1.4rem, 2.5vw, 2.1rem); margin:0 0 10px}
-.lead{color:var(--muted); margin-bottom:18px}
+/* Hide default bullets and spacing for nav lists */
+#sidebar .sidebar-nav{list-style:none; padding:10px 6px; margin:6px 0}
+#sidebar .nav-item{margin:6px 0}
+#sidebar a{display:flex; align-items:center; gap:10px; color:var(--accent-2); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600}
+#sidebar a:hover, #sidebar a:focus{background:rgba(255,255,255,0.02); color:var(--accent-1); outline:none}
 
-/* card components */
-.card{background: rgba(255,255,255,0.02); padding:18px; border-radius:10px; border:1px solid rgba(255,255,255,0.03)}
-.btn{display:inline-block; padding:10px 16px; border-radius:10px; background:linear-gradient(90deg,var(--accent-1), var(--accent-2)); color:#071022; font-weight:700; text-decoration:none}
-.btn:focus{outline:3px solid rgba(94,234,212,0.15)}
+/* sidebar toggle icon (keep visible on top) */
+#sidebar-toggle{display:inline-flex; align-items:center; justify-content:center; background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted); padding:6px; border-radius:6px; cursor:pointer}
+.sidebar-footer{margin-top:14px; padding-top:6px; border-top:1px dashed rgba(255,255,255,0.02)}
 
-/* small details */
-.kv{font-size:.85rem; color:var(--muted)}
-.small{font-size:.9rem}
+/* Theme toggle icons */
+#theme-toggle{background:transparent; border:0; color:var(--muted); cursor:pointer; padding:6px}
 
-/* responsive tweaks */
+/* ========== Main content (push to right to avoid sidebar) ========== */
+#main-content{
+  margin-left: calc(var(--sidebar-width) + 24px);
+  padding:36px 48px;
+  z-index:40;
+  position:relative;
+  min-height:100vh;
+}
+
+/* header inside main-content */
+#main-content header{max-width:1200px; margin-bottom:18px}
+#typing-title{font-size:2.25rem; margin:0 0 6px; font-weight:800; color: #fff}
+#main-content p{color:var(--muted); margin:0 0 14px}
+.main-button{display:inline-block; margin-top:10px; text-decoration:none; padding:10px 14px; border-radius:8px; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); color:#071022; font-weight:700}
+
+/* ========== Card grid and content ========== */
+.card-container{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; align-items:start; margin-top:12px}
+.card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:10px; box-shadow:var(--shadow-1); border:1px solid rgba(255,255,255,0.03)}
+.card-inner h3{margin:0 0 8px; font-size:1.05rem; color:#fff}
+.card img{max-width:100%; height:auto; display:block; border-radius:6px; margin-bottom:10px}
+.code-block{background:rgba(0,0,0,0.35); padding:10px; border-radius:8px; overflow:auto; border:1px solid rgba(255,255,255,0.02)}
+.code-block pre{margin:0; color:#eaf6f2; font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace; font-size:0.9rem}
+.code-block-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+.code-block-dots{display:flex; gap:6px; align-items:center}
+.dot{width:10px; height:10px; border-radius:50%}
+.dot.red{background:#ff5f56}
+.dot.yellow{background:#ffbd2e}
+.dot.green{background:#27c93f}
+
+/* copy button */
+.copy-button{background:transparent; border:1px solid rgba(255,255,255,0.06); color:var(--muted); padding:6px 10px; border-radius:8px; cursor:pointer}
+.copy-button:hover{background:rgba(255,255,255,0.02); color:#fff}
+
+/* ========== Utility, headings ========== */
+h1,h2,h3{color:#fff}
+h2{font-size:1.25rem; margin:8px 0 10px}
+.lead{color:var(--muted)}
+
+/* ========== Mobile / responsive ========== */
+@media (max-width:980px){
+  :root{--sidebar-width:200px}
+  #main-content{margin-left:calc(var(--sidebar-width) + 16px); padding:24px}
+}
 @media (max-width:720px){
-  .header{padding:14px}
-  .container{margin:14px; padding:18px}
-  .nav{gap:8px}
+  /* collapse sidebar to top bar (simple approach) */
+  #sidebar{position:fixed; left:0; top:0; width:100%; height:auto; display:flex; gap:10px; align-items:center; padding:8px 10px; z-index:45}
+  #sidebar .sidebar-nav{display:none} /* hide full nav on small screens, rely on toggle script */
+  #main-content{margin-left:0; padding:18px 14px}
+  .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{display:none} /* reduce heavy blur on mobile */
 }
 
-/* reduced motion preference */
+/* ========== Reduce motion preference ========== */
 @media (prefers-reduced-motion: reduce){
   body::before, body::after, .bg-blobs::before, .bg-blobs::after, .bg-blobs > span{animation:none; transition:none}
 }
 
-/* keyframes */
+/* ========== Keyframes ========== */
 @keyframes bgMove{
   0%{transform: translate3d(-3%, -2%, 0) scale(1.02)}
   100%{transform: translate3d(3%, 2%, 0) scale(1)}
 }
 @keyframes bgMoveAlt{
-  0%{transform: translate3d(2%, 1%, 0) rotate(0.0001deg)}
-  100%{transform: translate3d(-2%, -1%, 0) rotate(0.0001deg)}
+  0%{transform: translate3d(2%, 1%, 0)}
+  100%{transform: translate3d(-2%, -1%, 0)}
 }
 @keyframes blobMove1{
   0%{transform: translateY(0) translateX(0) scale(1)}
@@ -181,11 +197,11 @@ body::after{
   100%{transform: translateY(0) translateX(0) scale(1)}
 }
 
-/* print fallback */
-@media print{body::before, body::after, .bg-blobs{display:none} .container{box-shadow:none}}
+/* ========== Print fallback ========== */
+@media print{
+  body::before, body::after, .bg-blobs {display:none}
+  #sidebar{position:relative; width:100%}
+  #main-content{margin-left:0; padding:8px}
+}
 
-/* small utility classes */
-.center{display:flex; align-items:center; justify-content:center}
-.mt-8{margin-top:2rem}
-
-/* End of file */
+/* ========== End of file ========== */
