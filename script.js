@@ -215,5 +215,75 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ev.key === ' ' || ev.key === 'Enter') ev.target.click && ev.target.click();
     });
   });
+// --- Post nav enhancements ---
+(function(){
+  const nav = document.querySelector('.post-nav');
+  if (!nav) return;
+
+  const prev = nav.querySelector('.post-nav-item.prev');
+  const next = nav.querySelector('.post-nav-item.next');
+
+  // helper: set thumbnail background from data-thumb or fallback gradient
+  nav.querySelectorAll('.post-nav-item').forEach(item => {
+    const thumbEl = item.querySelector('.nav-thumb');
+    const url = item.getAttribute('data-thumb');
+    if (url && thumbEl) {
+      thumbEl.style.backgroundImage = `url('${url}')`;
+    } else if (thumbEl) {
+      // fallback: synthetic gradient using title initials
+      const title = (item.querySelector('.nav-title')?.textContent || '').trim();
+      // simple seeded gradient based on title hash
+      let hash = 0;
+      for (let i=0;i<title.length;i++){ hash = ((hash<<5)-hash) + title.charCodeAt(i); hash |= 0 }
+      const hue = Math.abs(hash) % 360;
+      thumbEl.style.backgroundImage = `linear-gradient(135deg, hsl(${hue} 80% 55% / 1), hsl(${(hue+60)%360} 70% 36% / 1))`;
+      thumbEl.style.display = 'block';
+    }
+
+    // prefetch on hover to speed next navigation
+    item.addEventListener('mouseenter', () => {
+      const href = item.getAttribute('href');
+      if (!href) return;
+      // micro-prefetch: create rel=prefetch link only if not created yet
+      if (!document.querySelector(`link[rel="prefetch"][data-href="${href}"]`)) {
+        const l = document.createElement('link');
+        l.rel = 'prefetch';
+        l.href = href;
+        l.setAttribute('data-href', href);
+        document.head.appendChild(l);
+      }
+    }, {passive:true});
+  });
+
+  // keyboard navigation: left -> prev, right -> next
+  document.addEventListener('keydown', (e) => {
+    // ignore when focused in input/textarea
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || document.activeElement?.isContentEditable) return;
+    if (e.key === 'ArrowLeft' && prev) {
+      e.preventDefault();
+      prev.focus({preventScroll:true});
+      // small delay for better UX
+      setTimeout(()=> window.location.href = prev.href, 80);
+    } else if (e.key === 'ArrowRight' && next) {
+      e.preventDefault();
+      next.focus({preventScroll:true});
+      setTimeout(()=> window.location.href = next.href, 80);
+    }
+  });
+
+  // add visible focus when clicked via mouse (nice micro animation)
+  [prev, next].forEach(el => {
+    if (!el) return;
+    el.addEventListener('click', (ev) => {
+      // smooth fade-out then navigate (preserve normal behavior if ctrl/meta used)
+      if (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.button !== 0) return;
+      ev.preventDefault();
+      document.documentElement.style.transition = 'opacity .22s ease';
+      document.documentElement.style.opacity = '0';
+      setTimeout(()=> window.location.href = el.href, 220);
+    });
+  });
+})();
 
 }); // DOMContentLoaded end
