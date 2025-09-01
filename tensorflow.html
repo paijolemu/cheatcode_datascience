@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TensorFlow - Data Science Cheat Codes</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="bg-blobs"><span></span><span></span><span></span></div>
+    <div id="tsparticles"></div>
+    
+    <nav id="sidebar">
+        <button id="sidebar-toggle"><i class="fa-solid fa-bars"></i></button>
+        <ul class="sidebar-nav">
+            <li class="nav-item"><a href="index.html"><i class="fa-solid fa-house nav-icon"></i><span class="nav-text">Home</span></a></li>
+            <li class="nav-item"><a href="matplotlib.html"><i class="fa-solid fa-chart-pie nav-icon"></i><span class="nav-text">Matplotlib</span></a></li>
+            <li class="nav-item"><a href="seaborn.html"><i class="fa-solid fa-water nav-icon"></i><span class="nav-text">Seaborn</span></a></li>
+            <li class="nav-item"><a href="pandas.html"><i class="fa-solid fa-table nav-icon"></i><span class="nav-text">Pandas</span></a></li>
+            <li class="nav-item"><a href="scikitlearn.html"><i class="fa-solid fa-robot nav-icon"></i><span class="nav-text">Scikit-learn</span></a></li>
+            <li class="nav-item"><a href="torch.html"><i class="fa-solid fa-brain nav-icon"></i><span class="nav-text">PyTorch</span></a></li>
+            <li class="nav-item"><a href="monai.html"><i class="fa-solid fa-lungs nav-icon"></i><span class="nav-text">MONAI</span></a></li>
+            <li class="nav-item"><a href="transformers.html"><i class="fa-solid fa-language nav-icon"></i><span class="nav-text">Transformers</span></a></li>
+            <li class="nav-item"><a href="about.html"><i class="fa-solid fa-user-circle nav-icon"></i><span class="nav-text">About</span></a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <button id="theme-toggle" title="Ganti Tema">
+                <i class="fas fa-moon icon-moon"></i>
+                <i class="fas fa-sun icon-sun"></i>
+            </button>
+        </div>
+    </nav>
+
+    <div id="main-content" class="site-wrapper">
+        <header>
+            <h1>TensorFlow — Latih Model CIFAR-10 (Contoh)</h1>
+            <p>Script TensorFlow lengkap untuk latihan cepat pada dataset CIFAR-10. Cocok untuk percobaan di lokal atau Colab.</p>
+        </header>
+        <main id="content">
+            <h2>TensorFlow: CIFAR-10 Training (Kodenya)</h2>
+            <div class="card-container">
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>File: tensorflow_cifar10_train.py</h3>
+                        <img src="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/tensorflow_logo.png" alt="TensorFlow Logo">
+                        <div class="code-block">
+                            <div class="code-block-header">
+                                <div class="code-block-dots">
+                                    <div class="dot red"></div>
+                                    <div class="dot yellow"></div>
+                                    <div class="dot green"></div>
+                                </div>
+                                <button class="copy-button">Copy</button>
+                            </div>
+                            <pre><code>"""
+tensorflow_cifar10_train.py
+A complete, well-documented TensorFlow 2 training script for CIFAR-10.
+- Prepares tf.data pipeline with augmentation
+- Builds a small ResNet-like CNN using tf.keras
+- Uses callbacks: ModelCheckpoint, ReduceLROnPlateau, EarlyStopping, TensorBoard
+- Saves best model and training plots to ./outputs
+"""
+
+import os
+import argparse
+import random
+import datetime
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+import matplotlib.pyplot as plt
+
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+tf.random.set_seed(SEED)
+
+OUTPUT_DIR = "outputs"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+def make_datasets(batch_size=64, buffer_size=5000, augment=True):
+    (x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+    val_split = 0.1
+    num_val = int(len(x_train) * val_split)
+    x_val = x_train[:num_val]
+    y_val = y_train[:num_val]
+    x_train = x_train[num_val:]
+    y_train = y_train[num_val:]
+    num_classes = 10
+    x_train = x_train.astype("float32") / 255.0
+    x_val = x_val.astype("float32") / 255.0
+    x_test = x_test.astype("float32") / 255.0
+    AUTOTUNE = tf.data.AUTOTUNE
+    train_ds = tf.data.Dataset.from_tensor_slices((x_train, y_train))
+    train_ds = train_ds.shuffle(buffer_size).batch(batch_size).prefetch(AUTOTUNE)
+    val_ds = tf.data.Dataset.from_tensor_slices((x_val, y_val))
+    val_ds = val_ds.batch(batch_size).prefetch(AUTOTUNE)
+    test_ds = tf.data.Dataset.from_tensor_slices((x_test, y_test))
+    test_ds = test_ds.batch(batch_size).prefetch(AUTOTUNE)
+    if augment:
+        data_augmentation = keras.Sequential([
+            layers.RandomFlip("horizontal"),
+            layers.RandomRotation(0.06),
+            layers.RandomZoom(0.06),
+        ], name="data_augmentation")
+        def augment_fn(x, y):
+            x = data_augmentation(x, training=True)
+            return x, y
+        train_ds = train_ds.map(augment_fn, num_parallel_calls=AUTOTUNE)
+    return train_ds, val_ds, test_ds, num_classes
+
+
+def build_simple_cnn(input_shape=(32, 32, 3), num_classes=10, width=32):
+    inputs = keras.Input(shape=input_shape)
+    x = layers.Conv2D(width, 3, padding="same", use_bias=False)(inputs)
+    x = layers.BatchNormalization()(x)
+    x = layers.ReLU()(x)
+    for filters in [width, width * 2, width * 4]:
+        x = layers.SeparableConv2D(filters, 3, padding="same", use_bias=False)(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.ReLU()(x)
+        x = layers.SeparableConv2D(filters, 3, padding="same", use_bias=False)(x)
+        x = layers.BatchNormalization()(x)
+        x = layers.ReLU()(x)
+        x = layers.MaxPool2D(2)(x)
+    x = layers.GlobalAveragePooling2D()(x)
+    x = layers.Dropout(0.3)(x)
+    outputs = layers.Dense(num_classes, activation="softmax")(x)
+    model = keras.Model(inputs, outputs, name="simple_cifar_cnn")
+    return model
+
+
+def train(args):
+    batch_size = args.batch_size
+    epochs = args.epochs
+    lr = args.lr
+    train_ds, val_ds, test_ds, num_classes = make_datasets(batch_size=batch_size, augment=not args.no_augment)
+    strategy = tf.distribute.get_strategy()
+    print("Number of devices:", strategy.num_replicas_in_sync)
+    with strategy.scope():
+        model = build_simple_cnn(num_classes=num_classes)
+        model.compile(
+            optimizer=keras.optimizers.Adam(learning_rate=lr),
+            loss=keras.losses.SparseCategoricalCrossentropy(),
+            metrics=["accuracy"]
+        )
+    now = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    run_dir = os.path.join(OUTPUT_DIR, f"run_{now}")
+    os.makedirs(run_dir, exist_ok=True)
+    checkpoint_cb = keras.callbacks.ModelCheckpoint(
+        filepath=os.path.join(run_dir, "best_model.h5"),
+        save_best_only=True, monitor="val_accuracy", mode="max"
+    )
+    reduce_lr = keras.callbacks.ReduceLROnPlateau(monitor="val_loss", factor=0.5, patience=3, min_lr=1e-6)
+    early_stop = keras.callbacks.EarlyStopping(monitor="val_loss", patience=8, restore_best_weights=True)
+    tb = keras.callbacks.TensorBoard(log_dir=os.path.join(run_dir, "tensorboard"), histogram_freq=1)
+    history = model.fit(
+        train_ds,
+        validation_data=val_ds,
+        epochs=epochs,
+        callbacks=[checkpoint_cb, reduce_lr, early_stop, tb]
+    )
+    print("Evaluating on test set...")
+    results = model.evaluate(test_ds)
+    print("Test loss/acc:", results)
+    model.save(os.path.join(run_dir, "final_saved_model"))
+    plot_history(history, run_dir)
+
+
+def plot_history(history, outdir):
+    acc = history.history.get("accuracy", [])
+    val_acc = history.history.get("val_accuracy", [])
+    loss = history.history.get("loss", [])
+    val_loss = history.history.get("val_loss", [])
+    epochs = range(1, len(acc) + 1)
+    import matplotlib.pyplot as plt
+    plt.figure(figsize=(10, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(epochs, acc, label="train acc")
+    plt.plot(epochs, val_acc, label="val acc")
+    plt.title("Accuracy")
+    plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.plot(epochs, loss, label="train loss")
+    plt.plot(epochs, val_loss, label="val loss")
+    plt.title("Loss")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(outdir, "training_history.png"), dpi=150)
+
+
+if (__name__ == "__main__"):
+    import argparse
+    parser = argparse.ArgumentParser(description="Train a small CIFAR-10 model with TensorFlow/Keras")
+    parser.add_argument("--epochs", type=int, default=30)
+    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--no_augment", action="store_true", help="Disable data augmentation")
+    args = parser.parse_args()
+    train(args)
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>Tips & Petunjuk</h3>
+                        <div class="card-body">
+                            <ul>
+                                <li>Direkomendasikan menjalankan script di Colab jika tidak punya GPU lokal.</li>
+                                <li>Gunakan `pip install tensorflow matplotlib` sebelum menjalankan.</li>
+                                <li>Sesuaikan `--batch_size` dan `--epochs` jika resource terbatas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+        
+        <footer class="page-navigation">
+            <nav class="post-nav" aria-label="Navigasi Artikel">
+              <a class="post-nav-item prev" href="torch.html" data-thumb="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/pytorch_thumb.png">
+                <div class="nav-thumb" role="img" aria-hidden="true"></div>
+                <div class="nav-body">
+                  <span class="nav-kicker">← Sebelumnya</span>
+                  <span class="nav-title">PyTorch</span>
+                  <span class="nav-desc">Contoh penggunaan dasar dan tips cepat</span>
+                </div>
+              </a>
+            
+              <a class="post-nav-item next" href="transformers.html" data-thumb="https://raw.githubusercontent.com/paijolemu/cheatcode_datascience/main/images/transformers_thumb.png">
+                <div class="nav-thumb" role="img" aria-hidden="true"></div>
+                <div class="nav-body">
+                  <span class="nav-kicker">Selanjutnya →</span>
+                  <span class="nav-title">Transformers</span>
+                  <span class="nav-desc">Memahami attention & finetuning</span>
+                </div>
+              </a>
+            </nav>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script src="script.js?v=tensorflow_page_final"></script>
+</body>
+</html>
