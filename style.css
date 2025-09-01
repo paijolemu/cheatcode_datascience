@@ -205,3 +205,88 @@ body.light a{color:var(--accent-2)}
   #sidebar{position:relative; width:100%}
   #main-content{margin-left:0; padding:8px}
 }
+/* ---------- Post navigation (prev / next) ---------- */
+.post-nav{
+  display:flex;
+  gap:18px;
+  align-items:stretch;
+  margin-top:28px;
+  margin-bottom:28px;
+}
+
+/* responsive: stack pada layar kecil */
+@media (max-width:720px){
+  .post-nav{flex-direction:column}
+}
+
+/* each nav item */
+.post-nav-item{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  text-decoration:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 28px rgba(2,6,23,0.45);
+  color:inherit;
+  min-height:92px;
+  flex:1 1 0;
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s, background .28s;
+  position:relative;
+  overflow:hidden;
+}
+
+/* hover/focus */
+.post-nav-item:hover, .post-nav-item:focus{
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(2,6,23,0.55);
+  outline: none;
+}
+
+/* left / right alignment (optional visual) */
+.post-nav-item.prev{justify-content:flex-start}
+.post-nav-item.next{justify-content:flex-end; text-align:right}
+
+/* thumbnail */
+.nav-thumb{
+  width:84px; height:68px; border-radius:8px;
+  background-size:cover; background-position:center;
+  flex: 0 0 84px;
+  box-shadow: inset 0 0 28px rgba(0,0,0,0.25);
+  transition: transform .35s ease;
+}
+.post-nav-item:hover .nav-thumb{ transform: scale(1.03) }
+
+/* body text */
+.nav-body{ display:flex; flex-direction:column; gap:4px; min-width:0; align-items:flex-start }
+.post-nav-item.next .nav-body{ align-items:flex-end }
+
+/* kicker, title, desc */
+.nav-kicker{ font-size:0.875rem; color:var(--muted); font-weight:700; letter-spacing:0.2px }
+.nav-title{ font-weight:800; font-size:1.05rem; color:#fff; display:block; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; max-width:100% }
+.nav-desc{ font-size:0.87rem; color:rgba(255,255,255,0.65) }
+
+/* small arrow decoration on the outside edge */
+.post-nav-item::after{
+  content:"";
+  position:absolute; inset: auto -40px auto auto;
+  width:120px; height:120px; transform: rotate(0deg);
+  filter: blur(34px) opacity(.12);
+  pointer-events:none;
+}
+.post-nav-item.prev::after{ right:-36px; background: radial-gradient(circle at 10% 20%, rgba(124,58,237,0.22), transparent 25%) }
+.post-nav-item.next::after{ left:-36px; right:auto; background: radial-gradient(circle at 90% 80%, rgba(94,234,212,0.18), transparent 25%) }
+
+/* focus visible accessible style */
+.post-nav-item:focus-visible{
+  outline: 3px solid rgba(94,234,212,0.12);
+  outline-offset: 4px;
+}
+
+/* improved stacking on small widths */
+@media (max-width:480px){
+  .nav-thumb{ width:72px; height:56px; }
+  .nav-title{ font-size:1rem }
+}
