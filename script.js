@@ -44,54 +44,100 @@ document.addEventListener("DOMContentLoaded", () => {
     }).catch(e => console.warn("tsParticles load failed:", e));
   }
 
-  // --------- 2. Sidebar toggle (desktop vs mobile) ----------
+  // --- 2) Sidebar toggle & mobile overlay ---
   const sidebar = $('#sidebar');
-  const mainContent = $('#main-content');
+  const overlay = $('#mobile-overlay'); // ensure you added this DIV to HTML
   const sidebarToggle = $('#sidebar-toggle');
 
-  function isMobileWidth() { return window.innerWidth <= 768; }
+  const isMobileWidth = () => window.innerWidth <= 768;
+  let toggleLock = false;
+
+  function safeToggleSidebar() {
+    if (toggleLock) return;
+    toggleLock = true;
+    const mobile = isMobileWidth();
+    if (mobile) {
+      body.classList.toggle('sidebar-open');
+      sidebarToggle?.setAttribute('aria-expanded', String(body.classList.contains('sidebar-open')));
+    } else {
+      body.classList.toggle('sidebar-collapsed');
+      // For desktop aria-expanded describes whether menu is expanded; invert for collapsed state
+      sidebarToggle?.setAttribute('aria-expanded', String(!body.classList.contains('sidebar-collapsed')));
+    }
+    setTimeout(() => { toggleLock = false; }, 420);
+  }
 
   if (sidebarToggle) {
-    sidebarToggle.addEventListener('click', () => {
-      if (isMobileWidth()) {
-        // mobile: open overlay menu
-        body.classList.toggle('sidebar-open');
-        sidebarToggle.setAttribute('aria-expanded', String(body.classList.contains('sidebar-open')));
-      } else {
-        // desktop: collapse narrow
-        body.classList.toggle('sidebar-collapsed');
-        sidebarToggle.setAttribute('aria-expanded', String(!body.classList.contains('sidebar-collapsed')));
-      }
-    });
-
-    // keyboard accessibility
-    sidebarToggle.addEventListener('keyup', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') sidebarToggle.click();
+    sidebarToggle.addEventListener('click', (e) => { e.preventDefault(); safeToggleSidebar(); });
+    sidebarToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.code === 'Space') { e.preventDefault(); safeToggleSidebar(); }
     });
   }
 
-  // Ensure mobile-open state is removed when resizing to desktop
+  // overlay click closes mobile sidebar
+  if (overlay) {
+    overlay.addEventListener('click', () => {
+      if (body.classList.contains('sidebar-open')) body.classList.remove('sidebar-open');
+    });
+  }
+
+  // auto-close mobile sidebar when resizing to desktop
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768 && body.classList.contains('sidebar-open')) {
       body.classList.remove('sidebar-open');
     }
   });
 
-  // --------- 3. Card reveal on scroll (IntersectionObserver) ----------
-  const cards = $$('.card');
-  if (cards.length) {
-    const io = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+  // --- 3) Smooth & safe navigation for links (sidebar + post-nav) ---
+  (function setupSafeLinks() {
+    const navLinks = Array.from(document.querySelectorAll('#sidebar a, .post-nav a'));
+    navLinks.forEach(a => {
+      a.addEventListener('click', (ev) => {
+        const href = a.getAttribute('href') || '';
+        if (!href) return;
+
+        // allow external links to behave normally
+        try {
+          const url = new URL(href, location.href);
+          if (url.origin !== location.origin) return; // external
+        } catch (err) {
+          // relative link or hash - continue
         }
+
+        // if anchor to same page (#id) -> smooth scroll
+        if (href.startsWith('#')) {
+          ev.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // close mobile sidebar if open
+            if (body.classList.contains('sidebar-open')) body.classList.remove('sidebar-open');
+            try { target.focus(); } catch(_) {}
+          }
+          return;
+        }
+
+        // if ctrl/meta clicked => open new tab: don't intercept
+        if (ev.ctrlKey || ev.metaKey || ev.button !== 0) return;
+
+        // if link points to missing file, browser will show 404; we still do fade UX
+        ev.preventDefault();
+        if (a.__navigating) return;
+        a.__navigating = true;
+
+        // close mobile sidebar before leaving
+        if (body.classList.contains('sidebar-open')) body.classList.remove('sidebar-open');
+
+        // micro fade-out then navigate
+        document.documentElement.style.transition = 'opacity .22s ease';
+        document.documentElement.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = a.href;
+        }, 220);
       });
-    }, { threshold: 0.12 });
-
-    cards.forEach(c => io.observe(c));
-  }
-
+    });
+  })();
+  
   // --------- 4. Copy-to-clipboard (graceful) ----------
   $$('.copy-button').forEach(btn => {
     btn.addEventListener('click', async () => {
