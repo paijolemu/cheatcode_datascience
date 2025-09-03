@@ -290,3 +290,75 @@ body.light a{color:var(--accent-2)}
   .nav-thumb{ width:72px; height:56px; }
   .nav-title{ font-size:1rem }
 }
+/* === Sidebar smooth transitions & mobile overlay === */
+
+/* smooth page scroll for internal anchors */
+html { scroll-behavior: smooth; }
+
+/* ensure transitions on sidebar + main content */
+#sidebar {
+  transition: width .36s cubic-bezier(.2,.9,.2,1), transform .36s cubic-bezier(.2,.9,.2,1);
+  will-change: width, transform;
+}
+
+/* collapsed state (desktop) */
+body.sidebar-collapsed #sidebar {
+  width: 72px !important; /* compact width */
+}
+body.sidebar-collapsed #main-content {
+  margin-left: calc(72px + 20px) !important;
+  transition: margin-left .36s cubic-bezier(.2,.9,.2,1);
+}
+
+/* expanded (normal) layout */
+#main-content {
+  transition: margin-left .36s cubic-bezier(.2,.9,.2,1), padding .28s;
+}
+
+/* mobile overlay used when sidebar opens on small screens */
+.mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 34; /* slightly below sidebar which is 35 */
+  background: rgba(6,9,18,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+/* active overlay visible */
+body.sidebar-open .mobile-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* mobile sidebar slide animation (optional improvement) */
+@media (max-width: 768px) {
+  #sidebar {
+    transform: translateX(-6px); /* default slight offset */
+  }
+  body.sidebar-open #sidebar {
+    transform: translateX(0);
+    box-shadow: 12px 0 40px rgba(2,6,23,0.6);
+  }
+}
+
+/* make nav links feel nicer on click */
+#sidebar a {
+  transition: transform .12s ease, background .18s;
+}
+#sidebar a:active { transform: translateY(1px) scale(.998); }
+
+/* focus-visible clearer for keyboard users */
+#sidebar a:focus-visible {
+  outline: 3px solid rgba(94,234,212,0.12);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* small improvement: prevent large reflows on page load */
+#main-content, #sidebar { will-change: transform, margin-left; }
+
+/* optional: reduce blur for low-end devices */
+@media (max-width: 480px) {
+  body::before, body::after { filter: blur(16px) saturate(1.02); }
+}
