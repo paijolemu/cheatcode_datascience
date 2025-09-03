@@ -362,3 +362,100 @@ body.sidebar-open .mobile-overlay {
 @media (max-width: 480px) {
   body::before, body::after { filter: blur(16px) saturate(1.02); }
 }
+/* ----------------------------
+   Mini / Kaggle-like sidebar
+   ---------------------------- */
+
+/* base collapsed width */
+body.sidebar-collapsed #sidebar {
+  width: 72px !important;              /* small icon-only width */
+  overflow: visible;
+}
+
+/* hide labels, center icons */
+body.sidebar-collapsed #sidebar .nav-text {
+  display: none !important;
+}
+body.sidebar-collapsed #sidebar .nav-item {
+  position: relative;                  /* needed for tooltip pseudo */
+}
+body.sidebar-collapsed #sidebar .nav-icon {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 6px 0;
+  font-size: 1.05rem;
+}
+
+/* footer / theme toggle compact */
+body.sidebar-collapsed .sidebar-footer { padding: 12px 8px; }
+
+/* tooltip for collapsed state (only visible when collapsed and NOT hovered/expanded) */
+body.sidebar-collapsed #sidebar:not(.hover-expand) a[data-label]::after {
+  content: attr(data-label);
+  position: absolute;
+  left: calc(72px + 12px);             /* show right of icons */
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(12,14,22,0.96);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  box-shadow: 0 6px 22px rgba(2,6,23,0.6);
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
+  z-index: 36;
+}
+
+/* fade tooltip in on link hover/focus */
+body.sidebar-collapsed #sidebar:not(.hover-expand) a[data-label]:hover::after,
+body.sidebar-collapsed #sidebar:not(.hover-expand) a[data-label]:focus::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0.15rem);
+}
+
+/* hover / focus / keyboard expand: expand sidebar temporarily */
+body.sidebar-collapsed #sidebar:hover,
+body.sidebar-collapsed #sidebar.hover-expand {
+  width: 240px !important;
+  box-shadow: 8px 0 40px rgba(2,6,23,0.6);
+}
+
+/* when expanded (hover/keyboard) reveal text smoothly */
+body.sidebar-collapsed #sidebar:hover .nav-text,
+body.sidebar-collapsed #sidebar.hover-expand .nav-text {
+  display: inline-block !important;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .18s ease, transform .18s ease;
+}
+
+/* hide tooltip while fully expanded */
+body.sidebar-collapsed #sidebar.hover-expand a[data-label]::after,
+body.sidebar-collapsed #sidebar:hover a[data-label]::after {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* nice transition for width */
+#sidebar {
+  transition: width .32s cubic-bezier(.2,.9,.2,1), box-shadow .28s ease;
+}
+
+/* smaller details so layout doesn't jump too hard */
+#main-content { transition: margin-left .36s cubic-bezier(.2,.9,.2,1); }
+
+/* keyboard focus visible for compact mode */
+body.sidebar-collapsed #sidebar a:focus {
+  outline: none;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+}
+
+/* media: ensure small devices still use overlay behaviour */
+@media (max-width: 768px) {
+  body.sidebar-collapsed #sidebar { width: 72px; } /* keep compact on small */
+}
