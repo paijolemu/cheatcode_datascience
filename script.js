@@ -331,5 +331,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 })();
+/* ----------------------------
+   Init mini-sidebar behavior
+   - set data-label for tooltips
+   - keyboard focus expands sidebar temporarily
+   ---------------------------- */
+(function initMiniSidebar() {
+  const sidebarEl = document.getElementById('sidebar');
+  if (!sidebarEl) return;
+
+  // set data-label from .nav-text for each link (used by CSS tooltip)
+  const links = Array.from(sidebarEl.querySelectorAll('.nav-item a'));
+  links.forEach(a => {
+    const txtEl = a.querySelector('.nav-text');
+    const label = (txtEl && txtEl.textContent.trim()) || a.textContent.trim() || a.getAttribute('aria-label') || '';
+    if (label) a.setAttribute('data-label', label);
+    // ensure links are focusable
+    a.setAttribute('tabindex', '0');
+  });
+
+  // keyboard accessibility: on focus expand the mini sidebar temporarily
+  links.forEach(a => {
+    a.addEventListener('focus', () => {
+      if (document.body.classList.contains('sidebar-collapsed')) {
+        sidebarEl.classList.add('hover-expand'); // CSS uses .hover-expand to expand
+      }
+    });
+    a.addEventListener('blur', () => {
+      sidebarEl.classList.remove('hover-expand');
+    });
+    // also on mouseenter keep expanded (useful on touch or pointer)
+    a.addEventListener('mouseenter', () => {
+      if (document.body.classList.contains('sidebar-collapsed')) {
+        sidebarEl.classList.add('hover-expand');
+      }
+    });
+    a.addEventListener('mouseleave', () => {
+      sidebarEl.classList.remove('hover-expand');
+    });
+  });
+
+  // If toggle button is focused/used, keep aria state in sync
+  const toggleBtn = document.getElementById('sidebar-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.code === 'Space') && document.body.classList.contains('sidebar-collapsed')) {
+        // after toggling collapsed -> if collapsed, ensure focus expansion works
+        setTimeout(() => { sidebarEl.classList.remove('hover-expand'); }, 50);
+      }
+    });
+  }
+
+})();
 
 }); // DOMContentLoaded end
