@@ -11,3 +11,4 @@ https://paijolemu.github.io/cheatcode_datascience/index.html --> link website
 
 
 # try
+tgl 6 - 9 -2025 --> memasukan gambar
